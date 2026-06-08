@@ -18,9 +18,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/guilhermezaia/timovi"
+    "url": "https://github.com/theminimalcreator/timovi"
   },
-  "homepage": "https://github.com/guilhermezaia/timovi#readme",
+  "homepage": "https://github.com/theminimalcreator/timovi#readme",
   "author": "Guilherme Zaia",
   "engines": {
     "node": ">=18"

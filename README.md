@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://skills.sh"><img src="https://img.shields.io/badge/available%20on-skills.sh-FFD700?style=for-the-badge" alt="Available on skills.sh"></a>
-  <a href="https://github.com/guilhermezaia/timovi/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License: MIT"></a>
+  <a href="https://github.com/theminimalcreator/timovi/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License: MIT"></a>
   <a href="https://github.com/vercel-labs/skills"><img src="https://img.shields.io/badge/Built%20for-npx%20skills-000?style=for-the-badge&logo=npm" alt="Built for npx skills"></a>
 </p>
 
@@ -15,7 +15,7 @@
 > If Claude Code is a solo developer, **Timovi is the whole product team.**
 
 ```bash
-npx skills add guilhermezaia/timovi --skill product-team
+npx skills add theminimalcreator/timovi --skill product-team
 ```
 
 <br>
@@ -84,7 +84,7 @@ You say "product-team"
 ### 1. Install
 
 ```bash
-npx skills add guilhermezaia/timovi --skill product-team
+npx skills add theminimalcreator/timovi --skill product-team
 ```
 
 Works with **Pi, Claude Code, Cursor, Codex, OpenCode, and [60+ other agents](https://github.com/vercel-labs/skills#supported-agents).**
@@ -196,7 +196,7 @@ skills/product-team/
 
 - 🔍 Discover more skills on **[skills.sh](https://skills.sh)**
 - 🛠️ Built for the **[npx skills](https://github.com/vercel-labs/skills)** ecosystem
-- 🐛 [Issues & feature requests](https://github.com/guilhermezaia/timovi/issues)
+- 🐛 [Issues & feature requests](https://github.com/theminimalcreator/timovi/issues)
 - ⭐ Star the repo if Timovi helps you ship
 
 <br>
@@ -207,4 +207,4 @@ skills/product-team/
 
 MIT — see [LICENSE](LICENSE).
 
-Built by [@guilhermezaia](https://github.com/guilhermezaia).
+Built by [@theminimalcreator](https://github.com/theminimalcreator).

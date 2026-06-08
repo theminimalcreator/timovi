@@ -90,6 +90,6 @@
 
   <!-- Bottom line -->
   <text x="600" y="560" text-anchor="middle" fill="#475569" font-family="monospace" font-size="14">
-    npx skills add guilhermezaia/timovi --skill product-team
+    npx skills add theminimalcreator/timovi --skill product-team
   </text>
 </svg>
