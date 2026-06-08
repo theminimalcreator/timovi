@@ -28,6 +28,12 @@
 | 10 | Smart checkpoint diffs | 3 | 3 | 3 | 3 | 3.0 |
 | 31 | Git branch + commit por fase | 5 | 5 | 4 | 3 | 4.3 |
 
+## 🧠 Memória & Aprendizado
+
+| # | Épico | UX | PM | Prio | Dific | Média |
+|---|-------|:---:|:---:|:---:|:---:|:---:|
+| 32 | Role memory + feature retrospective | 5 | 5 | 4 | 4 | 4.5 |
+
 ## 🎨 Artefatos & Visualização
 
 | # | Épico | UX | PM | Prio | Dific | Média |
@@ -83,9 +89,10 @@
 | 2 | Bootstrap com templates de stack | 4.3 | 2 | Bootstrap |
 | 3 | Quickstart mode | 4.3 | 2 | Bootstrap |
 | 4 | Git branch + commit por fase | 4.3 | 3 | Pipeline |
-| 5 | Dashboard HTML unificado | 4.5 | 3 | Artefatos |
-| 6 | Role: Tech Writer | 4.5 | 3 | Roles |
-| 7 | Linear / GitHub Issues / Jira sync | 4.3 | 4 | Integrações |
+| 5 | Role memory + feature retrospective | 4.5 | 4 | Memória |
+| 6 | Dashboard HTML unificado | 4.5 | 3 | Artefatos |
+| 7 | Role: Tech Writer | 4.5 | 3 | Roles |
+| 8 | Linear / GitHub Issues / Jira sync | 4.3 | 4 | Integrações |
 
 ---
 
