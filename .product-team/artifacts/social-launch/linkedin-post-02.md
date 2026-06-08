@@ -28,6 +28,8 @@ Feito pra solo founders e indie devs que usam AI coding agents e querem a estrut
 
 Funciona com Pi, Claude Code, Cursor, Codex, OpenCode — qualquer agente compatível com npx skills.
 
+Plug qualquer IA por trás. O processo garante a qualidade, não o modelo.
+
 🔗 github.com/theminimalcreator/timovi
 
 Construí isso sozinho. Open source, MIT. Grátis. Espero que ajude outros builders a shipped mais rápido e terminar o que começam.

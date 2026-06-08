@@ -42,6 +42,10 @@ Não é um agente. É um time.
 
 Ah, e é open source. Grátis. MIT.
 
+E o melhor: você pluga qualquer IA por trás. Usa com OpenCode ou Pi e conecta o modelo que quiser — GPT-4, Claude, modelos locais, o que couber no seu bolso. O custo do time fica quase zero.
+
+Mas o segredo não é o modelo. É o processo. Ter 13 roles especializados, cada um com responsabilidade clara, pipeline com checkpoints, revisão antes de entregar — isso garante qualidade de saída mesmo com IAs mais básicas. A estrutura segura a qualidade, não o modelo.
+
 Se o Claude Code é um dev solo, o Timovi é o time de produto inteiro.
 
 Comenta "timovi" que eu mando o link na DM. Sem waitlist. Sem email. Sem custo. 13 roles no seu terminal esperando seu próximo projeto.
