@@ -6,8 +6,8 @@ Pipeline completo para desenvolvimento de uma feature nova.
 
 | Fase | Papéis | Descrição |
 |------|--------|-----------|
-| Plan | PM, UX, Architect | Planejamento multi-papel, grilling session |
-| Spec | PM | PRD na linguagem do domínio |
+| Plan | PM, UX, Architect | Planejamento multi-papel, grilling session com cross-examination (até 10 rounds) |
+| Spec | PM | PRD na linguagem do domínio + PRD.html opcional |
 | Breakdown | Tech Lead, Architect | Decomposição em issues com role assignment |
 | Execute | Frontend, Backend, DBA, DevOps | Implementação paralela |
 | Review | QA, Tech Lead | Validação e code review |
@@ -24,14 +24,18 @@ Plan ──→ Spec ──→ Breakdown ──→ Execute ──→ Review
 |------|----------|-------|
 | Plan | Notas de planejamento | `state.json` → `features[].checkpoints.plan` |
 | Spec | PRD | `.product-team/artifacts/<feature>/PRD.md` |
+| Spec (opcional) | PRD HTML | `.product-team/artifacts/<feature>/PRD.html` |
+| Spec (opcional) | Protótipo | `.product-team/artifacts/<feature>/prototype.html` |
 | Breakdown | Issues com role assignment | `.product-team/artifacts/<feature>/feature.json` |
 | Execute | PRs | Repositório |
 | Review | Relatório de qualidade | `state.json` → `features[].checkpoints.review` |
 
 ## Critérios de conclusão
 
-- [ ] Planejamento aprovado (PM + UX + Architect alinhados)
+- [ ] Planejamento aprovado (PM + UX + Architect alinhados com cross-examination)
 - [ ] PRD escrito e aprovado na linguagem do CONTEXT.md
+- [ ] PRD HTML gerado (opcional, se usuário aceitou)
+- [ ] Protótipo interativo gerado (opcional, se usuário aceitou)
 - [ ] Issues decompostas com dependências e assigned_roles
 - [ ] Todos os PRs abertos e revisados
 - [ ] QA aprovou contra critérios de aceitação

@@ -48,7 +48,7 @@ Leia `.product-team/artifacts/<feature>/feature.json` para mostrar status:
 ## Fase 1 — PLAN (Planejamento Multi-papel)
 
 **Objetivo:** Extrair o domínio da feature, stress-testar o plano, alinhar
-PM, UX e Architect.
+PM, UX e Architect através de rounds de perguntas e cross-examination.
 
 ### 1.1 Ativar multi-role grilling
 
@@ -57,31 +57,72 @@ Diga:
 > "Iniciando a **Fase 1 — Plan**. Vou ativar PM, UX Designer e Software Architect
 > para uma sessão de planejamento.
 >
-> Cada um fará perguntas do seu ângulo. Vamos uma pergunta por vez."
+> Cada um fará perguntas do seu ângulo. Vamos uma pergunta por vez.
+> Ao final de cada round, os papéis farão cross-examination entre si."
 
 Carregue `.product-team/knowledge/CONTEXT.md`, `.product-team/knowledge/ARCHITECTURE.md`.
 
 Os 3 papéis fazem perguntas alternadas. O orquestrador controla o turno.
-Cada papel faz **1 pergunta por rodada** e aguarda resposta antes do próximo.
+Cada papel faz **1 pergunta por round** e aguarda resposta antes do próximo.
 
-### 1.2 Rounds de perguntas
+### 1.2 Estrutura do Round
+
+Cada round segue esta sequência:
+
+1. **PM pergunta** → usuário responde
+2. **UX Designer pergunta** → usuário responde
+3. **Software Architect pergunta** → usuário responde
+4. **Cross-examination** (debate interno entre papéis):
+   - PM questiona UX e Architect sobre decisões tomadas (1 pergunta para cada)
+   - UX questiona PM e Architect (1 pergunta para cada)
+   - Architect questiona PM e UX (1 pergunta para cada)
+
+Total por round: 3 perguntas do usuário + 3 cross-questions.
+
+**Exemplos de cross-examination:**
+- PM → UX: "Esse fluxo cobre o cenário onde o usuário abandona no meio?"
+- UX → Architect: "Essa estrutura de módulos escala pra mobile que o PM mencionou?"
+- Architect → PM: "A métrica de sucesso é mensurável com a stack atual?"
+
+### 1.3 Rounds e progressão
 
 **Round 1 — PM:**
 > "Qual problema de negócio esta feature resolve? Quem é o usuário impactado
 > e qual métrica define sucesso?"
 
+→ UX pergunta → Architect pergunta → Cross-examination
+
 **Round 2 — UX:**
 > "Em que momento o usuário usa isso? O que ele está fazendo imediatamente
 > ANTES e DEPOIS de interagir com esta feature?"
+
+→ PM pergunta → Architect pergunta → Cross-examination
 
 **Round 3 — Architect:**
 > "Esta feature toca quais módulos existentes? Precisa de nova tabela,
 > novo endpoint, nova integração?"
 
-Continue alternando até 3 rounds (9 perguntas no total) ou até o usuário
-indicar que o plano está claro.
+→ Cross-examination
 
-### 1.3 Síntese
+### 1.4 Decisão de continuidade
+
+Após o **round 3**, o orchestrator pergunta:
+
+> "Completamos 3 rounds de planejamento. O plano está claro o suficiente
+> para avançar para a Spec (PRD) ou quer continuar explorando?
+>
+> 1. **Avançar para Spec** — gerar PRD
+> 2. **Continuar planejamento** — mais rounds de perguntas"
+
+- Se **avançar**: vá para 1.5 (Síntese)
+- Se **continuar**: execute mais rounds (até o máximo de 10 rounds)
+  - A cada round adicional, os papéis alternam quem começa (PM → UX → Architect → PM...)
+  - Após cada round adicional, pergunte novamente: "Continuar ou avançar?"
+  - O usuário pode pedir para avançar a qualquer momento ("spec", "pronto", "chega", "avançar")
+
+Máximo: **10 rounds** (30 perguntas do usuário + 30 cross-questions).
+
+### 1.5 Síntese
 
 Ao final, resuma:
 
@@ -130,7 +171,7 @@ Diga:
 > "Iniciando a **Fase 2 — Spec**. O Product Manager vai sintetizar o
 > planejamento em um PRD."
 
-Ative o papel `product-manager` (leia `.agents/skills/product-team/roles/product-manager/SKILL.md`).
+Ative o papel `product-manager` (leia `roles/product-manager/SKILL.md`).
 
 O PM deve:
 1. Usar a linguagem do CONTEXT.md em todo o PRD
@@ -146,7 +187,79 @@ Apresente o PRD e pergunte:
 
 > "O PRD está aprovado? Quer ajustar algo antes de decompor em issues?"
 
-### 2.4 Salvar checkpoint
+### 2.4 PRD HTML (Opcional — apenas new-feature)
+
+Após o PRD aprovado, o PM oferece:
+
+> "Quer gerar uma versão HTML do PRD para visualização no browser?"
+
+Se o usuário aceitar:
+
+1. Leia o template `references/prd-template.html`
+2. Substitua os placeholders:
+   - `{{FEATURE_NAME}}` → nome da feature
+   - `{{FEATURE_STATUS}}` → status atual
+   - `{{FEATURE_PHASE}}` → fase atual
+   - `{{CREATED_AT}}` → data de criação
+   - `{{UPDATED_AT}}` → data de atualização
+   - `{{PM_NAME}}` → nome do PM (extraia do state.json → `user_name`)
+   - `{{PRD_CONTENT}}` → PRD renderizado em HTML (títulos → `<h3>`, tabelas → `<table>`, listas → `<ul>/<ol>`, parágrafos → `<p>`)
+3. Salve em `.product-team/artifacts/<feature-name>/PRD.html`
+4. Execute `open .product-team/artifacts/<feature-name>/PRD.html` para abrir no browser
+
+> **Nota:** A aba "Issues" carrega automaticamente de `feature.json` via JavaScript.
+> Se o Breakdown ainda não foi feito, mostra placeholder.
+
+Se o usuário recusar, pule para o próximo passo.
+
+**Regra:** HTML do PRD é oferecido apenas no workflow `new-feature.md`. Bug fixes não oferecem.
+
+### 2.5 Protótipo HTML (Opcional — apenas new-feature)
+
+Após o PRD HTML (ou após a aprovação se o usuário recusou o HTML), o UX Designer pergunta:
+
+> "Precisa de um protótipo interativo para validar os fluxos?"
+
+Se o usuário aceitar, pergunte o nível de fidelidade:
+
+> "Qual nível de fidelidade?"
+> - **Wireframe** — baixa fidelidade, caixas e placeholders
+> - **Produto final** — alta fidelidade, com identidade visual do projeto
+
+O UX Designer deve:
+
+1. Leia o template `references/prototype-template.html`
+2. Se **produto final**, extraia a identidade visual do projeto:
+   - Leia `.product-team/knowledge/STACK.md` → cores, fontes
+   - Leia `.product-team/knowledge/CONVENTIONS.md` → padrões visuais
+   - Se o projeto tiver arquivos de tema (tailwind.config, theme.ts, etc.), leia-os
+3. Substitua os placeholders:
+   - `{{PROTOTYPE_TITLE}}` → nome da feature + "— Prototype"
+   - `{{FIDELITY_MODE}}` → "Wireframe" ou "High-Fidelity"
+   - `{{PRIMARY_COLOR}}` → cor primária do projeto (padrão: #3b82f6)
+   - `{{SECONDARY_COLOR}}` → cor secundária (padrão: #6366f1)
+   - `{{ACCENT_COLOR}}` → cor de destaque (padrão: #f59e0b)
+   - `{{BG_COLOR}}` → cor de fundo (padrão: #0d1117)
+   - `{{SURFACE_COLOR}}` → cor de superfície (padrão: #161b22)
+   - `{{TEXT_COLOR}}` → cor de texto (padrão: #c9d1d9)
+   - `{{TEXT_MUTED_COLOR}}` → cor de texto secundário (padrão: #8b949e)
+   - `{{BORDER_COLOR}}` → cor de borda (padrão: #30363d)
+   - `{{SUCCESS_COLOR}}` → cor de sucesso (padrão: #22c55e)
+   - `{{DANGER_COLOR}}` → cor de perigo (padrão: #ef4444)
+   - `{{FONT_FAMILY}}` → família de fontes (padrão: -apple-system, sans-serif)
+   - `{{BORDER_RADIUS}}` → arredondamento (padrão: 6px)
+   - `{{PROJECT_NAME}}` → nome do projeto
+   - `{{NAV_ITEMS}}` → itens de navegação baseados nos fluxos do PRD
+   - `{{SCREENS}}` → telas do protótipo (wireframe .wf-* ou final .card/.btn/.input)
+4. Salve em `.product-team/artifacts/<feature-name>/prototype.html`
+5. Execute `open .product-team/artifacts/<feature-name>/prototype.html` para abrir no browser
+
+> **Wireframe mode:** Use as classes `.wf-box`, `.wf-placeholder`, `.wf-button`, `.wf-grid`.
+> **Final product mode:** Use `.card`, `.btn`, `.btn-primary`, `.btn-secondary`, `.input`, `.badge`.
+
+Se o usuário recusar, pule.
+
+### 2.6 Salvar checkpoint
 
 Atualize `.product-team/artifacts/<feature-name>/feature.json`:
 - `pipeline_phase: "breakdown"`

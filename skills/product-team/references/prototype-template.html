@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PROTOTYPE_TITLE}}</title>
+  <style>
+    /* ========================================
+       PROJECT VISUAL IDENTITY
+       Preenchido pelo UX Designer com base
+       em STACK.md e CONVENTIONS.md do projeto.
+       ======================================== */
+
+    :root {
+      --color-primary:   {{PRIMARY_COLOR}};
+      --color-secondary: {{SECONDARY_COLOR}};
+      --color-accent:    {{ACCENT_COLOR}};
+      --color-bg:        {{BG_COLOR}};
+      --color-surface:   {{SURFACE_COLOR}};
+      --color-text:      {{TEXT_COLOR}};
+      --color-text-muted: {{TEXT_MUTED_COLOR}};
+      --color-border:    {{BORDER_COLOR}};
+      --color-success:   {{SUCCESS_COLOR}};
+      --color-danger:    {{DANGER_COLOR}};
+      --font-family:     {{FONT_FAMILY}};
+      --radius:          {{BORDER_RADIUS}};
+    }
+
+    /* ========================================
+       BASE STYLES
+       ======================================== */
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-family);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ========================================
+       LAYOUT
+       ======================================== */
+
+    .prototype-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ========================================
+       HEADER / NAVIGATION
+       ======================================== */
+
+    .proto-header {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .proto-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    .proto-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .proto-nav a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      transition: all 0.15s;
+    }
+
+    .proto-nav a:hover,
+    .proto-nav a.active {
+      color: var(--color-text);
+      background: var(--color-primary);
+    }
+
+    /* ========================================
+       MAIN CONTENT
+       ======================================== */
+
+    .proto-main {
+      flex: 1;
+      padding: 32px 24px;
+    }
+
+    /* ========================================
+       PROTOTYPE MODE INDICATOR
+       ======================================== */
+
+    .proto-mode-banner {
+      background: var(--color-accent);
+      color: #fff;
+      text-align: center;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ========================================
+       SCREENS
+       Cada screen = uma tela/página do protótipo
+       ======================================== */
+
+    .screen {
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .screen-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .screen-subtitle {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      margin-bottom: 24px;
+    }
+
+    /* ========================================
+       COMPONENTS — Wireframe Mode
+       ======================================== */
+
+    .wf-box {
+      border: 1px dashed var(--color-border);
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .wf-placeholder {
+      background: var(--color-border);
+      border-radius: calc(var(--radius) / 2);
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-muted);
+      font-size: 13px;
+    }
+
+    .wf-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border: 1px dashed var(--color-border);
+      border-radius: var(--radius);
+      background: transparent;
+      color: var(--color-text-muted);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .wf-button:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .wf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    /* ========================================
+       COMPONENTS — Final Product Mode
+       ======================================== */
+
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: box-shadow 0.15s;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: var(--font-family);
+    }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover { opacity: 0.9; }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .btn-danger {
+      background: var(--color-danger);
+      color: #fff;
+    }
+
+    .input {
+      width: 100%;
+      padding: 10px 14px;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      color: var(--color-text);
+      font-size: 14px;
+      font-family: var(--font-family);
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    .input-label {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-success {
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--color-success);
+    }
+
+    .badge-warning {
+      background: rgba(234, 179, 8, 0.15);
+      color: #ca8a04;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--color-border);
+      margin: 24px 0;
+    }
+
+    /* ========================================
+       RESPONSIVE
+       ======================================== */
+
+    @media (max-width: 640px) {
+      .proto-main { padding: 20px 16px; }
+      .proto-header { padding: 12px 16px; }
+      .screen-title { font-size: 20px; }
+    }
+
+    /* ========================================
+       TRANSITIONS
+       ======================================== */
+
+    .clickable {
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    .clickable:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="prototype-container">
+
+    <!-- Mode Banner -->
+    <div class="proto-mode-banner">
+      {{FIDELITY_MODE}} Prototype — Click to navigate
+    </div>
+
+    <!-- Header -->
+    <header class="proto-header">
+      <div class="proto-logo">{{PROJECT_NAME}}</div>
+      <nav class="proto-nav">
+        {{NAV_ITEMS}}
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="proto-main">
+      {{SCREENS}}
+    </main>
+
+  </div>
+
+  <!-- ========================================
+       SCREEN NAVIGATION SCRIPT
+       ======================================== -->
+
+  <script>
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById('screen-' + screenId);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('.proto-nav a').forEach(a => a.classList.remove('active'));
+      const navLink = document.querySelector(`[data-screen="${screenId}"]`);
+      if (navLink) navLink.classList.add('active');
+    }
+
+    // Show first screen on load
+    document.addEventListener('DOMContentLoaded', () => {
+      const firstScreen = document.querySelector('.screen');
+      if (firstScreen) firstScreen.classList.add('active');
+    });
+  </script>
+
+</body>
+</html>
