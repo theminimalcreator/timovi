@@ -60,8 +60,8 @@
 
 | # | Épico | UX | PM | Prio | Dific | Média |
 |---|-------|:---:|:---:|:---:|:---:|:---:|
-| 25 | Linear/Jira sync | 4 | 3 | 3 | 5 | 3.8 |
-| 26 | GitHub Actions integration | 5 | 5 | 5 | 4 | 4.8 |
+| 25 | Linear / GitHub Issues / Jira sync | 5 | 4 | 4 | 4 | 4.3 |
+| 26 | GitHub Actions integration | 3 | 3 | 3 | 4 | 3.3 |
 | 27 | Slack/Discord notifications | 4 | 4 | 4 | 3 | 3.8 |
 | 28 | Git auto-branch | 3 | 3 | 3 | 2 | 2.8 |
 
@@ -83,7 +83,7 @@
 | 3 | Quickstart mode | 4.3 | 2 | Bootstrap |
 | 4 | Dashboard HTML unificado | 4.5 | 3 | Artefatos |
 | 5 | Role: Tech Writer | 4.5 | 3 | Roles |
-| 6 | GitHub Actions integration | 4.8 | 4 | Integrações |
+| 6 | Linear / GitHub Issues / Jira sync | 4.0 | 4 | Integrações |
 
 ---
 
