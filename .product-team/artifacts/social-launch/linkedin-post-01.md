@@ -3,45 +3,47 @@ platform: linkedin
 post_number: 01
 status: draft
 created_at: 2026-06-08T22:05:00Z
+updated_at: 2026-06-08T22:45:00Z
 author: social-media-linkedin
+language: pt-br
 ---
 
-I built 13 AI teammates so I never have to build alone again.
+Eu criei 13 agentes de IA pra nunca mais construir sozinho.
 
-Comment "timovi" and I'll send you the repo.
+Comenta "timovi" que eu te mando o repo.
 
-Here's the thing — I'm a solo founder. I use Claude Code. I ship fast. But something always falls through.
+É o seguinte — eu sou solo founder. Uso Claude Code. Codo rápido. Mas sempre tem algo que fica pra trás.
 
-UX? No time.
-Tests? Later.
-PRDs? I know what to build, I don't need docs.
+UX? Sem tempo.
+Testes? Depois eu faço.
+PRD? Eu sei o que construir, não preciso de documento.
 
-And then the last 20% takes 80% of the time. Every. Single. Time.
+E aí os últimos 20% do projeto levam 80% do tempo. Toda. Vez.
 
-So I built Timovi — a skill framework that assembles an entire digital product team inside your AI coding agent.
+Então eu criei o Timovi — um framework que monta um time de produto digital inteiro dentro do seu AI coding agent.
 
-Not one agent. A team.
+Não é um agente. É um time.
 
-🗂 Product Manager → what to build, what to skip
-🎨 UX Designer → flows, personas, wireframes
-🏗️ Software Architect → feasibility, trade-offs, risks
-👨‍💻 Tech Lead → breaks features into executable issues
-⚛️ Frontend Engineer → components, pages, state
-🖥️ Backend Engineer → APIs, business logic
+🗂 Product Manager → o que construir, o que pular
+🎨 UX Designer → fluxos, personas, wireframes
+🏗️ Software Architect → viabilidade, trade-offs, riscos
+👨‍💻 Tech Lead → quebra features em issues executáveis
+⚛️ Frontend Engineer → componentes, páginas, estado
+🖥️ Backend Engineer → APIs, regras de negócio
 🗄️ DBA → schemas, queries, migrations
-✅ QA Engineer → tests, edge cases, acceptance
-📣 Head of Marketing → positioning, messaging
+✅ QA Engineer → testes, edge cases, critérios de aceite
+📣 Head of Marketing → posicionamento, mensagem
 🚀 DevOps → CI/CD, deploy
-📝 Technical Writer → docs, changelogs
-📱 Social Media LinkedIn → launch posts, engagement
-📱 Social Media Instagram → visual storytelling, community
+📝 Technical Writer → documentação, changelogs
+📱 Social Media LinkedIn → posts de lançamento, engajamento
+📱 Social Media Instagram → storytelling visual, comunidade
 
-13 roles. One command. They talk to each other. They share context about your project. They ship.
+13 roles. Um comando. Eles conversam entre si. Compartilham contexto sobre o seu projeto. E entregam.
 
-If Claude Code is a solo developer, Timovi is the whole product team.
+Se o Claude Code é um dev solo, o Timovi é o time de produto inteiro.
 
-Comment "timovi" and I'll DM you the GitHub link. No waitlist. No email capture. Just something I built that I hope helps other builders.
+Comenta "timovi" que eu mando o link do GitHub na DM. Sem waitlist. Sem captura de email. Só algo que eu construí e espero que ajude outros builders.
 
 👇
 
-#devtools #aiagents #typescript #opensource #indiedev
+#devtools #aiagents #typescript #opensource #indiedev #buildinpublic

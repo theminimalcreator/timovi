@@ -3,33 +3,35 @@ platform: linkedin
 post_number: 02
 status: draft
 created_at: 2026-06-08T22:05:00Z
+updated_at: 2026-06-08T22:45:00Z
 author: social-media-linkedin
+language: pt-br
 ---
 
-Timovi v0.01 is live on GitHub. 🚀
+Timovi v0.01 tá no ar no GitHub. 🚀
 
-One command. 13 AI roles. Your entire product pipeline.
+Um comando. 13 agentes de IA. Seu pipeline de produto completo.
 
 ```bash
 npx skills add theminimalcreator/timovi --skill timovi
 ```
 
-What happens next:
+O que acontece depois:
 
-You type "timovi" → the orchestrator asks about your project → auto-generates a knowledge base → activates your team → you pick a feature → the pipeline runs.
+Você digita "timovi" → o orquestrador pergunta sobre seu projeto → gera uma base de conhecimento automaticamente → ativa seu time → você escolhe uma feature → o pipeline roda.
 
 Plan → Spec → Breakdown → Execute → Review.
 
-Every phase produces a real deliverable. PRDs. Wireframes. Architecture decisions. Executable issues. Pull requests. Approved and merged.
+Cada fase gera um entregável real. PRDs. Wireframes. Decisões de arquitetura. Issues executáveis. Pull requests. Aprovado e merged.
 
-Built for solo founders and indie devs who use AI coding agents and want the structure of a product team without the overhead.
+Feito pra solo founders e indie devs que usam AI coding agents e querem a estrutura de um time de produto sem a burocracia.
 
-Works with Pi, Claude Code, Cursor, Codex, OpenCode — any agent that supports npx skills.
+Funciona com Pi, Claude Code, Cursor, Codex, OpenCode — qualquer agente compatível com npx skills.
 
 🔗 github.com/theminimalcreator/timovi
 
-I built this solo. Hope it helps other builders ship faster and finish what they start.
+Construí isso sozinho. Espero que ajude outros builders a shipped mais rápido e terminar o que começam.
 
-⭐ Star it if it looks useful. Feedback welcome.
+⭐ Dá uma estrela lá se fizer sentido. Feedback é bem-vindo.
 
 #devtools #aiagents #typescript #opensource #indiedev #buildinpublic
