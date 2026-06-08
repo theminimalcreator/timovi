@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backlog — Timovi</title>
+  <style>
+    :root {
+      --bg: #0d1117; --surface: #161b22; --border: #30363d;
+      --text: #c9d1d9; --text-muted: #8b949e; --accent: #58a6ff;
+      --green: #3fb950; --orange: #d2991d; --red: #f85149;
+      --purple: #a371f7; --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+    .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 28px 32px; }
+    .header-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .title { font-size: 32px; font-weight: 800; color: #fff; }
+    .subtitle { font-size: 15px; color: var(--text-muted); margin-top: 8px; }
+    .badge-row { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+    .badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+    .badge-ux { background: rgba(163, 113, 247, 0.15); color: var(--purple); }
+    .badge-pm { background: rgba(63, 185, 80, 0.15); color: var(--green); }
+    .badge-arch { background: rgba(88, 166, 255, 0.15); color: var(--accent); }
+    .content { max-width: 1100px; margin: 0 auto; padding: 32px; }
+    .category { margin-bottom: 48px; }
+    .category-title { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+    .category-emoji { font-size: 24px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+    th { background: var(--surface); font-weight: 600; color: var(--text); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; position: sticky; top: 0; }
+    tr:hover { background: rgba(88,166,255,0.03); }
+    .epic-name { font-weight: 500; color: #fff; }
+    .score { font-weight: 700; text-align: center; border-radius: 4px; padding: 2px 0; min-width: 28px; display: inline-block; }
+    .s5 { color: #fff; background: rgba(63, 185, 80, 0.25); }
+    .s4 { color: var(--green); background: rgba(63, 185, 80, 0.1); }
+    .s3 { color: var(--orange); background: rgba(210, 153, 29, 0.1); }
+    .s2 { color: var(--orange); background: rgba(210, 153, 29, 0.06); }
+    .s1 { color: var(--red); background: rgba(248, 81, 73, 0.08); }
+    .difficulty { font-size: 11px; text-align: center; }
+    .diff-label { font-size: 10px; color: var(--text-muted); }
+    .avg { font-weight: 800; font-size: 14px; }
+    .roadmap { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin-bottom: 40px; }
+    .roadmap-title { font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 16px; }
+    .roadmap-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .roadmap-item:last-child { border-bottom: none; }
+    .roadmap-num { font-size: 20px; font-weight: 800; color: var(--accent); min-width: 28px; }
+    .roadmap-name { flex: 1; font-weight: 600; }
+    .roadmap-meta { display: flex; gap: 16px; font-size: 12px; color: var(--text-muted); }
+    .legend { display: flex; gap: 24px; margin-bottom: 32px; flex-wrap: wrap; font-size: 12px; color: var(--text-muted); }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .footer { text-align: center; padding: 32px; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border); margin-top: 40px; }
+    @media (max-width: 768px) { .header, .content { padding: 16px; } .title { font-size: 24px; } table { font-size: 12px; } th, td { padding: 8px 6px; } }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <h1 class="title">Backlog — Timovi</h1>
+      <p class="subtitle">30 épicos · avaliados por Product Manager, UX Designer e Software Architect</p>
+    </div>
+  </div>
+  <div class="badge-row">
+    <span class="badge badge-ux">🎨 UX Designer</span>
+    <span class="badge badge-pm">📋 Product Manager</span>
+    <span class="badge badge-arch">🏗️ Software Architect</span>
+  </div>
+</div>
+
+<div class="content">
+
+<div class="legend">
+  <span class="legend-item"><span class="legend-dot" style="background:rgba(63,185,80,0.25)"></span> 5 — Essencial</span>
+  <span class="legend-item"><span class="legend-dot" style="background:rgba(63,185,80,0.1)"></span> 4 — Importante</span>
+  <span class="legend-item"><span class="legend-dot" style="background:rgba(210,153,29,0.1)"></span> 3 — Bom ter</span>
+  <span class="legend-item"><span class="legend-dot" style="background:rgba(210,153,29,0.06)"></span> 2 — Baixa prioridade</span>
+  <span class="legend-item"><span class="legend-dot" style="background:rgba(248,81,73,0.08)"></span> 1 — Postergar</span>
+</div>
+
+<div class="roadmap">
+  <div class="roadmap-title">🏆 Recommended V2 Roadmap</div>
+  <div class="roadmap-item">
+    <span class="roadmap-num">1</span>
+    <span class="roadmap-name">skills.sh listing otimizado</span>
+    <span class="roadmap-meta"><span>Avg: 4.0</span><span>Dific: 1/5</span><span>Distribuição</span></span>
+  </div>
+  <div class="roadmap-item">
+    <span class="roadmap-num">2</span>
+    <span class="roadmap-name">Bootstrap com templates de stack</span>
+    <span class="roadmap-meta"><span>Avg: 4.3</span><span>Dific: 2/5</span><span>Bootstrap</span></span>
+  </div>
+  <div class="roadmap-item">
+    <span class="roadmap-num">3</span>
+    <span class="roadmap-name">Quickstart mode</span>
+    <span class="roadmap-meta"><span>Avg: 4.3</span><span>Dific: 2/5</span><span>Bootstrap</span></span>
+  </div>
+  <div class="roadmap-item">
+    <span class="roadmap-num">4</span>
+    <span class="roadmap-name">Dashboard HTML unificado</span>
+    <span class="roadmap-meta"><span>Avg: 4.5</span><span>Dific: 3/5</span><span>Artefatos</span></span>
+  </div>
+  <div class="roadmap-item">
+    <span class="roadmap-num">5</span>
+    <span class="roadmap-name">Role: Tech Writer</span>
+    <span class="roadmap-meta"><span>Avg: 4.5</span><span>Dific: 3/5</span><span>Roles</span></span>
+  </div>
+  <div class="roadmap-item">
+    <span class="roadmap-num">6</span>
+    <span class="roadmap-name">GitHub Actions integration</span>
+    <span class="roadmap-meta"><span>Avg: 4.8</span><span>Dific: 4/5</span><span>Integrações</span></span>
+  </div>
+</div>
+
+<div class="category">
+  <h2 class="category-title"><span class="category-emoji">🚀</span> Bootstrap & Onboarding</h2>
+  <table>
+    <thead><tr><th>#</th><th>Épico</th><th>UX</th><th>PM</th><th>Prio</th><th>Dific</th><th>Média</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="epic-name">Bootstrap multi-idioma</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td class="difficulty"><span class="score s2">2</span><br><span class="diff-label">Fácil</span></td><td class="avg s4">3.0</td></tr>
+      <tr><td>2</td><td class="epic-name">Bootstrap com templates de stack</td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td class="difficulty"><span class="score s2">2</span><br><span class="diff-label">Fácil</span></td><td class="avg s5">4.3</td></tr>
+      <tr><td>3</td><td class="epic-name">Detecção automática de domínio</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td class="difficulty"><span class="score s5">5</span><br><span class="diff-label">Muito difícil</span></td><td class="avg s5">4.3</td></tr>
+      <tr><td>4</td><td class="epic-name">Bootstrap assíncrono</td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td class="difficulty"><span class="score s4">4</span><br><span class="diff-label">Difícil</span></td><td class="avg s5">4.3</td></tr>
+      <tr><td>5</td><td class="epic-name">Quickstart mode</td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td class="difficulty"><span class="score s2">2</span><br><span class="diff-label">Fácil</span></td><td class="avg s5">4.3</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="category">
+  <h2 class="category-title"><span class="category-emoji">🔄</span> Pipeline & Workflows</h2>
+  <table>
+    <thead><tr><th>#</th><th>Épico</th><th>UX</th><th>PM</th><th>Prio</th><th>Dific</th><th>Média</th></tr></thead>
+    <tbody>
+      <tr><td>6</td><td class="epic-name">Workflow: Refactoring</td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td class="difficulty"><span class="score s4">4</span><br><span class="diff-label">Difícil</span></td><td class="avg s3">3.3</td></tr>
+      <tr><td>7</td><td class="epic-name">Workflow: Spike/Research</td><td><span class="score s2">2</span></td><td><span class="score s2">2</span></td><td><span class="score s2">2</span></td><td class="difficulty"><span class="score s2">2</span><br><span class="diff-label">Fácil</span></td><td class="avg s2">2.0</td></tr>
+      <tr><td>8</td><td class="epic-name">Parallel Spec + Prototype</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td class="difficulty"><span class="score s4">4</span><br><span class="diff-label">Difícil</span></td><td class="avg s4">4.0</td></tr>
+      <tr><td>9</td><td class="epic-name">Pipeline rollback</td><td><span class="score s3">3</span></td><td><span class="score s2">2</span></td><td><span class="score s2">2</span></td><td class="difficulty"><span class="score s5">5</span><br><span class="diff-label">Muito difícil</span></td><td class="avg s3">3.0</td></tr>
+      <tr><td>10</td><td class="epic-name">Smart checkpoint diffs</td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td class="difficulty"><span class="score s3">3</span><br><span class="diff-label">Moderado</span></td><td class="avg s3">3.0</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="category">
+  <h2 class="category-title"><span class="category-emoji">🎨</span> Artefatos & Visualização</h2>
+  <table>
+    <thead><tr><th>#</th><th>Épico</th><th>UX</th><th>PM</th><th>Prio</th><th>Dific</th><th>Média</th></tr></thead>
+    <tbody>
+      <tr><td>11</td><td class="epic-name">Dashboard HTML unificado</td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td class="difficulty"><span class="score s3">3</span><br><span class="diff-label">Moderado</span></td><td class="avg s5">4.5</td></tr>
+      <tr><td>12</td><td class="epic-name">PRD HTML com export PDF</td><td><span class="score s2">2</span></td><td><span class="score s2">2</span></td><td><span class="score s2">2</span></td><td class="difficulty"><span class="score s3">3</span><br><span class="diff-label">Moderado</span></td><td class="avg s2">2.3</td></tr>
+      <tr><td>13</td><td class="epic-name">Protótipo com componentes reais</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td class="difficulty"><span class="score s5">5</span><br><span class="diff-label">Muito difícil</span></td><td class="avg s5">4.3</td></tr>
+      <tr><td>14</td><td class="epic-name">Timeline visual da feature</td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td class="difficulty"><span class="score s2">2</span><br><span class="diff-label">Fácil</span></td><td class="avg s3">2.8</td></tr>
+      <tr><td>15</td><td class="epic-name">Changelog automático</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td class="difficulty"><span class="score s3">3</span><br><span class="diff-label">Moderado</span></td><td class="avg s4">3.5</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="category">
+  <h2 class="category-title"><span class="category-emoji">👥</span> Roles</h2>
+  <table>
+    <thead><tr><th>#</th><th>Épico</th><th>UX</th><th>PM</th><th>Prio</th><th>Dific</th><th>Média</th></tr></thead>
+    <tbody>
+      <tr><td>16</td><td class="epic-name">Role: Tech Writer</td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td class="difficulty"><span class="score s3">3</span><br><span class="diff-label">Moderado</span></td><td class="avg s5">4.5</td></tr>
+      <tr><td>17</td><td class="epic-name">Role: Security Engineer</td><td><span class="score s2">2</span></td><td><span class="score s3">3</span></td><td><span class="score s2">2</span></td><td class="difficulty"><span class="score s3">3</span><br><span class="diff-label">Moderado</span></td><td class="avg s3">2.5</td></tr>
+      <tr><td>18</td><td class="epic-name">Role: Data Scientist</td><td><span class="score s1">1</span></td><td><span class="score s1">1</span></td><td><span class="score s1">1</span></td><td class="difficulty"><span class="score s3">3</span><br><span class="diff-label">Moderado</span></td><td class="avg s1">1.5</td></tr>
+      <tr><td>19</td><td class="epic-name">Role customization</td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td class="difficulty"><span class="score s5">5</span><br><span class="diff-label">Muito difícil</span></td><td class="avg s3">3.5</td></tr>
+      <tr><td>20</td><td class="epic-name">Role performance score</td><td><span class="score s1">1</span></td><td><span class="score s1">1</span></td><td><span class="score s1">1</span></td><td class="difficulty"><span class="score s4">4</span><br><span class="diff-label">Difícil</span></td><td class="avg s1">1.8</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="category">
+  <h2 class="category-title"><span class="category-emoji">🧪</span> Qualidade & Testes</h2>
+  <table>
+    <thead><tr><th>#</th><th>Épico</th><th>UX</th><th>PM</th><th>Prio</th><th>Dific</th><th>Média</th></tr></thead>
+    <tbody>
+      <tr><td>21</td><td class="epic-name">Test generation from PRD</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td class="difficulty"><span class="score s4">4</span><br><span class="diff-label">Difícil</span></td><td class="avg s4">4.0</td></tr>
+      <tr><td>22</td><td class="epic-name">Regression test suite</td><td><span class="score s2">2</span></td><td><span class="score s2">2</span></td><td><span class="score s2">2</span></td><td class="difficulty"><span class="score s4">4</span><br><span class="diff-label">Difícil</span></td><td class="avg s2">2.5</td></tr>
+      <tr><td>23</td><td class="epic-name">Coverage gates</td><td><span class="score s1">1</span></td><td><span class="score s1">1</span></td><td><span class="score s1">1</span></td><td class="difficulty"><span class="score s3">3</span><br><span class="diff-label">Moderado</span></td><td class="avg s1">1.5</td></tr>
+      <tr><td>24</td><td class="epic-name">Bug report template</td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td class="difficulty"><span class="score s2">2</span><br><span class="diff-label">Fácil</span></td><td class="avg s3">2.8</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="category">
+  <h2 class="category-title"><span class="category-emoji">🔌</span> Integrações</h2>
+  <table>
+    <thead><tr><th>#</th><th>Épico</th><th>UX</th><th>PM</th><th>Prio</th><th>Dific</th><th>Média</th></tr></thead>
+    <tbody>
+      <tr><td>25</td><td class="epic-name">Linear/Jira sync</td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td class="difficulty"><span class="score s5">5</span><br><span class="diff-label">Muito difícil</span></td><td class="avg s4">3.8</td></tr>
+      <tr><td>26</td><td class="epic-name">GitHub Actions integration</td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td class="difficulty"><span class="score s4">4</span><br><span class="diff-label">Difícil</span></td><td class="avg s5">4.8</td></tr>
+      <tr><td>27</td><td class="epic-name">Slack/Discord notifications</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td class="difficulty"><span class="score s3">3</span><br><span class="diff-label">Moderado</span></td><td class="avg s4">3.8</td></tr>
+      <tr><td>28</td><td class="epic-name">Git auto-branch</td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td class="difficulty"><span class="score s2">2</span><br><span class="diff-label">Fácil</span></td><td class="avg s3">2.8</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="category">
+  <h2 class="category-title"><span class="category-emoji">📊</span> Distribuição & Ecossistema</h2>
+  <table>
+    <thead><tr><th>#</th><th>Épico</th><th>UX</th><th>PM</th><th>Prio</th><th>Dific</th><th>Média</th></tr></thead>
+    <tbody>
+      <tr><td>29</td><td class="epic-name">skills.sh listing otimizado</td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td class="difficulty"><span class="score s1">1</span><br><span class="diff-label">Trivial</span></td><td class="avg s4">4.0</td></tr>
+      <tr><td>30</td><td class="epic-name">Usage analytics (opt-in)</td><td><span class="score s2">2</span></td><td><span class="score s3">3</span></td><td><span class="score s2">2</span></td><td class="difficulty"><span class="score s4">4</span><br><span class="diff-label">Difícil</span></td><td class="avg s3">2.8</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="roadmap" style="margin-top:48px;">
+  <div class="roadmap-title">⚠️ Postergar (Dificuldade 5)</div>
+  <p style="color:var(--text-muted);font-size:14px;margin-bottom:16px;">Épicos com alta complexidade e risco de regressão. Revisitar quando base de usuários for sólida.</p>
+  <div class="roadmap-item">
+    <span class="roadmap-num" style="color:var(--red)">⚠</span>
+    <span class="roadmap-name" style="color:var(--text-muted)">#3 Detecção automática de domínio</span>
+    <span class="roadmap-meta"><span>Dific: 5</span><span>Risco: CONTEXT.md errado</span></span>
+  </div>
+  <div class="roadmap-item">
+    <span class="roadmap-num" style="color:var(--red)">⚠</span>
+    <span class="roadmap-name" style="color:var(--text-muted)">#9 Pipeline rollback</span>
+    <span class="roadmap-meta"><span>Dific: 5</span><span>Risco: Refatoração do state machine</span></span>
+  </div>
+  <div class="roadmap-item">
+    <span class="roadmap-num" style="color:var(--red)">⚠</span>
+    <span class="roadmap-name" style="color:var(--text-muted)">#13 Protótipo com componentes reais</span>
+    <span class="roadmap-meta"><span>Dific: 5</span><span>Risco: Parsers por framework</span></span>
+  </div>
+  <div class="roadmap-item">
+    <span class="roadmap-num" style="color:var(--red)">⚠</span>
+    <span class="roadmap-name" style="color:var(--text-muted)">#19 Role customization</span>
+    <span class="roadmap-meta"><span>Dific: 5</span><span>Risco: Handoff dinâmico</span></span>
+  </div>
+  <div class="roadmap-item">
+    <span class="roadmap-num" style="color:var(--red)">⚠</span>
+    <span class="roadmap-name" style="color:var(--text-muted)">#25 Linear/Jira sync</span>
+    <span class="roadmap-meta"><span>Dific: 5</span><span>Risco: API externa + auth</span></span>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <p>Timovi — Backlog v1 · <strong>UX Designer</strong> (experiência) · <strong>Product Manager</strong> (negócio) · <strong>Software Architect</strong> (viabilidade)</p>
+  <p style="margin-top:4px;">github.com/theminimalcreator/timovi</p>
+</div>
+
+</body>
+</html>
