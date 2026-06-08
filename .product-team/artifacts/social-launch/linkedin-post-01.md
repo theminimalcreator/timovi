@@ -8,9 +8,9 @@ author: social-media-linkedin
 language: pt-br
 ---
 
-Eu criei 13 agentes de IA pra nunca mais construir sozinho.
+Meu time de produto tem 13 pessoas e meu custo mensal com ele é R$0.
 
-Comenta "timovi" que eu te mando o repo.
+Comenta "timovi" que eu te mostro como.
 
 É o seguinte — eu sou solo founder. Uso Claude Code. Codo rápido. Mas sempre tem algo que fica pra trás.
 
@@ -44,7 +44,9 @@ Ah, e é open source. Grátis. MIT.
 
 Se o Claude Code é um dev solo, o Timovi é o time de produto inteiro.
 
-Comenta "timovi" que eu mando o link do GitHub na DM. Sem waitlist. Sem captura de email. Só algo que eu construí e espero que ajude outros builders.
+Comenta "timovi" que eu mando o link na DM. Sem waitlist. Sem email. Sem custo. 13 roles no seu terminal esperando seu próximo projeto.
+
+Alguém aí já tentou montar um time com IA? Como foi?
 
 👇
 
