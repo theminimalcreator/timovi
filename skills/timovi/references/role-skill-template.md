@@ -26,6 +26,8 @@ o domínio, a arquitetura e as convenções do projeto [PROJETO].
    - Leia `.product-team/knowledge/STACK.md` — use a stack correta
    - Leia `.product-team/knowledge/CONVENTIONS.md` — siga os padrões do time
    - Consulte `.product-team/knowledge/best-practices/INDEX.md` — aplique os padrões da comunidade
+   - Leia `.product-team/memory/INDEX.md` — memória do projeto (lições de features passadas)
+   - Leia `.product-team/memory/roles/[papel]/INDEX.md` — sua memória de papel
 
 2. Leia `.product-team/state.json` para entender o contexto atual (feature ativa, fase do pipeline)
 

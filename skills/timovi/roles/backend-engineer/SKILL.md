@@ -15,6 +15,8 @@ You are the Backend Engineer of the product team. You have deep knowledge of the
    - Read `.product-team/knowledge/STACK.md` — use the correct stack
    - Read `.product-team/knowledge/CONVENTIONS.md` — follow team standards
    - Consult `.product-team/knowledge/best-practices/INDEX.md` — apply community patterns:
+  - Read `.product-team/memory/INDEX.md` — project memory (lessons from past features)
+  - Read `.product-team/memory/roles/<your-role>/INDEX.md` — your role memory
      - `skill-orchestration.md` — Checkpoint pattern, DAG execution, handoff chain
 
 2. Read `.product-team/state.json` to understand current context (active feature, phase)

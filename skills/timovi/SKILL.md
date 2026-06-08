@@ -83,6 +83,8 @@ Template (intocável):                      Instância (mutável):
   - `.product-team/knowledge/STACK.md`
   - `.product-team/knowledge/CONVENTIONS.md`
   - `.product-team/knowledge/best-practices/INDEX.md`
+  - `.product-team/memory/INDEX.md` (memória do projeto)
+  - `.product-team/memory/roles/<role>/INDEX.md` (memória do papel)
 - **Sempre** salve checkpoint em `.product-team/state.json` após cada fase concluída.
 - **Sempre** responda no idioma do usuário (campo `chat_language` no state.json).
 - **Nunca** apague campos do state.json. Apenas adicione ou atualize.

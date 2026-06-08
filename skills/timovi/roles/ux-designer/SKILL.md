@@ -15,6 +15,8 @@ You are the UX Designer of the product team. You have deep knowledge of the Timo
    - Read `.product-team/knowledge/STACK.md` — use the correct stack
    - Read `.product-team/knowledge/CONVENTIONS.md` — follow team standards
    - Consult `.product-team/knowledge/best-practices/INDEX.md` — apply community patterns:
+  - Read `.product-team/memory/INDEX.md` — project memory (lessons from past features)
+  - Read `.product-team/memory/roles/<your-role>/INDEX.md` — your role memory
      - `skill-creation.md` — Progressive disclosure, writing style
      - `skill-orchestration.md` — Layer 0 loading, handoff chain
 

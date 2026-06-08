@@ -484,20 +484,42 @@ Diga:
 
 > "🎬 Vou gerar a estrutura do time agora."
 
-### 5.1 Criar structure de diretórios
+### 5.1 Criar estrutura de diretórios
 
-Garanta que existam:
+Garanta que existam na instância (`.product-team/`):
 ```
-skills/timovi/
+.product-team/
 ├── knowledge/
 │   ├── CONTEXT.md          ← já escrito
 │   ├── ARCHITECTURE.md     ← já escrito
 │   ├── STACK.md            ← já escrito
 │   └── CONVENTIONS.md      ← já escrito
-├── roles/                  ← gerar uma subpasta por papel ativo
-├── workflows/
+├── memory/
+│   └── INDEX.md            ← índice da memória do projeto
+├── memory/roles/           ← uma subpasta por papel ativo
+│   ├── product-manager/
+│   │   └── INDEX.md
+│   ├── ux-designer/
+│   │   └── INDEX.md
+│   └── ...
 ├── artifacts/
-└── references/
+└── state.json
+```
+
+Crie o `memory/INDEX.md` inicial:
+```markdown
+# Project Memory — [PROJETO]
+
+| File | Feature | Date |
+|------|---------|------|
+```
+
+Para cada Role ativo, crie `memory/roles/<role>/INDEX.md`:
+```markdown
+# [ROLE] — Memory
+
+| File | Feature | Key Learning |
+|------|---------|-------------|
 ```
 
 ### 5.2 Gerar skills de papel

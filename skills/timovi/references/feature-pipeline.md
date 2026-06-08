@@ -550,6 +550,64 @@ Atualize `feature.json`:
 Atualize `.product-team/state.json`:
 - `current_feature: null` (time liberado para próxima feature)
 
+### 5.7 Retrospectiva (interna — usuário NÃO participa)
+
+Após o merge, convoque todos os Roles que participaram desta feature para uma retrospectiva Agile interna.
+
+> "Iniciando retrospectiva interna. Os Roles vão discutir os aprendizados desta feature."
+
+**Formato Agile — conversa entre Roles (cross-examination):**
+
+1. **✅ What went well?** — Cada Role compartilha o que funcionou bem
+2. **❌ What didn't go well?** — Cada Role aponta o que poderia ser melhor
+3. **🔧 Actions** — Cada Role propõe 1-2 ações concretas para a próxima feature
+
+**Salvar aprendizados:**
+
+Crie/atualize `memory/<NNN>.md` (projeto):
+```markdown
+# Retrospective — [FEATURE]
+
+## ✅ What went well
+- [aprendizado 1]
+- [aprendizado 2]
+
+## ❌ What didn't go well
+- [ponto de melhoria 1]
+
+## 🔧 Actions
+- [ação 1]
+- [ação 2]
+```
+
+Para cada Role participante, crie/atualize `memory/roles/<role>/<NNN>.md`:
+```markdown
+# [ROLE] — [FEATURE]
+
+## What I learned
+- [aprendizado específico do papel]
+
+## What I'll do differently
+- [ação específica do papel]
+```
+
+**Regra de splitting:**
+- Se `memory/<NNN>.md` ultrapassar **100 linhas**, crie `<NNN+1>.md` com o conteúdo excedente
+- Se `memory/roles/<role>/<NNN>.md` ultrapassar **100 linhas**, crie `<NNN+1>.md`
+- Atualize o `INDEX.md` correspondente com a nova entrada
+
+**Salvar retro completa:**
+Crie `.product-team/artifacts/<feature>/retrospective.md` com a transcrição completa da conversa.
+
+Após salvar, apresente ao usuário:
+
+> "🧠 Retrospectiva concluída. Aprendizados salvos."
+> - ✅ [N] coisas que funcionaram bem
+> - ❌ [N] pontos de melhoria
+> - 🔧 [N] ações para a próxima feature
+>
+> "Memórias atualizadas: projeto + [N] roles."
+
 ---
 
 ## Checkpoint preventivo entre fases
