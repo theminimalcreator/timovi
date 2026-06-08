@@ -24,15 +24,17 @@
     {
       "id": "ISSUE-2",
       "title": "README Multi-idioma (PT + ES + seletor de idioma)",
-      "status": "in_progress",
+      "status": "done",
       "started_at": "2026-06-08T22:30:00Z",
+      "completed_at": "2026-06-08T22:35:00Z",
       "assigned_roles": ["tech-lead", "technical-writer"],
       "blocked_by": ["ISSUE-1"]
     },
     {
       "id": "ISSUE-3",
       "title": "Tech Writer Review — revisar 3 READMEs",
-      "status": "pending",
+      "status": "in_progress",
+      "started_at": "2026-06-08T23:10:00Z",
       "assigned_roles": ["technical-writer"],
       "blocked_by": ["ISSUE-2"]
     },
@@ -57,14 +59,18 @@
     {
       "id": "ISSUE-6",
       "title": "Protótipo LP (skill prototype)",
-      "status": "pending",
+      "status": "done",
+      "started_at": "2026-06-08T22:35:00Z",
+      "completed_at": "2026-06-08T22:45:00Z",
       "assigned_roles": ["frontend-engineer"],
       "blocked_by": ["ISSUE-1"]
     },
     {
       "id": "ISSUE-7",
       "title": "LP GitHub Pages (HTML estático)",
-      "status": "pending",
+      "status": "done",
+      "started_at": "2026-06-08T23:00:00Z",
+      "completed_at": "2026-06-08T23:10:00Z",
       "assigned_roles": ["frontend-engineer"],
       "blocked_by": ["ISSUE-6"]
     },
