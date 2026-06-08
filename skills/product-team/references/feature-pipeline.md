@@ -203,12 +203,19 @@ Se o usuário aceitar:
    - `{{CREATED_AT}}` → data de criação
    - `{{UPDATED_AT}}` → data de atualização
    - `{{PM_NAME}}` → nome do PM (extraia do state.json → `user_name`)
+   - `{{ISSUE_COUNT}}` → número de issues (0 se ainda não houver)
    - `{{PRD_CONTENT}}` → PRD renderizado em HTML (títulos → `<h3>`, tabelas → `<table>`, listas → `<ul>/<ol>`, parágrafos → `<p>`)
+   - `{{ISSUES_INLINE_DATA}}` → se issues existirem, embedar dados inline:
+     ```js
+     const EMBEDDED_ISSUES = [/* copiar do feature.json */];
+     function renderIssues(issues) { ... }
+     renderIssues(EMBEDDED_ISSUES);
+     ```
+     Se não houver issues ainda, deixar o placeholder vazio (mostra empty state)
 3. Salve em `.product-team/artifacts/<feature-name>/PRD.html`
 4. Execute `open .product-team/artifacts/<feature-name>/PRD.html` para abrir no browser
 
-> **Nota:** A aba "Issues" carrega automaticamente de `feature.json` via JavaScript.
-> Se o Breakdown ainda não foi feito, mostra placeholder.
+> **Nota:** Issues são embedadas inline no HTML — funcionam sempre, mesmo em `file://`.
 
 Se o usuário recusar, pule para o próximo passo.
 

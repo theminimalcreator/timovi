@@ -306,7 +306,7 @@
       📄 Documentação
     </button>
     <button class="tab" onclick="switchTab('issues')">
-      🎫 Issues <span class="tab-badge" id="issue-count">0</span>
+      🎫 Issues <span class="tab-badge" id="issue-count">{{ISSUE_COUNT}}</span>
     </button>
   </div>
 
@@ -344,57 +344,9 @@
       document.getElementById(`tab-${tabName}`).classList.add('active');
     }
 
-    // Carrega issues do feature.json (mesmo diretório)
-    async function loadIssues() {
-      try {
-        const resp = await fetch('./feature.json');
-        if (!resp.ok) return;
-        const data = await resp.json();
-        if (!data.issues || data.issues.length === 0) return;
+{{ISSUES_INLINE_DATA}}
 
-        document.getElementById('issue-count').textContent = data.issues.length;
-
-        const container = document.getElementById('issues-container');
-        container.innerHTML = data.issues.map(issue => {
-          const statusClass = {
-            'done': 'status-done',
-            'in_progress': 'status-progress',
-            'pending': 'status-pending',
-            'blocked': 'status-blocked',
-            'failed': 'status-failed'
-          }[issue.status] || 'status-pending';
-
-          const roles = (issue.assigned_roles || []).map(r => r.replace('-', ' ')).join(', ');
-          const blockers = issue.blocked_by && issue.blocked_by.length > 0
-            ? `<span>🔗 Blocked by: ${issue.blocked_by.join(', ')}</span>`
-            : '';
-          const prLink = issue.pr_url
-            ? `<span>🔗 <a href="${issue.pr_url}" style="color:var(--accent)">PR</a></span>`
-            : '';
-          const notes = issue.notes ? `<p style="margin-top:8px;font-size:13px;color:var(--text-muted);">${issue.notes}</p>` : '';
-
-          return `
-            <div class="issue-card">
-              <div class="issue-header">
-                <span class="issue-id">${issue.id}</span>
-                <span class="issue-title">${issue.title}</span>
-              </div>
-              <div class="issue-meta">
-                <span><span class="status-dot ${statusClass}"></span> ${issue.status}</span>
-                <span>👥 ${roles}</span>
-                ${prLink}
-                ${blockers}
-              </div>
-              ${notes}
-            </div>
-          `;
-        }).join('');
-      } catch (e) {
-        // feature.json não existe ainda — mantém placeholder
-      }
-    }
-
-    loadIssues();
+    // If no issues embedded, show empty state (placeholder already in HTML)
   </script>
 
 </body>
