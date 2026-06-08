@@ -42,6 +42,10 @@ O time já está configurado. O framework vai:
 
 Leia `references/feature-pipeline.md` e execute a partir da fase atual.
 
+### Git integration
+
+If git is available, the pipeline creates a feature branch (`feat/<slug>`) and commits at each checkpoint. The `git_mode` (auto or confirm) is set during bootstrap. Merge requires explicit human approval — never automatic. Non-blocking: if git fails, the pipeline continues with a warning.
+
 ## Estrutura do framework
 
 ```

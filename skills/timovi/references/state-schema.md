@@ -21,7 +21,8 @@
     "architecture": ".product-team/knowledge/ARCHITECTURE.md",
     "stack": ".product-team/knowledge/STACK.md",
     "conventions": ".product-team/knowledge/CONVENTIONS.md"
-  }
+  },
+  "git_mode": "auto"
 }
 ```
 
@@ -40,6 +41,7 @@
 | `current_feature` | string\|null | Nome da feature ativa → aponta para `.product-team/artifacts/<name>/feature.json` |
 | `features` | string[] | Lista de features concluídas ou pausadas (histórico). Detalhes em cada `feature.json`. |
 | `knowledge_files` | object | Paths dos arquivos da Layer 0 |
+| `git_mode` | string | `"auto"` (commits automáticos) ou `"confirm"` (pergunta antes de cada commit). Default: `"auto"`. |
 
 ## Estrutura de feature (feature.json)
 

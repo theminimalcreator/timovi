@@ -11,6 +11,7 @@ Cada feature tem seu próprio `feature.json` em `.product-team/artifacts/<featur
   "created_at": "2026-06-05T10:00:00Z",
   "updated_at": "2026-06-05T14:30:00Z",
   "pipeline_phase": "execute",
+  "branch": "feat/workout-plans",
 
   "prd": {
     "path": "artifacts/workout-plans/PRD.md",
@@ -65,6 +66,7 @@ Cada feature tem seu próprio `feature.json` em `.product-team/artifacts/<featur
 | `created_at` | string | ISO 8601 timestamp |
 | `updated_at` | string | ISO 8601 — atualizado a cada mudança de status |
 | `pipeline_phase` | string | Fase atual: `"plan"`, `"spec"`, `"breakdown"`, `"execute"`, `"review"` |
+| `branch` | string | Branch git da feature (ex: `feat/workout-plans`). Criada na Fase Spec. |
 
 ### PRD
 

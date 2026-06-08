@@ -465,6 +465,17 @@ Pergunte:
 
 Salve os papéis ativos em `.product-team/state.json` → `active_roles`.
 
+### 4.3 Modo Git
+
+Pergunte:
+
+> "Prefere commits automáticos ao final de cada fase ou quer confirmar
+> antes de cada commit?"
+> - **Automático** — o time commita sozinho (recomendado)
+> - **Confirmar** — o time pergunta antes de cada commit
+
+Salve em `.product-team/state.json` → `git_mode`: `"auto"` ou `"confirm"`.
+
 ---
 
 ## Fase 5 — Geração dos Arquivos

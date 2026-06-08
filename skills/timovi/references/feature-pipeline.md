@@ -133,9 +133,15 @@ Ao final, resuma:
 >
 > "Passamos para a Fase 2 — Spec (PRD)?"
 
-### 1.4 Checkpoint
+### 1.6 Checkpoint + Git commit
 
 Salve em `.product-team/state.json` → `features[].checkpoints.plan`.
+
+**Git:** Commite o planejamento (respeitando `git_mode` do state.json):
+```bash
+git add .product-team/artifacts/<feature>/plan-notes.md
+git commit -m "plan: [resumo do planejamento em 1 frase]"
+```
 
 ---
 
@@ -152,6 +158,15 @@ Crie a estrutura:
 ├── PRD.md          ← será escrito
 └── plan-notes.md   ← notas da Fase 1
 ```
+
+**Git:** Crie a branch da feature:
+```bash
+git checkout -b feat/<feature-slug>
+```
+O slug é derivado do nome da feature: lowercase, espaços → hífens, remove caracteres especiais.
+Ex: "Framework Improvements v1" → `framework-improvements-v1`.
+
+Se git não estiver disponível ou o diretório não for um repo, mostre um aviso e continue sem git.
 
 Inicialize `feature.json`:
 ```json
@@ -214,6 +229,11 @@ Se o usuário aceitar:
      Se não houver issues ainda, deixar o placeholder vazio (mostra empty state)
 3. Salve em `.product-team/artifacts/<feature-name>/PRD.html`
 4. Execute `open .product-team/artifacts/<feature-name>/PRD.html` para abrir no browser
+5. **Git:** Commite o HTML (respeitando `git_mode`):
+   ```bash
+   git add .product-team/artifacts/<feature>/PRD.html
+   git commit -m "spec: add PRD.html"
+   ```
 
 > **Nota:** Issues são embedadas inline no HTML — funcionam sempre, mesmo em `file://`.
 
@@ -260,18 +280,29 @@ O UX Designer deve:
    - `{{SCREENS}}` → telas do protótipo (wireframe .wf-* ou final .card/.btn/.input)
 4. Salve em `.product-team/artifacts/<feature-name>/prototype.html`
 5. Execute `open .product-team/artifacts/<feature-name>/prototype.html` para abrir no browser
+6. **Git:** Commite o protótipo (respeitando `git_mode`):
+   ```bash
+   git add .product-team/artifacts/<feature>/prototype.html
+   git commit -m "spec: add prototype"
+   ```
 
 > **Wireframe mode:** Use as classes `.wf-box`, `.wf-placeholder`, `.wf-button`, `.wf-grid`.
 > **Final product mode:** Use `.card`, `.btn`, `.btn-primary`, `.btn-secondary`, `.input`, `.badge`.
 
 Se o usuário recusar, pule.
 
-### 2.6 Salvar checkpoint
+### 2.6 Salvar checkpoint + Git commit
 
 Atualize `.product-team/artifacts/<feature-name>/feature.json`:
 - `pipeline_phase: "breakdown"`
 - `prd.path`, `prd.created_at`
 - `updated_at`
+
+**Git:** Commite o PRD (respeitando `git_mode`):
+```bash
+git add .product-team/artifacts/<feature>/PRD.md .product-team/artifacts/<feature>/feature.json
+git commit -m "spec: PRD — [título do PRD]"
+```
 
 ---
 
@@ -349,11 +380,17 @@ Apresente a lista numerada e pergunte:
 As issues estão salvas em `feature.json` — nada a publicar externamente
 
 
-### 3.5 Checkpoint
+### 3.5 Checkpoint + Git commit
 
 Salve em `.product-team/state.json`:
 - `features[].checkpoints.breakdown`
 - `features[].issues` (array completo com IDs, títulos, dependências, roles)
+
+**Git:** Commite o breakdown (respeitando `git_mode`):
+```bash
+git add .product-team/artifacts/<feature>/feature.json
+git commit -m "breakdown: [N] issues"
+```
 
 ---
 
@@ -405,7 +442,13 @@ Para cada round:
    >    - `pr_url`: URL do PR
    >    - `completed_at`: timestamp
    >
-   > 6. Se falhar, atualize `feature.json`:
+   > 6. Commite a issue (respeitando `git_mode` do state.json):
+   >    ```bash
+   >    git add -A
+   >    git commit -m "[ISSUE-ID]: [título da issue]"
+   >    ```
+   >
+   > 7. Se falhar, atualize `feature.json`:
    >    - `status`: `failed`
    >    - `notes`: descrição do erro"
 
@@ -426,6 +469,12 @@ Leia `feature.json` e apresente:
 Atualize `feature.json`:
 - `pipeline_phase: "review"`
 - `updated_at`
+
+**Git:** Commite o fim da execução (respeitando `git_mode`):
+```bash
+git add .product-team/artifacts/<feature>/feature.json
+git commit -m "execute: todas as issues concluídas"
+```
 
 Não precisa atualizar `.product-team/state.json` — o `feature.json` é a fonte da verdade.
 
@@ -468,7 +517,30 @@ Leia `feature.json` e apresente:
 >
 > "Feature **[nome]** — status final: [aprovada / pendente]"
 
-### 5.5 Checkpoint final
+### 5.5 Git commit + Human-gated merge
+
+**Git:** Commite a revisão (respeitando `git_mode`):
+```bash
+git add .product-team/artifacts/<feature>/feature.json
+git commit -m "review: QA + TL approved"
+```
+
+Após o commit, pergunte:
+
+> "QA e Tech Lead aprovaram. Todas as issues estão concluídas.
+> Quer fazer o merge para a branch principal?"
+>
+> ⚠️ O merge NUNCA é automático — sempre requer sua confirmação.
+
+Se o usuário aprovar:
+```bash
+git checkout main
+git merge feat/<feature-slug>
+```
+
+Se houver conflito, reporte e aguarde resolução manual.
+
+### 5.6 Checkpoint final
 
 Atualize `feature.json`:
 - `status: "done"` (ou `"paused"` se houver pendências)
