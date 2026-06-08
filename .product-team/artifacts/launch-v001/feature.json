@@ -1,0 +1,78 @@
+{
+  "name": "launch-v001",
+  "status": "in_progress",
+  "created_at": "2026-06-08T21:30:00Z",
+  "updated_at": "2026-06-08T22:00:00Z",
+  "pipeline_phase": "execute",
+
+  "prd": {
+    "path": ".product-team/artifacts/launch-v001/PRD.md",
+    "source": "generated",
+    "imported_from": null,
+    "created_at": "2026-06-08T21:30:00Z"
+  },
+
+  "issues": [
+    {
+      "id": "ISSUE-1",
+      "title": "Git Cleanup — remover BACKLOG.md/.html do histórico",
+      "status": "in_progress",
+      "started_at": "2026-06-08T22:00:00Z",
+      "assigned_roles": ["tech-lead"],
+      "blocked_by": []
+    },
+    {
+      "id": "ISSUE-2",
+      "title": "README Multi-idioma (PT + ES + seletor de idioma)",
+      "status": "in_progress",
+      "started_at": "2026-06-08T22:30:00Z",
+      "assigned_roles": ["tech-lead", "technical-writer"],
+      "blocked_by": ["ISSUE-1"]
+    },
+    {
+      "id": "ISSUE-3",
+      "title": "Tech Writer Review — revisar 3 READMEs",
+      "status": "pending",
+      "assigned_roles": ["technical-writer"],
+      "blocked_by": ["ISSUE-2"]
+    },
+    {
+      "id": "ISSUE-4",
+      "title": "LinkedIn Post 1 — engajamento",
+      "status": "in_progress",
+      "started_at": "2026-06-08T22:05:00Z",
+      "assigned_roles": ["social-media-linkedin", "head-marketing"],
+      "blocked_by": ["ISSUE-1"]
+    },
+    {
+      "id": "ISSUE-5",
+      "title": "LinkedIn Post 2 — lançamento oficial",
+      "status": "in_progress",
+      "started_at": "2026-06-08T22:05:00Z",
+      "assigned_roles": ["social-media-linkedin", "head-marketing"],
+      "blocked_by": ["ISSUE-1"]
+    },
+    {
+      "id": "ISSUE-6",
+      "title": "Protótipo LP (skill prototype)",
+      "status": "pending",
+      "assigned_roles": ["frontend-engineer"],
+      "blocked_by": ["ISSUE-1"]
+    },
+    {
+      "id": "ISSUE-7",
+      "title": "LP GitHub Pages (HTML estático)",
+      "status": "pending",
+      "assigned_roles": ["frontend-engineer"],
+      "blocked_by": ["ISSUE-6"]
+    },
+    {
+      "id": "ISSUE-8",
+      "title": "Git Commits (branch feat/launch-v001 + atomic commits)",
+      "status": "in_progress",
+      "started_at": "2026-06-08T22:00:00Z",
+      "assigned_roles": ["tech-lead"],
+      "blocked_by": []
+    }
+  ]
+}
