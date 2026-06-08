@@ -30,7 +30,7 @@ Funciona com Pi, Claude Code, Cursor, Codex, OpenCode — qualquer agente compat
 
 🔗 github.com/theminimalcreator/timovi
 
-Construí isso sozinho. Espero que ajude outros builders a shipped mais rápido e terminar o que começam.
+Construí isso sozinho. Open source, MIT. Grátis. Espero que ajude outros builders a shipped mais rápido e terminar o que começam.
 
 ⭐ Dá uma estrela lá se fizer sentido. Feedback é bem-vindo.
 

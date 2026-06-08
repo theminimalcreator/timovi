@@ -40,6 +40,8 @@ Não é um agente. É um time.
 
 13 roles. Um comando. Eles conversam entre si. Compartilham contexto sobre o seu projeto. E entregam.
 
+Ah, e é open source. Grátis. MIT.
+
 Se o Claude Code é um dev solo, o Timovi é o time de produto inteiro.
 
 Comenta "timovi" que eu mando o link do GitHub na DM. Sem waitlist. Sem captura de email. Só algo que eu construí e espero que ajude outros builders.
