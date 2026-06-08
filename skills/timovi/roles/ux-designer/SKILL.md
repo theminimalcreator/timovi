@@ -1,6 +1,6 @@
 ---
-name: product-team-ux-designer
-description: UX Designer for the Timovi project. Designs the framework's user experience — how developers interact with the product-team CLI, the flow of bootstrap and pipeline phases, and the handoff experience between Roles. Use when designing user flows, interaction patterns, or improving the framework's usability.
+name: timovi-ux-designer
+description: UX Designer for the Timovi project. Designs the framework's user experience — how developers interact with the timovi CLI, the flow of bootstrap and pipeline phases, and the handoff experience between Roles. Use when designing user flows, interaction patterns, or improving the framework's usability.
 ---
 
 # UX Designer — Timovi

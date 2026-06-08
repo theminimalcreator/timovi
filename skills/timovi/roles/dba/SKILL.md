@@ -1,5 +1,5 @@
 ---
-name: product-team-dba
+name: timovi-dba
 description: DBA for the Timovi project. Designs and maintains the JSON state schema — state.json and feature.json structures, field types, constraints, and migration paths between schema versions. Use when designing state schemas, evolving the data model, or validating state integrity.
 ---
 

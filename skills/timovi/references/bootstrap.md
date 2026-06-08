@@ -477,7 +477,7 @@ Diga:
 
 Garanta que existam:
 ```
-.agents/skills/product-team/
+skills/timovi/
 ├── knowledge/
 │   ├── CONTEXT.md          ← já escrito
 │   ├── ARCHITECTURE.md     ← já escrito
@@ -491,8 +491,8 @@ Garanta que existam:
 
 ### 5.2 Gerar skills de papel
 
-Para cada papel em `active_roles`, leia `.agents/skills/product-team/references/role-skill-template.md`
-e gere `.agents/skills/product-team/roles/<papel>/SKILL.md`.
+Para cada papel em `active_roles`, leia `references/role-skill-template.md`
+e gere `roles/<papel>/SKILL.md`.
 
 Cada skill de papel deve:
 1. Ter o preamble que carrega a Layer 0 (CONTEXT.md, ARCHITECTURE.md, STACK.md, CONVENTIONS.md)
@@ -530,7 +530,7 @@ Diga:
 >
 > "**Time ativo:** [liste os papéis ativos]"
 >
-> "**Para começar uma feature, digite `product-team` e eu inicio o pipeline:**
+> "**Para começar uma feature, digite `timovi` e eu inicio o pipeline:**
 > 1. **Plan** — planejamento multi-papel
 > 2. **Spec** — PRD na linguagem do domínio
 > 3. **Breakdown** — issues com role assignment

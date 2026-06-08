@@ -488,7 +488,7 @@ Após cada fase concluída, ofereça pausa se a sessão estiver longa:
 > A próxima fase é a **[próxima fase]**. Você quer:
 >
 > 1. Continuar agora
-> 2. Pausar aqui, digitar `/clear` e voltar com `product-team` em
+> 2. Pausar aqui, digitar `/clear` e voltar com `timovi` em
 >    uma sessão nova (recomendado se a sessão já está longa)
 >
 > Pressione 1, 2, ou digite CONTINUAR para opção 1."

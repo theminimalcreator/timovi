@@ -15,7 +15,7 @@
 > If Claude Code is a solo developer, **Timovi is the whole product team.**
 
 ```bash
-npx skills add theminimalcreator/timovi --skill product-team
+npx skills add theminimalcreator/timovi --skill timovi
 ```
 
 <br>
@@ -59,7 +59,7 @@ npx skills add theminimalcreator/timovi --skill product-team
 ## How it works
 
 ```
-You say "product-team"
+You say "timovi"
         │
         ▼
    ┌─────────┐     ┌──────┐     ┌───────────┐     ┌─────────┐     ┌────────┐
@@ -84,7 +84,7 @@ You say "product-team"
 ### 1. Install
 
 ```bash
-npx skills add theminimalcreator/timovi --skill product-team
+npx skills add theminimalcreator/timovi --skill timovi
 ```
 
 Works with **Pi, Claude Code, Cursor, Codex, OpenCode, and [60+ other agents](https://github.com/vercel-labs/skills#supported-agents).**
@@ -94,7 +94,7 @@ Works with **Pi, Claude Code, Cursor, Codex, OpenCode, and [60+ other agents](ht
 Open your AI agent and type:
 
 ```
-product-team
+timovi
 ```
 
 ### 3. Bootstrap (5 minutes)
@@ -104,7 +104,7 @@ The orchestrator will ask a few questions about your project — name, stack, do
 ### 4. Start a feature
 
 ```
-product-team → "new feature"
+timovi → "new feature"
 ```
 
 Pick a feature. The pipeline runs. You answer questions (one at a time), approve artifacts, and watch your team build.
@@ -160,11 +160,11 @@ Timovi works with any agent supported by [npx skills](https://github.com/vercel-
 
 | Agent | Install path |
 |-------|-------------|
-| **Pi** | `.pi/skills/product-team/` |
-| **Claude Code** | `.claude/skills/product-team/` |
-| **Cursor** | `.agents/skills/product-team/` |
-| **Codex** | `.agents/skills/product-team/` |
-| **OpenCode** | `.agents/skills/product-team/` |
+| **Pi** | `.pi/skills/timovi/` |
+| **Claude Code** | `.claude/skills/timovi/` |
+| **Cursor** | `.agents/skills/timovi/` |
+| **Codex** | `.agents/skills/timovi/` |
+| **OpenCode** | `.agents/skills/timovi/` |
 
 <br>
 
@@ -175,7 +175,7 @@ Timovi works with any agent supported by [npx skills](https://github.com/vercel-
 Timovi is a **meta-framework of agent skills** — Markdown + JSON, no runtime, no servers.
 
 ```
-skills/product-team/
+skills/timovi/
 ├── SKILL.md                 ← Orchestrator (you are here)
 ├── references/
 │   ├── bootstrap.md         ← First-run setup flow
@@ -208,6 +208,20 @@ skills/product-team/
 - 🛠️ Built for the **[npx skills](https://github.com/vercel-labs/skills)** ecosystem
 - 🐛 [Issues & feature requests](https://github.com/theminimalcreator/timovi/issues)
 - ⭐ Star the repo if Timovi helps you ship
+
+<br>
+
+---
+
+## Inspirations
+
+Projects and ideas that inspired Timovi:
+
+- **[Reversa](https://github.com/theminimalcreator/timovi/blob/main/AGENTS.md)** — A reverse-engineering framework that proved AI agents could systematically analyze and document existing codebases. Reversa showed that structured, phase-based agent workflows produce reliable results.
+- **[Vercel Skills](https://github.com/vercel-labs/skills)** — The open agent skills ecosystem that made skill distribution trivial. Without `npx skills`, Timovi would be a manual install.
+- **[Paperclip](https://github.com/paperclipai/paperclip)** — Showed that "virtual product teams" were the right abstraction — just too heavy for solo founders. Timovi is the lightweight answer.
+- **[Hermes Agent](https://github.com/NousResearch/hermes-agent)** — Demonstrated that agent skills could self-improve. Timovi's cross-examination pattern was inspired by Hermes' learning loop.
+- **The solo founder experience** — Every indie dev who juggles 5 side projects, never has time for UX, and wishes they had a team. Timovi exists because building alone shouldn't mean building without structure.
 
 <br>
 

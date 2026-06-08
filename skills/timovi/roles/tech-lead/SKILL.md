@@ -1,5 +1,5 @@
 ---
-name: product-team-tech-lead
+name: timovi-tech-lead
 description: Tech Lead for the Timovi project. Technical leadership for architecture, quality, planning, and execution with explicit trade-offs. Use when decomposing features into Issues, reviewing skill code, defining standards, or coordinating technical execution.
 ---
 

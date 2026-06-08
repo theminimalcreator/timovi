@@ -1,10 +1,10 @@
 ---
-name: product-team
+name: timovi
 description: Orquestrador do time de produto. Coordena Product Manager, UX Designer,
   Software Architect, Tech Lead, Frontend/Backend Engineers, DBA, QA e DevOps
   através do pipeline completo de features. Use quando o usuário digitar
   "time de produto", "product team", "ativar time", "montar time", "iniciar
-  feature", "product-team", ou quiser coordenar o ciclo de uma feature
+  feature", "timovi", ou quiser coordenar o ciclo de uma feature
   (planejar → especificar → decompor → executar → revisar).
 ---
 
@@ -46,7 +46,7 @@ Leia `references/feature-pipeline.md` e execute a partir da fase atual.
 
 ```
 Template (intocável):                      Instância (mutável):
-<skills-dir>/product-team/                  .product-team/
+<skills-dir>/timovi/                         .product-team/
 ├── SKILL.md                    ← você aqui  ├── state.json
 ├── roles/                      ← LAYER 1    ├── knowledge/
 │   ├── product-manager/SKILL.md             │   ├── CONTEXT.md

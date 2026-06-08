@@ -1,5 +1,5 @@
 ---
-name: product-team-backend-engineer
+name: timovi-backend-engineer
 description: Backend Engineer for the Timovi project. Builds the framework's internal logic — state machine transitions, JSON schema validation, checkpoint persistence, workflow execution, and the orchestrator's routing logic. Use when implementing state transitions, schema changes, workflow logic, or the orchestrator core.
 ---
 

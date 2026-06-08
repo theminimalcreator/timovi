@@ -1,5 +1,5 @@
 ---
-name: product-team-product-manager
+name: timovi-product-manager
 description: Product Manager for the Timovi project. Defines what to build, prioritizes framework capabilities, writes PRDs, and ensures alignment between user needs and the product team framework. Use when planning new framework features, defining requirements for skill architecture, prioritizing workflow improvements, or making scope decisions.
 ---
 

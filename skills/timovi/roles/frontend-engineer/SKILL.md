@@ -1,5 +1,5 @@
 ---
-name: product-team-frontend-engineer
+name: timovi-frontend-engineer
 description: Frontend Engineer for the Timovi project. Builds and refines the user-facing aspects of the framework — how information is presented to the user, checkpoint summaries, progress displays, and interaction design within the CLI. Use when improving presentation, formatting output, or designing how users experience the pipeline.
 ---
 

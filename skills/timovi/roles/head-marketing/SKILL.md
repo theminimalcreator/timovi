@@ -1,5 +1,5 @@
 ---
-name: product-team-head-marketing
+name: timovi-head-marketing
 description: Head of Marketing for the Timovi project. Brand strategy, product positioning, messaging for the framework's target audience (developers using AI CLIs), and go-to-market strategy for distributing Timovi as a skill. Use when defining positioning, writing landing content, planning distribution, or crafting messaging.
 ---
 

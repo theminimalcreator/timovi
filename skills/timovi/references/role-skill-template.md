@@ -7,7 +7,7 @@ Substitua `[PAPEL]`, `[PAPEL_DISPLAY]`, `[PROJETO]` e `[DESCRIÇÃO]` pelos valo
 
 ```markdown
 ---
-name: product-team-[papel]
+name: timovi-[papel]
 description: [PAPEL_DISPLAY] especialista no projeto [PROJETO].
   [DESCRIÇÃO DO PAPEL EM UMA FRASE].
   Use quando precisar de [QUANDO USAR — gatilhos específicos].
@@ -66,5 +66,5 @@ Nunca:
 ## Workflows
 
 Este papel participa dos seguintes workflows:
-[Liste os workflows em `.agents/skills/product-team/workflows/` onde este papel atua]
+[Liste os workflows em `workflows/` onde este papel atua]
 ```
