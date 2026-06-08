@@ -109,6 +109,16 @@ product-team → "new feature"
 
 Pick a feature. The pipeline runs. You answer questions (one at a time), approve artifacts, and watch your team build.
 
+### 5. Stay updated
+
+When Timovi gets new features or fixes, update with one command:
+
+```bash
+npx skills update timovi
+```
+
+> **Symlink users** (recommended during install) get updates instantly — `npx skills update` just runs `git pull` on the Timovi clone. **Copy users** get the latest files re-copied. Either way, your `.product-team/` instance is never touched.
+
 <br>
 
 ---
