@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0f"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="50%" style="stop-color:#8b5cf6"/>
+      <stop offset="100%" style="stop-color:#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="accent2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#fbbf24"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.03">
+    <line x1="0" y1="100" x2="1200" y2="100" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="200" x2="1200" y2="200" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="300" x2="1200" y2="300" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="400" x2="1200" y2="400" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="500" x2="1200" y2="500" stroke="#fff" stroke-width="0.5"/>
+    <line x1="200" y1="0" x2="200" y2="630" stroke="#fff" stroke-width="0.5"/>
+    <line x1="400" y1="0" x2="400" y2="630" stroke="#fff" stroke-width="0.5"/>
+    <line x1="600" y1="0" x2="600" y2="630" stroke="#fff" stroke-width="0.5"/>
+    <line x1="800" y1="0" x2="800" y2="630" stroke="#fff" stroke-width="0.5"/>
+    <line x1="1000" y1="0" x2="1000" y2="630" stroke="#fff" stroke-width="0.5"/>
+  </g>
+
+  <!-- Pipeline dots + arrows -->
+  <g transform="translate(130, 460)">
+    <circle cx="0" cy="0" r="12" fill="url(#accent)" opacity="0.9"/>
+    <text x="0" y="30" text-anchor="middle" fill="#a78bfa" font-family="monospace" font-size="13" font-weight="bold">PLAN</text>
+
+    <line x1="24" y1="0" x2="176" y2="0" stroke="url(#accent)" stroke-width="2" opacity="0.4" stroke-dasharray="6,4"/>
+
+    <circle cx="200" cy="0" r="12" fill="url(#accent)" opacity="0.9"/>
+    <text x="200" y="30" text-anchor="middle" fill="#a78bfa" font-family="monospace" font-size="13" font-weight="bold">SPEC</text>
+
+    <line x1="224" y1="0" x2="376" y2="0" stroke="url(#accent)" stroke-width="2" opacity="0.4" stroke-dasharray="6,4"/>
+
+    <circle cx="400" cy="0" r="12" fill="url(#accent)" opacity="0.9"/>
+    <text x="400" y="30" text-anchor="middle" fill="#a78bfa" font-family="monospace" font-size="13" font-weight="bold">BREAKDOWN</text>
+
+    <line x1="424" y1="0" x2="576" y2="0" stroke="url(#accent)" stroke-width="2" opacity="0.4" stroke-dasharray="6,4"/>
+
+    <circle cx="600" cy="0" r="12" fill="url(#accent)" opacity="0.9"/>
+    <text x="600" y="30" text-anchor="middle" fill="#a78bfa" font-family="monospace" font-size="13" font-weight="bold">EXECUTE</text>
+
+    <line x1="624" y1="0" x2="776" y2="0" stroke="url(#accent)" stroke-width="2" opacity="0.4" stroke-dasharray="6,4"/>
+
+    <circle cx="800" cy="0" r="12" fill="url(#accent2)" opacity="0.9"/>
+    <text x="800" y="30" text-anchor="middle" fill="#fbbf24" font-family="monospace" font-size="13" font-weight="bold">REVIEW</text>
+  </g>
+
+  <!-- Avatar circles (team) -->
+  <g transform="translate(600, 120)" opacity="0.15">
+    <circle cx="-150" cy="0" r="16" fill="#6366f1"/>
+    <circle cx="-110" cy="0" r="16" fill="#8b5cf6"/>
+    <circle cx="-70" cy="0" r="16" fill="#a78bfa"/>
+    <circle cx="-30" cy="0" r="16" fill="#f59e0b"/>
+    <circle cx="10" cy="0" r="16" fill="#10b981"/>
+    <circle cx="50" cy="0" r="16" fill="#3b82f6"/>
+    <circle cx="90" cy="0" r="16" fill="#ec4899"/>
+    <circle cx="130" cy="0" r="16" fill="#f97316"/>
+  </g>
+
+  <!-- Main title -->
+  <text x="600" y="240" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="96" font-weight="800" letter-spacing="-2">
+    Timovi
+  </text>
+
+  <!-- Accent underline -->
+  <rect x="440" y="260" width="320" height="3" rx="1.5" fill="url(#accent)"/>
+
+  <!-- Tagline -->
+  <text x="600" y="330" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="26" font-weight="400" letter-spacing="0.5">
+    Your digital product team.
+  </text>
+
+  <!-- Sub-tagline -->
+  <text x="600" y="370" text-anchor="middle" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="400">
+    One command &bull; Ten roles &bull; Five phases &bull; Zero config.
+  </text>
+
+  <!-- Bottom line -->
+  <text x="600" y="560" text-anchor="middle" fill="#475569" font-family="monospace" font-size="14">
+    npx skills add guilhermezaia/timovi --skill product-team
+  </text>
+</svg>

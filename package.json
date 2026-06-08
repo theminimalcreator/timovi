@@ -1,0 +1,28 @@
+{
+  "name": "timovi",
+  "version": "1.0.0",
+  "description": "Assemble a digital product team in your AI coding agent — Product Manager, UX Designer, Software Architect, Tech Lead, Engineers, QA, and more. One command, your entire product pipeline.",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "ai-agents",
+    "product-team",
+    "product-management",
+    "agent-skills",
+    "claude-code",
+    "cursor",
+    "pi",
+    "codex",
+    "software-architecture",
+    "product-development"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guilhermezaia/timovi"
+  },
+  "homepage": "https://github.com/guilhermezaia/timovi#readme",
+  "author": "Guilherme Zaia",
+  "engines": {
+    "node": ">=18"
+  }
+}
