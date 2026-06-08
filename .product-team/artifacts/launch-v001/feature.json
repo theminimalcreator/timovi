@@ -39,16 +39,18 @@
     {
       "id": "ISSUE-4",
       "title": "LinkedIn Post 1 — engajamento",
-      "status": "in_progress",
+      "status": "done",
       "started_at": "2026-06-08T22:05:00Z",
+      "completed_at": "2026-06-08T22:10:00Z",
       "assigned_roles": ["social-media-linkedin", "head-marketing"],
       "blocked_by": ["ISSUE-1"]
     },
     {
       "id": "ISSUE-5",
       "title": "LinkedIn Post 2 — lançamento oficial",
-      "status": "in_progress",
+      "status": "done",
       "started_at": "2026-06-08T22:05:00Z",
+      "completed_at": "2026-06-08T22:10:00Z",
       "assigned_roles": ["social-media-linkedin", "head-marketing"],
       "blocked_by": ["ISSUE-1"]
     },
