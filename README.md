@@ -8,6 +8,10 @@
   <a href="https://github.com/vercel-labs/skills"><img src="https://img.shields.io/badge/Built%20for-npx%20skills-000?style=for-the-badge&logo=npm" alt="Built for npx skills"></a>
 </p>
 
+<p align="center">
+  [English](README.md) | [Português](README.pt.md) | [Español](README.es.md)
+</p>
+
 # Timovi
 
 **Assemble a digital product team inside your AI coding agent.** One command, your entire product pipeline — Product Manager, UX Designer, Software Architect, Tech Lead, Engineers, QA, and more.
