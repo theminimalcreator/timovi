@@ -16,7 +16,7 @@ Cada feature tem seu próprio `feature.json` em `.product-team/artifacts/<featur
   "prd": {
     "path": "artifacts/workout-plans/PRD.md",
     "source": "imported",
-    "imported_from": "/Users/guilhermezaia/Documents/Projects/cdt/docs/prd.md",
+    "imported_from": "/home/user/projects/my-app/docs/prd.md",
     "created_at": "2026-06-05T10:30:00Z"
   },
 

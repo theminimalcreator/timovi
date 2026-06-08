@@ -7,7 +7,7 @@
   "version": "1.0.0",
   "project": "cdt",
   "description": "Platform for high-performance athlete training metrics.",
-  "user_name": "Guilherme",
+  "user_name": "Alice",
   "chat_language": "pt-br",
   "doc_language": "en",
   "phase": "ready",
