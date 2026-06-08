@@ -41,7 +41,7 @@ npx skills add theminimalcreator/timovi --skill timovi
 
 ## O que o Timovi te entrega
 
-| Papel | O que faz |
+| Role | O que faz |
 |------|-------------|
 | 🎯 **Product Manager** | Define o que construir, escreve PRDs, prioriza. Chega de "será que estou construindo a coisa certa?" |
 | 🎨 **UX Designer** | Personas, fluxos, wireframes. UX que você mesmo faria se tivesse tempo. |
@@ -131,7 +131,7 @@ npx skills update timovi
 
 | Sem Timovi | Com Timovi |
 |---------------|------------|
-| ❌ "Preciso de UX mas não tenho tempo" | ✅ UX Designer é um Papel dedicado — fluxos, personas, wireframes, feito |
+| ❌ "Preciso de UX mas não tenho tempo" | ✅ UX Designer é uma Role dedicada — fluxos, personas, wireframes, feito |
 | ❌ "O que devo construir primeiro?" | ✅ Product Manager escreve PRDs, prioriza, define escopo |
 | ❌ Código espaguete, sem arquitetura | ✅ Software Architect valida viabilidade, mapeia módulos |
 | ❌ Bugs encontrados após o lançamento | ✅ QA Engineer testa happy path + edge cases antes de você publicar |
@@ -150,7 +150,7 @@ npx skills update timovi
 | **Foco** | Agente de IA genérico | Plataforma de orquestração de agentes | **Time de produto para builders** |
 | **Tempo de setup** | 30+ min config | Servidor + UI React | **1 comando, 5 min bootstrap** |
 | **Entregas** | Agente executa comandos | Tasks + budgets | **PRD → Issues → PRs → Review** |
-| **Papel de UX** | — | — | **UX Designer dedicado** |
+| **Role de UX** | — | — | **UX Designer dedicado** |
 | **Curva de aprendizado** | Alta | Alta | **Guiado — uma pergunta por vez** |
 | **Pra quem** | Power users | Empresas | **Founders solo & devs indie** |
 
@@ -190,14 +190,14 @@ skills/timovi/
 │   ├── product-manager/SKILL.md
 │   ├── ux-designer/SKILL.md
 │   └── ...
-└── workflows/               ← Templates de processo
+└── workflows/               ← Templates de Workflow
     ├── new-feature.md
     ├── bug-fix.md
     └── deploy.md
 ```
 
 **Comportamento em runtime:**
-- Cada Papel carrega o **Layer 0** (base de conhecimento do projeto) antes de agir
+- Cada Role carrega o **Layer 0** (base de conhecimento do projeto) antes de agir
 - O orquestrador salva **checkpoints** após cada fase — retome entre sessões
 - Issues são executadas como um **DAG** com rounds paralelos, respeitando dependências
 - Todos os dados específicos do projeto ficam em `.product-team/` — nunca toca o template

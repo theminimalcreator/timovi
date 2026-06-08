@@ -41,7 +41,7 @@ npx skills add theminimalcreator/timovi --skill timovi
 
 ## Lo que Timovi te da
 
-| Rol | Lo que hace |
+| Role | Lo que hace |
 |------|-------------|
 | 🎯 **Product Manager** | Define qué construir, escribe PRDs, prioriza. Se acabó el "¿estoy construyendo lo correcto?" |
 | 🎨 **UX Designer** | Personas, flujos, wireframes. UX que harías tú mismo si tuvieras el tiempo. |
@@ -103,7 +103,7 @@ timovi
 
 ### 3. Bootstrap (5 minutos)
 
-El orquestrador hará algunas preguntas sobre tu proyecto — nombre, stack, dominio. Detecta automáticamente tu codebase, genera una base de conocimiento (lenguaje de dominio, mapa de arquitectura, docs de stack, convenciones) y activa tu equipo.
+El orquestador hará algunas preguntas sobre tu proyecto — nombre, stack, dominio. Detecta automáticamente tu codebase, genera una base de conocimiento (lenguaje de dominio, mapa de arquitectura, docs de stack, convenciones) y activa tu equipo.
 
 ### 4. Comienza una feature
 
@@ -131,11 +131,11 @@ npx skills update timovi
 
 | Sin Timovi | Con Timovi |
 |---------------|------------|
-| ❌ "Necesito UX pero no tengo tiempo" | ✅ UX Designer es un Rol dedicado — flujos, personas, wireframes, listo |
+| ❌ "Necesito UX pero no tengo tiempo" | ✅ UX Designer es una Role dedicada — flujos, personas, wireframes, listo |
 | ❌ "¿Qué debería construir primero?" | ✅ Product Manager escribe PRDs, prioriza, define alcance |
 | ❌ Código espagueti, sin arquitectura | ✅ Software Architect valida viabilidad, mapea módulos |
 | ❌ Bugs encontrados después del lanzamiento | ✅ QA Engineer prueba happy path + casos límite antes de que publiques |
-| ❌ Escribiendo prompts, gestionando contexto, perdiendo el flujo | ✅ Orquestrador ejecuta el pipeline. Tú apruebas artefactos. |
+| ❌ Escribiendo prompts, gestionando contexto, perdiendo el flujo | ✅ Orquestador ejecuta el pipeline. Tú apruebas artefactos. |
 | ❌ 5 side projects, 0 terminados | ✅ Pipeline fuerza momentum: Plan → Spec → Breakdown → Execute → Review |
 | ❌ "¿Esto está listo para lanzar?" | ✅ Fase de Review: aprobación QA + code review del Tech Lead = publica con confianza |
 
@@ -147,10 +147,10 @@ npx skills update timovi
 
 | | OpenClaw / Hermes | Paperclip | **Timovi** |
 |---|:---:|:---:|:---:|
-| **Enfoque** | Agente de IA genérico | Plataforma de orquestración de agentes | **Equipo de producto para builders** |
+| **Enfoque** | Agente de IA genérico | Plataforma de orquestación de agentes | **Equipo de producto para builders** |
 | **Tiempo de setup** | 30+ min config | Servidor + UI React | **1 comando, 5 min bootstrap** |
 | **Entregables** | Agente ejecuta comandos | Tareas + presupuestos | **PRD → Issues → PRs → Review** |
-| **Rol de UX** | — | — | **UX Designer dedicado** |
+| **Role de UX** | — | — | **UX Designer dedicado** |
 | **Curva de aprendizaje** | Alta | Alta | **Guiado — una pregunta a la vez** |
 | **Para quién** | Power users | Empresas | **Founders solitarios & devs indie** |
 
@@ -180,7 +180,7 @@ Timovi es un **meta-framework de agent skills** — Markdown + JSON, sin runtime
 
 ```
 skills/timovi/
-├── SKILL.md                 ← Orquestrador (estás aquí)
+├── SKILL.md                 ← Orquestador (estás aquí)
 ├── references/
 │   ├── bootstrap.md         ← Flujo de configuración inicial
 │   ├── feature-pipeline.md  ← Ciclo de desarrollo en 5 fases
@@ -190,15 +190,15 @@ skills/timovi/
 │   ├── product-manager/SKILL.md
 │   ├── ux-designer/SKILL.md
 │   └── ...
-└── workflows/               ← Plantillas de proceso
+└── workflows/               ← Plantillas de Workflow
     ├── new-feature.md
     ├── bug-fix.md
     └── deploy.md
 ```
 
 **Comportamiento en runtime:**
-- Cada Rol carga el **Layer 0** (base de conocimiento del proyecto) antes de actuar
-- El orquestrador guarda **checkpoints** después de cada fase — retoma entre sesiones
+- Cada Role carga el **Layer 0** (base de conocimiento del proyecto) antes de actuar
+- El orquestador guarda **checkpoints** después de cada fase — retoma entre sesiones
 - Las Issues se ejecutan como un **DAG** con rondas paralelas, respetando dependencias
 - Todos los datos específicos del proyecto viven en `.product-team/` — nunca toca el template
 

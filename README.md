@@ -190,7 +190,7 @@ skills/timovi/
 │   ├── product-manager/SKILL.md
 │   ├── ux-designer/SKILL.md
 │   └── ...
-└── workflows/               ← Process templates
+└── workflows/               ← Workflow templates
     ├── new-feature.md
     ├── bug-fix.md
     └── deploy.md

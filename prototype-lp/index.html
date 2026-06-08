@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timovi LP Prototype</title>
+<style>
+/* ============================================================
+   PROTOTYPE — THROWAWAY CODE. Not for production.
+   Question: "What should the Timovi landing page look like?"
+   3 variants, switchable via ?variant= query param.
+   ============================================================ */
+
+/* ---------- RESET & BASE ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #0a0a0b; color: #e4e4e7; min-height: 100vh; }
+a { color: inherit; text-decoration: none; }
+
+/* ---------- PROTOTYPE SWITCHER ---------- */
+.prototype-bar {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 16px;
+  background: rgba(24,24,27,0.95); backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 40px;
+  padding: 10px 22px; z-index: 10000;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 13px;
+}
+.prototype-bar button {
+  background: none; border: none; color: #a1a1aa; cursor: pointer;
+  font-size: 16px; padding: 4px 10px; border-radius: 20px; transition: all 0.15s;
+  font-family: inherit;
+}
+.prototype-bar button:hover { color: #fff; background: rgba(255,255,255,0.08); }
+.prototype-bar .variant-label { color: #FFD700; font-weight: 600; min-width: 140px; text-align: center; }
+.prototype-bar .variant-label span.name { color: #a1a1aa; font-weight: 400; }
+
+/* ============================================================
+   VARIANT A — Hermes-style: centric, clean, gradient hero
+   ============================================================ */
+.variant-a { --accent: #FFD700; --accent2: #7c3aed; }
+.variant-a header {
+  text-align: center; padding: 120px 24px 80px;
+  background: linear-gradient(180deg, #0a0a0b 0%, #0f0f14 40%, #13132a 100%);
+}
+.variant-a .logo { font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; color: #71717a; margin-bottom: 32px; }
+.variant-a h1 {
+  font-size: clamp(36px, 7vw, 64px); font-weight: 800; line-height: 1.15;
+  letter-spacing: -0.03em; margin-bottom: 20px;
+  background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.variant-a .hero-subtitle {
+  font-size: clamp(16px, 2.5vw, 20px); color: #71717a;
+  max-width: 600px; margin: 0 auto 40px; line-height: 1.6;
+}
+.variant-a .hero-cta {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px;
+}
+.variant-a .cmd-box {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: rgba(24,24,27,0.8); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px; padding: 14px 20px;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 14px; color: #e4e4e7;
+}
+.variant-a .cmd-box button {
+  background: none; border: none; color: #71717a; cursor: pointer; font-size: 14px; padding: 2px 6px;
+}
+.variant-a .cmd-box button:hover { color: #FFD700; }
+.variant-a .btn-star {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px; padding: 14px 24px; font-size: 14px; font-weight: 600;
+  color: #e4e4e7; cursor: pointer; transition: all 0.2s;
+}
+.variant-a .btn-star:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+.variant-a .btn-star .star { color: #FFD700; }
+
+.variant-a section { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
+.variant-a section:nth-child(odd) { background: rgba(255,255,255,0.015); }
+.variant-a .section-label { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: #FFD700; margin-bottom: 12px; font-weight: 600; }
+.variant-a h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 700; margin-bottom: 16px; letter-spacing: -0.02em; }
+.variant-a .section-desc { color: #71717a; font-size: 17px; line-height: 1.7; max-width: 680px; }
+
+.variant-a .roles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-top: 32px; }
+.variant-a .role-card {
+  background: rgba(24,24,27,0.6); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px;
+  padding: 20px; transition: border-color 0.2s;
+}
+.variant-a .role-card:hover { border-color: rgba(255,255,255,0.15); }
+.variant-a .role-card .emoji { font-size: 24px; margin-bottom: 8px; }
+.variant-a .role-card .name { font-weight: 600; font-size: 14px; }
+.variant-a .role-card .sub { font-size: 12px; color: #71717a; margin-top: 4px; }
+
+.variant-a .pipeline-flow { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
+.variant-a .pipe-step {
+  background: rgba(24,24,27,0.6); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px; padding: 24px 28px; text-align: center; min-width: 140px;
+}
+.variant-a .pipe-step .phase { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.variant-a .pipe-step .roles { font-size: 13px; color: #71717a; }
+.variant-a .pipe-arrow { color: #71717a; font-size: 24px; font-weight: 300; }
+
+.variant-a .comparison-table { width: 100%; border-collapse: separate; border-spacing: 0 4px; margin-top: 32px; }
+.variant-a .comparison-table th {
+  text-align: left; padding: 12px 16px; font-size: 13px; font-weight: 600;
+  color: #71717a; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.variant-a .comparison-table td {
+  padding: 16px; font-size: 14px; border-top: 1px solid rgba(255,255,255,0.04);
+  background: rgba(24,24,27,0.3);
+}
+.variant-a .comparison-table tr:first-child td { border-top: none; }
+.variant-a .comparison-table .check { color: #22c55e; }
+.variant-a .comparison-table .cross { color: #ef4444; }
+.variant-a .comparison-table .partial { color: #f59e0b; }
+
+.variant-a .cta-section { text-align: center; padding: 100px 24px; background: linear-gradient(180deg, #0a0a0b 0%, #13132a 100%); }
+
+/* ============================================================
+   VARIANT B — Terminal-native: monospace, command-line aesthetic
+   ============================================================ */
+.variant-b {
+  background: #0c0c0c; font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
+  padding: 0;
+}
+.variant-b .term-container {
+  max-width: 900px; margin: 40px auto; padding: 0 20px;
+}
+.variant-b .term-line { line-height: 1.8; margin-bottom: 4px; }
+.variant-b .prompt { color: #22c55e; }
+.variant-b .cmd { color: #e4e4e7; }
+.variant-b .output { color: #a1a1aa; padding-left: 24px; }
+.variant-b .output-bold { color: #fff; font-weight: 700; padding-left: 24px; }
+.variant-b .output-gold { color: #FFD700; padding-left: 24px; }
+.variant-b .comment { color: #52525b; font-style: italic; }
+.variant-b .cursor::after { content: '█'; animation: blink 1s step-end infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.variant-b .term-header {
+  background: #1a1a1a; border: 1px solid #333; border-radius: 12px 12px 0 0;
+  padding: 10px 16px; font-size: 12px; color: #71717a; display: flex; gap: 8px;
+}
+.variant-b .term-header span { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.variant-b .term-header .red { background: #ef4444; }
+.variant-b .term-header .yellow { background: #f59e0b; }
+.variant-b .term-header .green { background: #22c55e; }
+.variant-b .term-body {
+  background: #0f0f0f; border: 1px solid #333; border-top: none; border-radius: 0 0 12px 12px;
+  padding: 24px; font-size: 14px; line-height: 1.9;
+}
+.variant-b .term-section { margin: 48px 0; }
+.variant-b .term-section-title {
+  color: #22c55e; font-weight: 700; font-size: 16px; margin-bottom: 12px;
+  border-bottom: 1px solid #222; padding-bottom: 8px;
+}
+.variant-b .role-line { padding-left: 24px; color: #a1a1aa; }
+.variant-b .role-line .icon { color: #FFD700; }
+.variant-b .pipeline-line { padding-left: 24px; color: #a1a1aa; font-size: 13px; }
+.variant-b .pipeline-line .active { color: #FFD700; font-weight: 700; }
+.variant-b .table-row { display: grid; grid-template-columns: 140px 1fr 1fr 1fr; gap: 16px; padding: 6px 24px; font-size: 13px; }
+.variant-b .table-header { color: #52525b; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
+.variant-b .table-divider { border: none; border-top: 1px solid #222; margin: 8px 24px; }
+.variant-b .term-cta { padding: 32px 24px; text-align: center; }
+.variant-b .term-cta .output-gold { padding-left: 0; font-size: 18px; margin-bottom: 16px; }
+
+/* ============================================================
+   VARIANT C — Card-cascade: asymmetric, editorial, staggered
+   ============================================================ */
+.variant-c {
+  background: linear-gradient(135deg, #09090b 0%, #0e0e14 50%, #09090b 100%);
+  overflow-x: hidden;
+}
+.variant-c .grid-layout {
+  max-width: 1200px; margin: 0 auto; padding: 60px 24px;
+  display: grid; grid-template-columns: 1fr; gap: 0;
+}
+.variant-c .hero-block {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  min-height: 70vh; padding: 40px 0;
+}
+.variant-c .hero-text { padding-right: 40px; }
+.variant-c .hero-text .tag {
+  display: inline-block; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #FFD700; border: 1px solid rgba(255,215,0,0.3); border-radius: 20px;
+  padding: 6px 16px; margin-bottom: 24px;
+}
+.variant-c h1 {
+  font-size: clamp(32px, 5vw, 56px); font-weight: 800; line-height: 1.1;
+  letter-spacing: -0.04em; margin-bottom: 20px; color: #fff;
+}
+.variant-c h1 em { font-style: normal; color: #FFD700; }
+.variant-c .hero-subtitle { color: #71717a; font-size: 17px; line-height: 1.7; margin-bottom: 32px; }
+.variant-c .hero-visual {
+  background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(255,215,0,0.05));
+  border: 1px solid rgba(255,255,255,0.06); border-radius: 24px;
+  padding: 40px; display: flex; flex-direction: column; gap: 12px;
+  font-family: 'SF Mono', monospace; font-size: 13px; color: #a1a1aa;
+}
+.variant-c .hero-visual .line-gold { color: #FFD700; }
+.variant-c .hero-visual .line-green { color: #22c55e; }
+
+.variant-c section { margin-top: 80px; }
+.variant-c .section-header { margin-bottom: 40px; }
+.variant-c .section-header .num { font-size: 80px; font-weight: 900; color: rgba(255,255,255,0.03); line-height: 1; }
+.variant-c .section-header h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin-top: -20px; }
+
+.variant-c .what-block { display: grid; grid-template-columns: 1fr 2fr; gap: 60px; align-items: start; }
+.variant-c .what-block p { font-size: 18px; line-height: 1.8; color: #a1a1aa; }
+
+.variant-c .roles-masonry { columns: 4 180px; column-gap: 12px; }
+.variant-c .role-tile {
+  break-inside: avoid; margin-bottom: 12px;
+  background: rgba(24,24,27,0.6); border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px; padding: 18px; transition: all 0.2s;
+}
+.variant-c .role-tile:hover { border-color: rgba(255,215,0,0.2); transform: translateY(-2px); }
+.variant-c .role-tile .emoji { font-size: 28px; display: block; margin-bottom: 8px; }
+.variant-c .role-tile .name { font-weight: 600; font-size: 14px; }
+.variant-c .role-tile .sub { font-size: 12px; color: #71717a; margin-top: 2px; }
+
+.variant-c .pipeline-fancy {
+  display: flex; gap: 0; align-items: stretch; overflow-x: auto; padding: 20px 0;
+}
+.variant-c .pipe-card {
+  flex: 1; min-width: 160px; background: rgba(24,24,27,0.4);
+  border: 1px solid rgba(255,255,255,0.06); border-radius: 16px;
+  padding: 28px 20px; text-align: center; position: relative;
+}
+.variant-c .pipe-card:not(:last-child)::after {
+  content: '→'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
+  color: #71717a; font-size: 20px; z-index: 2;
+}
+.variant-c .pipe-card .phase { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.variant-c .pipe-card .roles { font-size: 12px; color: #71717a; }
+
+.variant-c .comparison-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.variant-c .comp-card {
+  background: rgba(24,24,27,0.4); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px; padding: 24px;
+}
+.variant-c .comp-card.highlight { border-color: rgba(255,215,0,0.2); background: rgba(255,215,0,0.02); }
+.variant-c .comp-card h4 { font-size: 16px; margin-bottom: 16px; }
+.variant-c .comp-card .row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 13px; color: #a1a1aa; border-bottom: 1px solid rgba(255,255,255,0.03); }
+
+.variant-c .cta-block {
+  margin-top: 100px; text-align: center; padding: 80px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .variant-a .roles-grid { grid-template-columns: repeat(2, 1fr); }
+  .variant-a .pipeline-flow { flex-direction: column; }
+  .variant-a .pipe-arrow { transform: rotate(90deg); }
+  .variant-a .hero-cta { flex-direction: column; align-items: center; }
+  .variant-c .hero-block { grid-template-columns: 1fr; gap: 40px; }
+  .variant-c .what-block { grid-template-columns: 1fr; }
+  .variant-c .roles-masonry { columns: 2 160px; }
+  .variant-c .comparison-cards { grid-template-columns: 1fr; }
+  .variant-c .pipeline-fancy { flex-direction: column; }
+  .variant-c .pipe-card:not(:last-child)::after { content: '↓'; right: 50%; top: auto; bottom: -18px; transform: translateX(50%); }
+  .variant-b .table-row { grid-template-columns: 1fr 1fr 1fr 1fr; font-size: 11px; gap: 8px; }
+}
+
+@media (max-width: 480px) {
+  .variant-a .roles-grid { grid-template-columns: 1fr 1fr; }
+  .variant-c .roles-masonry { columns: 2 140px; }
+}
+
+/* ---------- HIDDEN BY DEFAULT ---------- */
+.variant-a, .variant-b, .variant-c { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ===============================================================
+     VARIANT A — Hermes-style: centric, clean, gradient, product LP
+     =============================================================== -->
+<div class="variant-a">
+  <header>
+    <div class="logo">Timovi</div>
+    <h1>Your digital product team<br>in one command</h1>
+    <p class="hero-subtitle">
+      Assemble a full product team inside your AI coding agent — Product Manager, UX Designer, Architects, Engineers, QA, and more. All talking to each other, sharing context, shipping features.
+    </p>
+    <div class="hero-cta">
+      <div class="cmd-box">
+        <span>npx skills add theminimalcreator/timovi --skill timovi</span>
+        <button onclick="navigator.clipboard.writeText('npx skills add theminimalcreator/timovi --skill timovi')" title="Copy">⧉</button>
+      </div>
+      <a href="https://github.com/theminimalcreator/timovi" class="btn-star" target="_blank">
+        <span class="star">★</span> Star on GitHub
+      </a>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-label">What is Timovi</div>
+    <h2>Assemble a digital product team inside your AI coding agent</h2>
+    <p class="section-desc">
+      If Claude Code is a solo developer, <strong>Timovi is the whole product team</strong>.
+      It gives you 13 specialized AI agents — each with their own skills, responsibilities, and
+      handoffs — coordinated through a structured pipeline that takes features from plan to review.
+      Lightweight, opinionated, and built for indie devs who finish what they start.
+    </p>
+  </section>
+
+  <section>
+    <div class="section-label">The Team</div>
+    <h2>13 roles. One command.</h2>
+    <div class="roles-grid">
+      <div class="role-card"><div class="emoji">🎯</div><div class="name">Product Manager</div><div class="sub">PRDs, priorities, roadmap</div></div>
+      <div class="role-card"><div class="emoji">🎨</div><div class="name">UX Designer</div><div class="sub">Personas, flows, wireframes</div></div>
+      <div class="role-card"><div class="emoji">🏗️</div><div class="name">Architect</div><div class="sub">ADRs, feasibility, patterns</div></div>
+      <div class="role-card"><div class="emoji">👨‍💻</div><div class="name">Tech Lead</div><div class="sub">Breakdown, coordination</div></div>
+      <div class="role-card"><div class="emoji">⚛️</div><div class="name">Frontend</div><div class="sub">Components, pages, state</div></div>
+      <div class="role-card"><div class="emoji">🖥️</div><div class="name">Backend</div><div class="sub">APIs, services, logic</div></div>
+      <div class="role-card"><div class="emoji">🗄️</div><div class="name">DBA</div><div class="sub">Schema, queries, indexes</div></div>
+      <div class="role-card"><div class="emoji">✅</div><div class="name">QA Engineer</div><div class="sub">Tests, edge cases</div></div>
+      <div class="role-card"><div class="emoji">📣</div><div class="name">Marketing</div><div class="sub">Positioning, GTM strategy</div></div>
+      <div class="role-card"><div class="emoji">🚀</div><div class="name">DevOps</div><div class="sub">CI/CD, deploy, infra</div></div>
+      <div class="role-card"><div class="emoji">📝</div><div class="name">Tech Writer</div><div class="sub">Docs, README, changelogs</div></div>
+      <div class="role-card"><div class="emoji">💼</div><div class="name">LinkedIn</div><div class="sub">Professional content</div></div>
+      <div class="role-card"><div class="emoji">📱</div><div class="name">Instagram</div><div class="sub">Social content strategy</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">Pipeline</div>
+    <h2>From idea to shipped feature</h2>
+    <div class="pipeline-flow">
+      <div class="pipe-step"><div class="phase">Plan</div><div class="roles">PM + UX + Architect</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="phase">Spec</div><div class="roles">Product Manager</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="phase">Breakdown</div><div class="roles">Tech Lead + Architect</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="phase">Execute</div><div class="roles">Eng + DBA + DevOps</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="phase">Review</div><div class="roles">QA + Tech Lead + Writer</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">Comparison</div>
+    <h2>How Timovi stacks up</h2>
+    <table class="comparison-table">
+      <thead><tr><th></th><th>Timovi</th><th>OpenClaw</th><th>Paperclip</th></tr></thead>
+      <tbody>
+        <tr><td>Pre-built product roles</td><td><span class="check">✓</span> 13 roles</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+        <tr><td>End-to-end pipeline</td><td><span class="check">✓</span> Plan→Review</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+        <tr><td>Zero-config start</td><td><span class="check">✓</span> One command</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+        <tr><td>Role handoffs</td><td><span class="check">✓</span> Structured</td><td><span class="partial">~</span></td><td><span class="cross">✗</span></td></tr>
+        <tr><td>Skill-based architecture</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>Opinionated workflows</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="partial">~</span></td></tr>
+        <tr><td>State persistence</td><td><span class="check">✓</span> JSON checkpoints</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>Lightweight (no server)</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="cta-section">
+    <h2 style="font-size: clamp(28px, 4vw, 40px); font-weight: 700; margin-bottom: 16px;">Ready to assemble your team?</h2>
+    <p style="color: #71717a; font-size: 17px; margin-bottom: 32px;">One command. Your entire product pipeline.</p>
+    <div class="hero-cta">
+      <div class="cmd-box">
+        <span>npx skills add theminimalcreator/timovi --skill timovi</span>
+        <button onclick="navigator.clipboard.writeText('npx skills add theminimalcreator/timovi --skill timovi')" title="Copy">⧉</button>
+      </div>
+      <a href="https://github.com/theminimalcreator/timovi" class="btn-star" target="_blank">
+        <span class="star">★</span> Star on GitHub
+      </a>
+    </div>
+    <p style="color: #52525b; font-size: 13px; margin-top: 24px;">MIT License · github.com/theminimalcreator/timovi</p>
+  </div>
+</div>
+
+<!-- ===============================================================
+     VARIANT B — Terminal-native: monospace, command-line aesthetic
+     =============================================================== -->
+<div class="variant-b">
+  <div class="term-container">
+
+    <!-- Window chrome -->
+    <div class="term-header"><span class="red"></span><span class="yellow"></span><span class="green"></span> timovi — zsh — 80×24</div>
+    <div class="term-body">
+      <div class="term-line"><span class="prompt">$</span> <span class="cmd">npx skills add theminimalcreator/timovi --skill timovi</span><span class="cursor"></span></div>
+    </div>
+
+    <div class="term-section">
+      <div class="term-section-title"># Timovi — Your digital product team in one command</div>
+      <div class="term-line"><span class="output-bold">Assemble a digital product team inside your AI coding agent.</span></div>
+      <div class="term-line"><span class="output">If Claude Code is a solo developer, Timovi is the whole product team.</span></div>
+      <div class="term-line"><span class="output">13 specialized AI agents. Structured pipeline. One command.</span></div>
+      <div class="term-line"><span class="comment"># Star on GitHub: github.com/theminimalcreator/timovi</span></div>
+    </div>
+
+    <div class="term-section">
+      <div class="term-section-title"># What is Timovi?</div>
+      <div class="term-line"><span class="output">Timovi gives you a complete digital product team that runs inside your AI</span></div>
+      <div class="term-line"><span class="output">coding agent. Each role has its own skills, responsibilities, and handoffs —</span></div>
+      <div class="term-line"><span class="output">all coordinated through a Plan → Spec → Breakdown → Execute → Review pipeline.</span></div>
+    </div>
+
+    <div class="term-section">
+      <div class="term-section-title"># Meet the team (13 roles loaded)</div>
+      <div class="term-line"><span class="role-line"><span class="icon">🎯</span> Product Manager .......... PRDs, priorities, roadmap</span></div>
+      <div class="term-line"><span class="role-line"><span class="icon">🎨</span> UX Designer .............. Personas, flows, wireframes</span></div>
+      <div class="term-line"><span class="role-line"><span class="icon">🏗️</span> Software Architect ....... ADRs, feasibility, patterns</span></div>
+      <div class="term-line"><span class="role-line"><span class="icon">👨‍💻</span> Tech Lead ................ Breakdown, coordination</span></div>
+      <div class="term-line"><span class="role-line"><span class="icon">⚛️</span> Frontend Engineer ........ Components, pages, state</span></div>
+      <div class="term-line"><span class="role-line"><span class="icon">🖥️</span> Backend Engineer ......... APIs, services, logic</span></div>
+      <div class="term-line"><span class="role-line"><span class="icon">🗄️</span> DBA ....................... Schema, queries, indexes</span></div>
+      <div class="term-line"><span class="role-line"><span class="icon">✅</span> QA Engineer .............. Tests, acceptance criteria</span></div>
+      <div class="term-line"><span class="role-line"><span class="icon">📣</span> Head of Marketing ........ Positioning, GTM</span></div>
+      <div class="term-line"><span class="role-line"><span class="icon">🚀</span> DevOps ................... CI/CD, deploy, infra</span></div>
+      <div class="term-line"><span class="role-line"><span class="icon">📝</span> Tech Writer .............. Docs, README, changelogs</span></div>
+      <div class="term-line"><span class="role-line"><span class="icon">💼</span> LinkedIn ................. Professional content</span></div>
+      <div class="term-line"><span class="role-line"><span class="icon">📱</span> Instagram ................ Social content strategy</span></div>
+    </div>
+
+    <div class="term-section">
+      <div class="term-section-title"># Pipeline: Plan → Spec → Breakdown → Execute → Review</div>
+      <div class="term-line"><span class="pipeline-line"><span class="active">[PLAN]</span> PM + UX Designer + Architect → Plan notes</span></div>
+      <div class="term-line"><span class="pipeline-line"><span class="active">[SPEC]</span> Product Manager → PRD.md</span></div>
+      <div class="term-line"><span class="pipeline-line"><span class="active">[BREAKDOWN]</span> Tech Lead + Architect → Issues + feature.json</span></div>
+      <div class="term-line"><span class="pipeline-line"><span class="active">[EXECUTE]</span> Frontend, Backend, DBA, DevOps → Pull Requests</span></div>
+      <div class="term-line"><span class="pipeline-line"><span class="active">[REVIEW]</span> QA + Tech Lead + Tech Writer → Approved & merged</span></div>
+    </div>
+
+    <div class="term-section">
+      <div class="term-section-title"># Comparison: Timovi vs OpenClaw vs Paperclip</div>
+      <div class="table-row table-header"><span></span><span>Timovi</span><span>OpenClaw</span><span>Paperclip</span></div>
+      <hr class="table-divider">
+      <div class="table-row"><span>Pre-built roles</span><span>✓ 13 roles</span><span>✗</span><span>✗</span></div>
+      <div class="table-row"><span>E2E pipeline</span><span>✓ Plan→Review</span><span>✗</span><span>✗</span></div>
+      <div class="table-row"><span>Zero config</span><span>✓ 1 command</span><span>✗</span><span>✗</span></div>
+      <div class="table-row"><span>Role handoffs</span><span>✓ Structured</span><span>~</span><span>✗</span></div>
+      <div class="table-row"><span>Skill-based</span><span>✓</span><span>✗</span><span>✓</span></div>
+      <div class="table-row"><span>Opinionated</span><span>✓</span><span>✗</span><span>~</span></div>
+      <div class="table-row"><span>State persistence</span><span>✓ JSON</span><span>✓</span><span>✓</span></div>
+      <div class="table-row"><span>No server</span><span>✓ Lightweight</span><span>✗</span><span>✓</span></div>
+    </div>
+
+    <div class="term-cta">
+      <div class="term-line"><span class="output-gold">Ready to assemble your team?</span></div>
+      <div class="term-line" style="margin-bottom:16px;"><span class="output">One command. Your entire product pipeline.</span></div>
+      <div class="term-line"><span class="prompt">$</span> <span class="cmd">npx skills add theminimalcreator/timovi --skill timovi</span><span class="cursor"></span></div>
+      <div class="term-line" style="margin-top:12px;"><span class="comment"># github.com/theminimalcreator/timovi ★ Star on GitHub</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===============================================================
+     VARIANT C — Card-cascade: asymmetric, editorial, staggered cards
+     =============================================================== -->
+<div class="variant-c">
+  <div class="grid-layout">
+
+    <!-- Hero -->
+    <div class="hero-block">
+      <div class="hero-text">
+        <span class="tag">v0.01 · Open Source</span>
+        <h1>Your <em>digital product team</em> in one command</h1>
+        <p class="hero-subtitle">
+          Assemble a full product team inside your AI coding agent. 13 specialized roles.
+          One structured pipeline. Zero configuration.
+        </p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <div style="background:rgba(24,24,27,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px 20px;font-family:monospace;font-size:14px;display:flex;align-items:center;gap:10px;">
+            npx skills add theminimalcreator/timovi --skill timovi
+            <button onclick="navigator.clipboard.writeText('npx skills add theminimalcreator/timovi --skill timovi')" style="background:none;border:none;color:#71717a;cursor:pointer;font-size:14px;">⧉</button>
+          </div>
+          <a href="https://github.com/theminimalcreator/timovi" target="_blank" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:14px 24px;font-size:14px;font-weight:600;color:#e4e4e7;display:flex;align-items:center;gap:8px;">
+            <span style="color:#FFD700;">★</span> Star on GitHub
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <span class="line-gold">$ timovi</span>
+        <span>▸ Loading 13 roles...</span>
+        <span>▸ Product Manager ready</span>
+        <span>▸ UX Designer ready</span>
+        <span>▸ Tech Lead ready</span>
+        <span>▸ Frontend Engineer ready</span>
+        <span>▸ Backend Engineer ready</span>
+        <span class="line-green">▸ Team assembled. Pipeline: Plan →</span>
+        <span style="color:#52525b;">▸ Type your feature idea...</span>
+      </div>
+    </div>
+
+    <!-- What -->
+    <section>
+      <div class="section-header">
+        <div class="num">01</div>
+        <h2>What is Timovi?</h2>
+      </div>
+      <div class="what-block">
+        <div></div>
+        <div>
+          <p style="margin-bottom:16px;">If Claude Code is a solo developer, <strong>Timovi is the whole product team.</strong></p>
+          <p>It gives you 13 specialized AI agents — each with their own skills, responsibilities, and handoffs — coordinated through a structured pipeline that takes features from plan to review. Built for indie devs who want to ship, not just build.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roles -->
+    <section>
+      <div class="section-header">
+        <div class="num">02</div>
+        <h2>13 roles. One command.</h2>
+      </div>
+      <div class="roles-masonry">
+        <div class="role-tile"><div class="emoji">🎯</div><div class="name">Product Manager</div><div class="sub">PRDs, priorities</div></div>
+        <div class="role-tile"><div class="emoji">🎨</div><div class="name">UX Designer</div><div class="sub">Personas, flows</div></div>
+        <div class="role-tile"><div class="emoji">🏗️</div><div class="name">Architect</div><div class="sub">ADRs, patterns</div></div>
+        <div class="role-tile"><div class="emoji">👨‍💻</div><div class="name">Tech Lead</div><div class="sub">Coordination</div></div>
+        <div class="role-tile"><div class="emoji">⚛️</div><div class="name">Frontend</div><div class="sub">Components</div></div>
+        <div class="role-tile"><div class="emoji">🖥️</div><div class="name">Backend</div><div class="sub">APIs, logic</div></div>
+        <div class="role-tile"><div class="emoji">🗄️</div><div class="name">DBA</div><div class="sub">Schema</div></div>
+        <div class="role-tile"><div class="emoji">✅</div><div class="name">QA Engineer</div><div class="sub">Tests</div></div>
+        <div class="role-tile"><div class="emoji">📣</div><div class="name">Marketing</div><div class="sub">GTM</div></div>
+        <div class="role-tile"><div class="emoji">🚀</div><div class="name">DevOps</div><div class="sub">CI/CD</div></div>
+        <div class="role-tile"><div class="emoji">📝</div><div class="name">Tech Writer</div><div class="sub">Docs</div></div>
+        <div class="role-tile"><div class="emoji">💼</div><div class="name">LinkedIn</div><div class="sub">Content</div></div>
+        <div class="role-tile"><div class="emoji">📱</div><div class="name">Instagram</div><div class="sub">Social</div></div>
+      </div>
+    </section>
+
+    <!-- Pipeline -->
+    <section>
+      <div class="section-header">
+        <div class="num">03</div>
+        <h2>Pipeline: Plan → Review</h2>
+      </div>
+      <div class="pipeline-fancy">
+        <div class="pipe-card"><div class="phase">Plan</div><div class="roles">PM + UX + Architect</div></div>
+        <div class="pipe-card"><div class="phase">Spec</div><div class="roles">Product Manager</div></div>
+        <div class="pipe-card"><div class="phase">Breakdown</div><div class="roles">Tech Lead + Architect</div></div>
+        <div class="pipe-card"><div class="phase">Execute</div><div class="roles">Eng + DBA + DevOps</div></div>
+        <div class="pipe-card"><div class="phase">Review</div><div class="roles">QA + TL + Writer</div></div>
+      </div>
+    </section>
+
+    <!-- Comparison -->
+    <section>
+      <div class="section-header">
+        <div class="num">04</div>
+        <h2>How Timovi stacks up</h2>
+      </div>
+      <div class="comparison-cards">
+        <div class="comp-card highlight">
+          <h4 style="color:#FFD700;">Timovi</h4>
+          <div class="row"><span>Pre-built roles</span><span style="color:#22c55e;">✓ 13</span></div>
+          <div class="row"><span>E2E pipeline</span><span style="color:#22c55e;">✓</span></div>
+          <div class="row"><span>Zero config</span><span style="color:#22c55e;">✓</span></div>
+          <div class="row"><span>Role handoffs</span><span style="color:#22c55e;">✓ Structured</span></div>
+          <div class="row"><span>Skill-based</span><span style="color:#22c55e;">✓</span></div>
+          <div class="row"><span>No server needed</span><span style="color:#22c55e;">✓</span></div>
+        </div>
+        <div class="comp-card">
+          <h4>OpenClaw</h4>
+          <div class="row"><span>Pre-built roles</span><span style="color:#ef4444;">✗</span></div>
+          <div class="row"><span>E2E pipeline</span><span style="color:#ef4444;">✗</span></div>
+          <div class="row"><span>Zero config</span><span style="color:#ef4444;">✗</span></div>
+          <div class="row"><span>Role handoffs</span><span style="color:#f59e0b;">~</span></div>
+          <div class="row"><span>Skill-based</span><span style="color:#ef4444;">✗</span></div>
+          <div class="row"><span>No server needed</span><span style="color:#ef4444;">✗</span></div>
+        </div>
+        <div class="comp-card">
+          <h4>Paperclip</h4>
+          <div class="row"><span>Pre-built roles</span><span style="color:#ef4444;">✗</span></div>
+          <div class="row"><span>E2E pipeline</span><span style="color:#ef4444;">✗</span></div>
+          <div class="row"><span>Zero config</span><span style="color:#ef4444;">✗</span></div>
+          <div class="row"><span>Role handoffs</span><span style="color:#ef4444;">✗</span></div>
+          <div class="row"><span>Skill-based</span><span style="color:#22c55e;">✓</span></div>
+          <div class="row"><span>No server needed</span><span style="color:#22c55e;">✓</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-block">
+      <h2 style="font-size:clamp(24px,4vw,36px);font-weight:700;margin-bottom:12px;letter-spacing:-0.02em;">Ready to assemble your team?</h2>
+      <p style="color:#71717a;font-size:16px;margin-bottom:28px;">One command. Your entire product pipeline.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <div style="background:rgba(24,24,27,0.8);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px 20px;font-family:monospace;font-size:14px;display:flex;align-items:center;gap:10px;">
+          npx skills add theminimalcreator/timovi --skill timovi
+          <button onclick="navigator.clipboard.writeText('npx skills add theminimalcreator/timovi --skill timovi')" style="background:none;border:none;color:#71717a;cursor:pointer;font-size:14px;">⧉</button>
+        </div>
+        <a href="https://github.com/theminimalcreator/timovi" target="_blank" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:14px 24px;font-size:14px;font-weight:600;color:#e4e4e7;display:flex;align-items:center;gap:8px;">
+          <span style="color:#FFD700;">★</span> Star on GitHub
+        </a>
+      </div>
+      <p style="color:#52525b;font-size:13px;margin-top:20px;">MIT License · github.com/theminimalcreator/timovi</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===============================================================
+     PROTOTYPE SWITCHER — floating, keyboard-navigable, URL-driven
+     =============================================================== -->
+<div class="prototype-bar" id="prototypeSwitcher">
+  <button id="prevBtn" title="Previous variant (←)">◀</button>
+  <div class="variant-label" id="variantLabel">A <span class="name">— Hermes-style</span></div>
+  <button id="nextBtn" title="Next variant (→)">▶</button>
+</div>
+
+<script>
+// Variant configuration
+const VARIANTS = [
+  { key: 'A', name: 'Hermes-style', selector: '.variant-a' },
+  { key: 'B', name: 'Terminal-native', selector: '.variant-b' },
+  { key: 'C', name: 'Card-cascade', selector: '.variant-c' }
+];
+
+// Read current variant from URL search param
+function getVariantFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const v = params.get('variant')?.toUpperCase();
+  const found = VARIANTS.find(vr => vr.key === v);
+  return found ? found.key : 'A';
+}
+
+// Set variant in URL and render
+function setVariant(key) {
+  const url = new URL(window.location);
+  url.searchParams.set('variant', key);
+  history.replaceState(null, '', url);
+  renderVariant(key);
+}
+
+// Render the selected variant (hide others)
+function renderVariant(key) {
+  VARIANTS.forEach(v => {
+    const el = document.querySelector(v.selector);
+    if (el) el.style.display = v.key === key ? 'block' : 'none';
+  });
+  const label = document.getElementById('variantLabel');
+  const variant = VARIANTS.find(v => v.key === key);
+  if (label && variant) {
+    label.innerHTML = variant.key + ' <span class="name">— ' + variant.name + '</span>';
+  }
+}
+
+// Cycle to next/prev
+function cycle(direction) {
+  const current = getVariantFromURL();
+  const currentIdx = VARIANTS.findIndex(v => v.key === current);
+  const nextIdx = (currentIdx + direction + VARIANTS.length) % VARIANTS.length;
+  setVariant(VARIANTS[nextIdx].key);
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+  const initial = getVariantFromURL();
+  renderVariant(initial);
+
+  document.getElementById('prevBtn').addEventListener('click', () => cycle(-1));
+  document.getElementById('nextBtn').addEventListener('click', () => cycle(1));
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+    if (e.key === 'ArrowLeft') { e.preventDefault(); cycle(-1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); cycle(1); }
+  });
+});
+</script>
+
+</body>
+</html>

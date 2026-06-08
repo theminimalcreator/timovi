@@ -33,10 +33,12 @@
     {
       "id": "ISSUE-3",
       "title": "Tech Writer Review — revisar 3 READMEs",
-      "status": "in_progress",
+      "status": "done",
       "started_at": "2026-06-08T23:10:00Z",
+      "completed_at": "2026-06-08T23:20:00Z",
       "assigned_roles": ["technical-writer"],
-      "blocked_by": ["ISSUE-2"]
+      "blocked_by": ["ISSUE-2"],
+      "notes": "## README.md (English): APPROVED WITH SUGGESTIONS\n\nPros: Clear builder-focused tone, excellent structure (tables, diagram, code blocks), all badges/formatting preserved, correct domain terminology (Role, Phase, Layer 0, Checkpoints, Issues, Feature), language selector present.\n\nCons: 1 minor — 'Process templates' should be 'Workflow templates' per CONTEXT.md domain language (avoid: process).\n\nFix applied: Changed to 'Workflow templates'.\n\n## README.pt.md (Portuguese): APPROVED WITH SUGGESTIONS\n\nPros: Natural Brazilian Portuguese, non-mechanical translation, all formatting/code blocks/badges preserved, Phase names and Role names correctly preserved in English, language selector present.\n\nCons:\n1. 'Papel' used instead of domain term 'Role' — table header, body text (4 occurrences fixed)\n2. 'Templates de processo' — should be 'Templates de Workflow' (1 fix)\n\nFixes applied: All terminology violations corrected.\n\n## README.es.md (Spanish): REJECTED (now fixed)\n\nPros: Natural Spanish translation, good idiom localization, all formatting preserved, language selector present, Phase/Role names preserved.\n\nCons:\n1. 'Rol' used instead of 'Role' — 4 occurrences (fixed)\n2. 'Plantillas de proceso' -> 'Plantillas de Workflow' (fixed)\n3. SPELLING: 'orquestrador' -> 'orquestador' — Portuguese-influenced error, 4 occurrences (fixed)\n4. SPELLING: 'orquestración' -> 'orquestación' — 1 occurrence (fixed)\n\nFixes applied: All 10 edits applied successfully. Verified with grep — zero remaining instances of incorrect terms."
     },
     {
       "id": "ISSUE-4",
