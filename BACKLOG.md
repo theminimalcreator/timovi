@@ -26,6 +26,7 @@
 | 8 | Parallel Spec + Prototype | 4 | 4 | 4 | 4 | 4.0 |
 | 9 | Pipeline rollback | 3 | 2 | 2 | 5 | 3.0 |
 | 10 | Smart checkpoint diffs | 3 | 3 | 3 | 3 | 3.0 |
+| 31 | Git branch + commit por fase | 5 | 5 | 4 | 3 | 4.3 |
 
 ## 🎨 Artefatos & Visualização
 
@@ -81,9 +82,10 @@
 | 1 | skills.sh listing otimizado | 4.0 | 1 | Distribuição |
 | 2 | Bootstrap com templates de stack | 4.3 | 2 | Bootstrap |
 | 3 | Quickstart mode | 4.3 | 2 | Bootstrap |
-| 4 | Dashboard HTML unificado | 4.5 | 3 | Artefatos |
-| 5 | Role: Tech Writer | 4.5 | 3 | Roles |
-| 6 | Linear / GitHub Issues / Jira sync | 4.0 | 4 | Integrações |
+| 4 | Git branch + commit por fase | 4.3 | 3 | Pipeline |
+| 5 | Dashboard HTML unificado | 4.5 | 3 | Artefatos |
+| 6 | Role: Tech Writer | 4.5 | 3 | Roles |
+| 7 | Linear / GitHub Issues / Jira sync | 4.3 | 4 | Integrações |
 
 ---
 
