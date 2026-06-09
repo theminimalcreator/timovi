@@ -1,174 +1,174 @@
-# Feature Pipeline — Ciclo de Desenvolvimento
+# Feature Pipeline — Development Cycle
 
-Este documento descreve o pipeline de 5 fases para desenvolver features
-com o time de produto. É ativado quando `.product-team/state.json` tem `phase: "ready"`.
+This document describes the 5-phase pipeline for developing features
+with the product team. It is activated when `.product-team/state.json` has `phase: "ready"`.
 
 ---
 
-## Ao iniciar uma nova feature
+## When starting a new feature
 
-Leia `.product-team/state.json`:
+Read `.product-team/state.json`:
 
-**Se `current_feature` for `null`:**
-→ O time está ocioso. Apresente:
+**If `current_feature` is `null`:**
+→ The team is idle. Present:
 
-> "Time pronto. Você quer:
-> 1. **Nova feature** — pipeline completo (Plan → Spec → Breakdown → Execute → Review)
-> 2. **Importar PRD** — pular para Breakdown com um PRD existente
-> 3. **Ver status** — listar features concluídas e pendentes"
+> "Team ready. You can:
+> 1. **New feature** — full pipeline (Plan → Spec → Breakdown → Execute → Review)
+> 2. **Import PRD** — skip to Breakdown with an existing PRD
+> 3. **View status** — list completed and pending features"
 
-**Se o usuário escolher opção 2 (importar PRD):**
+**If user chooses option 2 (import PRD):**
 
-Pergunte:
+Ask:
 
-> "Onde está o PRD? Me dê o caminho do arquivo."
+> "Where's the PRD? Give me the file path."
 
-Após receber o caminho:
-1. Leia o arquivo PRD
-2. Extraia o nome da feature do conteúdo (ou peça para o usuário nomear)
-3. Crie `.product-team/artifacts/<feature-name>/`
-4. Copie o PRD para `PRD.md`
-5. Crie `feature.json` com `prd.source: "imported"` e `pipeline_phase: "breakdown"`
-6. Atualize `.product-team/state.json` → `current_feature: "<name>"`
-7. Pergunte: "PRD importado. Quer pular direto para Breakdown ou revisar o planejamento primeiro?"
-   - Se **Breakdown**: vá para Fase 3
-   - Se **revisar**: execute Fase 1 (Plan) com o PRD como contexto
+After receiving the path:
+1. Read the PRD file
+2. Extract the feature name from the content (or ask the user to name it)
+3. Create `.product-team/artifacts/<feature-name>/`
+4. Copy the PRD to `PRD.md`
+5. Create `feature.json` with `prd.source: "imported"` and `pipeline_phase: "breakdown"`
+6. Update `.product-team/state.json` → `current_feature: "<name>"`
+7. Ask: "PRD imported. Skip straight to Breakdown or review the plan first?"
+   - If **Breakdown**: go to Phase 3
+   - If **review**: execute Phase 1 (Plan) with the PRD as context
 
-**Se `current_feature` estiver definido:**
-→ Uma feature está em andamento. Apresente o progresso e sugira retomar.
+**If `current_feature` is set:**
+→ A feature is in progress. Present the progress and suggest resuming.
 
-Leia `.product-team/artifacts/<feature>/feature.json` para mostrar status:
+Read `.product-team/artifacts/<feature>/feature.json` to show status:
 
-> "📊 **Feature: [nome]** — Fase: [pipeline_phase]"
+> "📊 **Feature: [name]** — Phase: [pipeline_phase]"
 > "Issues: [N] total, [X] done, [Y] in_progress, [Z] blocked, [W] pending"
-> "Continuar?"
+> "Continue?"
 
 ---
 
-## Fase 1 — PLAN (Planejamento Multi-papel)
+## Phase 1 — PLAN (Multi-role Planning)
 
-**Objetivo:** Extrair o domínio da feature, stress-testar o plano, alinhar
-PM, UX e Architect através de rounds de perguntas e cross-examination.
+**Goal:** Extract the feature domain, stress-test the plan, align
+PM, UX and Architect through rounds of questions and cross-examination.
 
-### 1.1 Ativar multi-role grilling
+### 1.1 Activate multi-role grilling
 
-Diga:
+Say:
 
-> "Iniciando a **Fase 1 — Plan**. Vou ativar PM, UX Designer e Software Architect
-> para uma sessão de planejamento.
+> "Starting **Phase 1 — Plan**. I'll activate PM, UX Designer and Software Architect
+> for a planning session.
 >
-> Cada um fará perguntas do seu ângulo. Vamos uma pergunta por vez.
-> Ao final de cada round, os papéis farão cross-examination entre si."
+> Each will ask questions from their angle. One question at a time.
+> At the end of each round, roles will cross-examine each other."
 
-Carregue `.product-team/knowledge/CONTEXT.md`, `.product-team/knowledge/ARCHITECTURE.md`.
+Load `.product-team/knowledge/CONTEXT.md`, `.product-team/knowledge/ARCHITECTURE.md`.
 
-Os 3 papéis fazem perguntas alternadas. O orquestrador controla o turno.
-Cada papel faz **1 pergunta por round** e aguarda resposta antes do próximo.
+The 3 roles ask alternating questions. The orchestrator controls turns.
+Each role asks **1 question per round** and waits for a response before the next.
 
-### 1.2 Estrutura do Round
+### 1.2 Round Structure
 
-Cada round segue esta sequência:
+Each round follows this sequence:
 
-1. **PM pergunta** → usuário responde
-2. **UX Designer pergunta** → usuário responde
-3. **Software Architect pergunta** → usuário responde
-4. **Cross-examination** (debate interno entre papéis):
-   - PM questiona UX e Architect sobre decisões tomadas (1 pergunta para cada)
-   - UX questiona PM e Architect (1 pergunta para cada)
-   - Architect questiona PM e UX (1 pergunta para cada)
+1. **PM asks** → user responds
+2. **UX Designer asks** → user responds
+3. **Software Architect asks** → user responds
+4. **Cross-examination** (internal debate between roles):
+   - PM questions UX and Architect about decisions made (1 question each)
+   - UX questions PM and Architect (1 question each)
+   - Architect questions PM and UX (1 question each)
 
-Total por round: 3 perguntas do usuário + 3 cross-questions.
+Total per round: 3 user questions + 3 cross-questions.
 
-**Exemplos de cross-examination:**
-- PM → UX: "Esse fluxo cobre o cenário onde o usuário abandona no meio?"
-- UX → Architect: "Essa estrutura de módulos escala pra mobile que o PM mencionou?"
-- Architect → PM: "A métrica de sucesso é mensurável com a stack atual?"
+**Cross-examination examples:**
+- PM → UX: "Does this flow cover the scenario where the user abandons halfway?"
+- UX → Architect: "Does this module structure scale to mobile that PM mentioned?"
+- Architect → PM: "Is the success metric measurable with the current stack?"
 
-### 1.3 Rounds e progressão
+### 1.3 Rounds and progression
 
 **Round 1 — PM:**
-> "Qual problema de negócio esta feature resolve? Quem é o usuário impactado
-> e qual métrica define sucesso?"
+> "What business problem does this feature solve? Who is the impacted user
+> and what metric defines success?"
 
-→ UX pergunta → Architect pergunta → Cross-examination
+→ UX asks → Architect asks → Cross-examination
 
 **Round 2 — UX:**
-> "Em que momento o usuário usa isso? O que ele está fazendo imediatamente
-> ANTES e DEPOIS de interagir com esta feature?"
+> "At what moment does the user use this? What are they doing immediately
+> BEFORE and AFTER interacting with this feature?"
 
-→ PM pergunta → Architect pergunta → Cross-examination
+→ PM asks → Architect asks → Cross-examination
 
 **Round 3 — Architect:**
-> "Esta feature toca quais módulos existentes? Precisa de nova tabela,
-> novo endpoint, nova integração?"
+> "Which existing modules does this feature touch? Does it need a new table,
+> new endpoint, new integration?"
 
 → Cross-examination
 
-### 1.4 Decisão de continuidade
+### 1.4 Continuity decision
 
-Após o **round 3**, o orchestrator pergunta:
+After **round 3**, the orchestrator asks:
 
-> "Completamos 3 rounds de planejamento. O plano está claro o suficiente
-> para avançar para a Spec (PRD) ou quer continuar explorando?
+> "We've completed 3 planning rounds. Is the plan clear enough
+> to move forward to Spec (PRD) or want to keep exploring?
 >
-> 1. **Avançar para Spec** — gerar PRD
-> 2. **Continuar planejamento** — mais rounds de perguntas"
+> 1. **Move to Spec** — generate PRD
+> 2. **Continue planning** — more question rounds"
 
-- Se **avançar**: vá para 1.5 (Síntese)
-- Se **continuar**: execute mais rounds (até o máximo de 10 rounds)
-  - A cada round adicional, os papéis alternam quem começa (PM → UX → Architect → PM...)
-  - Após cada round adicional, pergunte novamente: "Continuar ou avançar?"
-  - O usuário pode pedir para avançar a qualquer momento ("spec", "pronto", "chega", "avançar")
+- If **move to Spec**: go to 1.5 (Synthesis)
+- If **continue**: execute more rounds (up to a max of 10 rounds)
+  - Each additional round, roles alternate who starts (PM → UX → Architect → PM...)
+  - After each additional round, ask again: "Continue or advance?"
+  - The user can request to advance at any time ("spec", "done", "enough", "advance")
 
-Máximo: **10 rounds** (30 perguntas do usuário + 30 cross-questions).
+Maximum: **10 rounds** (30 user questions + 30 cross-questions).
 
-### 1.5 Síntese
+### 1.5 Synthesis
 
-Ao final, resuma:
+At the end, summarize:
 
-> " Resumo do planejamento:"
-> - Problema: [resumo PM]
-> - Usuário e fluxo: [resumo UX]
-> - Impacto técnico: [resumo Architect]
+> "📋 Planning summary:"
+> - Problem: [PM summary]
+> - User and flow: [UX summary]
+> - Technical impact: [Architect summary]
 >
-> "Passamos para a Fase 2 — Spec (PRD)?"
+> "Move on to Phase 2 — Spec (PRD)?"
 
 ### 1.6 Checkpoint + Git commit
 
-Salve em `.product-team/state.json` → `features[].checkpoints.plan`.
+Save to `.product-team/state.json` → `features[].checkpoints.plan`.
 
-**Git:** Commite o planejamento (respeitando `git_mode` do state.json):
+**Git:** Commit the planning (respecting `git_mode` from state.json):
 ```bash
 git add .product-team/artifacts/<feature>/plan-notes.md
-git commit -m "plan: [resumo do planejamento em 1 frase]"
+git commit -m "plan: [1-sentence planning summary]"
 ```
 
 ---
 
-## Fase 2 — SPEC (PRD)
+## Phase 2 — SPEC (PRD)
 
-**Objetivo:** Sintetizar o planejamento em um PRD na linguagem do domínio.
+**Goal:** Synthesize the planning into a PRD in domain language.
 
-### 2.1 Criar feature directory
+### 2.1 Create feature directory
 
-Crie a estrutura:
+Create the structure:
 ```
 .product-team/artifacts/<feature-name>/
-├── feature.json    ← criado agora
-├── PRD.md          ← será escrito
-└── plan-notes.md   ← notas da Fase 1
+├── feature.json    ← created now
+├── PRD.md          ← will be written
+└── plan-notes.md   ← Phase 1 notes
 ```
 
-**Git:** Crie a branch da feature:
+**Git:** Create the feature branch:
 ```bash
 git checkout -b feat/<feature-slug>
 ```
-O slug é derivado do nome da feature: lowercase, espaços → hífens, remove caracteres especiais.
+The slug is derived from the feature name: lowercase, spaces → hyphens, remove special chars.
 Ex: "Framework Improvements v1" → `framework-improvements-v1`.
 
-Se git não estiver disponível ou o diretório não for um repo, mostre um aviso e continue sem git.
+If git is unavailable or the directory is not a repo, show a warning and continue without git.
 
-Inicialize `feature.json`:
+Initialize `feature.json`:
 ```json
 {
   "name": "<feature-name>",
@@ -179,169 +179,169 @@ Inicialize `feature.json`:
 }
 ```
 
-### 2.2 Ativar Product Manager
+### 2.2 Activate Product Manager
 
-Diga:
+Say:
 
-> "Iniciando a **Fase 2 — Spec**. O Product Manager vai sintetizar o
-> planejamento em um PRD."
+> "Starting **Phase 2 — Spec**. The Product Manager will synthesize the
+> planning into a PRD."
 
-Ative o papel `product-manager` (leia `roles/product-manager/SKILL.md`).
+Activate the `product-manager` role (read `roles/product-manager/SKILL.md`).
 
-O PM deve:
-1. Usar a linguagem do CONTEXT.md em todo o PRD
-2. Referenciar módulos da ARCHITECTURE.md
-3. Respeitar ADRs existentes
-4. Seguir o template PRD (Problem Statement, Solution, User Stories,
+The PM must:
+1. Use CONTEXT.md language throughout the PRD
+2. Reference modules from ARCHITECTURE.md
+3. Respect existing ADRs
+4. Follow the PRD template (Problem Statement, Solution, User Stories,
    Implementation Decisions, Testing Decisions, Out of Scope)
-5. Escrever o PRD em `.product-team/artifacts/<feature-name>/PRD.md`
+5. Write the PRD to `.product-team/artifacts/<feature-name>/PRD.md`
 
-### 2.3 Revisão e aprovação
+### 2.3 Review and approval
 
-Apresente o PRD e pergunte:
+Present the PRD and ask:
 
-> "O PRD está aprovado? Quer ajustar algo antes de decompor em issues?"
+> "Is the PRD approved? Want to adjust anything before decomposing into issues?"
 
-### 2.4 PRD HTML (Opcional — apenas new-feature)
+### 2.4 PRD HTML (Optional — new-feature only)
 
-Após o PRD aprovado, o PM oferece:
+After PRD is approved, the PM offers:
 
-> "Quer gerar uma versão HTML do PRD para visualização no browser?"
+> "Want to generate an HTML version of the PRD for browser viewing?"
 
-Se o usuário aceitar:
+If the user accepts:
 
-1. Leia o template `references/prd-template.html`
-2. Substitua os placeholders:
-   - `{{FEATURE_NAME}}` → nome da feature
-   - `{{FEATURE_STATUS}}` → status atual
-   - `{{FEATURE_PHASE}}` → fase atual
-   - `{{CREATED_AT}}` → data de criação
-   - `{{UPDATED_AT}}` → data de atualização
-   - `{{PM_NAME}}` → nome do PM (extraia do state.json → `user_name`)
-   - `{{ISSUE_COUNT}}` → número de issues (0 se ainda não houver)
-   - `{{PRD_CONTENT}}` → PRD renderizado em HTML (títulos → `<h3>`, tabelas → `<table>`, listas → `<ul>/<ol>`, parágrafos → `<p>`)
-   - `{{ISSUES_INLINE_DATA}}` → se issues existirem, embedar dados inline:
+1. Read the template `references/prd-template.html`
+2. Replace placeholders:
+   - `{{FEATURE_NAME}}` → feature name
+   - `{{FEATURE_STATUS}}` → current status
+   - `{{FEATURE_PHASE}}` → current phase
+   - `{{CREATED_AT}}` → creation date
+   - `{{UPDATED_AT}}` → update date
+   - `{{PM_NAME}}` → PM name (extract from state.json → `user_name`)
+   - `{{ISSUE_COUNT}}` → issue count (0 if none yet)
+   - `{{PRD_CONTENT}}` → PRD rendered as HTML (headings → `<h3>`, tables → `<table>`, lists → `<ul>/<ol>`, paragraphs → `<p>`)
+   - `{{ISSUES_INLINE_DATA}}` → if issues exist, embed data inline:
      ```js
-     const EMBEDDED_ISSUES = [/* copiar do feature.json */];
+     const EMBEDDED_ISSUES = [/* copy from feature.json */];
      function renderIssues(issues) { ... }
      renderIssues(EMBEDDED_ISSUES);
      ```
-     Se não houver issues ainda, deixar o placeholder vazio (mostra empty state)
-3. Salve em `.product-team/artifacts/<feature-name>/PRD.html`
-4. Execute `open .product-team/artifacts/<feature-name>/PRD.html` para abrir no browser
-5. **Git:** Commite o HTML (respeitando `git_mode`):
+     If no issues yet, leave the placeholder empty (shows empty state)
+3. Save to `.product-team/artifacts/<feature-name>/PRD.html`
+4. Run `open .product-team/artifacts/<feature-name>/PRD.html` to open in browser
+5. **Git:** Commit the HTML (respecting `git_mode`):
    ```bash
    git add .product-team/artifacts/<feature>/PRD.html
    git commit -m "spec: add PRD.html"
    ```
 
-> **Nota:** Issues são embedadas inline no HTML — funcionam sempre, mesmo em `file://`.
+> **Note:** Issues are embedded inline in the HTML — they always work, even on `file://`.
 
-Se o usuário recusar, pule para o próximo passo.
+If the user declines, skip to the next step.
 
-**Regra:** HTML do PRD é oferecido apenas no workflow `new-feature.md`. Bug fixes não oferecem.
+**Rule:** PRD HTML is offered only in the `new-feature.md` workflow. Bug fixes don't offer it.
 
-### 2.5 Protótipo HTML (Opcional — apenas new-feature)
+### 2.5 HTML Prototype (Optional — new-feature only)
 
-Após o PRD HTML (ou após a aprovação se o usuário recusou o HTML), o UX Designer pergunta:
+After PRD HTML (or after approval if the user declined HTML), the UX Designer asks:
 
-> "Precisa de um protótipo interativo para validar os fluxos?"
+> "Need an interactive prototype to validate the flows?"
 
-Se o usuário aceitar, pergunte o nível de fidelidade:
+If the user accepts, ask the fidelity level:
 
-> "Qual nível de fidelidade?"
-> - **Wireframe** — baixa fidelidade, caixas e placeholders
-> - **Produto final** — alta fidelidade, com identidade visual do projeto
+> "What fidelity level?"
+> - **Wireframe** — low fidelity, boxes and placeholders
+> - **Final product** — high fidelity, with project visual identity
 
-O UX Designer deve:
+The UX Designer must:
 
-1. Leia o template `references/prototype-template.html`
-2. Se **produto final**, extraia a identidade visual do projeto:
-   - Leia `.product-team/knowledge/STACK.md` → cores, fontes
-   - Leia `.product-team/knowledge/CONVENTIONS.md` → padrões visuais
-   - Se o projeto tiver arquivos de tema (tailwind.config, theme.ts, etc.), leia-os
-3. Substitua os placeholders:
-   - `{{PROTOTYPE_TITLE}}` → nome da feature + "— Prototype"
-   - `{{FIDELITY_MODE}}` → "Wireframe" ou "High-Fidelity"
-   - `{{PRIMARY_COLOR}}` → cor primária do projeto (padrão: #3b82f6)
-   - `{{SECONDARY_COLOR}}` → cor secundária (padrão: #6366f1)
-   - `{{ACCENT_COLOR}}` → cor de destaque (padrão: #f59e0b)
-   - `{{BG_COLOR}}` → cor de fundo (padrão: #0d1117)
-   - `{{SURFACE_COLOR}}` → cor de superfície (padrão: #161b22)
-   - `{{TEXT_COLOR}}` → cor de texto (padrão: #c9d1d9)
-   - `{{TEXT_MUTED_COLOR}}` → cor de texto secundário (padrão: #8b949e)
-   - `{{BORDER_COLOR}}` → cor de borda (padrão: #30363d)
-   - `{{SUCCESS_COLOR}}` → cor de sucesso (padrão: #22c55e)
-   - `{{DANGER_COLOR}}` → cor de perigo (padrão: #ef4444)
-   - `{{FONT_FAMILY}}` → família de fontes (padrão: -apple-system, sans-serif)
-   - `{{BORDER_RADIUS}}` → arredondamento (padrão: 6px)
-   - `{{PROJECT_NAME}}` → nome do projeto
-   - `{{NAV_ITEMS}}` → itens de navegação baseados nos fluxos do PRD
-   - `{{SCREENS}}` → telas do protótipo (wireframe .wf-* ou final .card/.btn/.input)
-4. Salve em `.product-team/artifacts/<feature-name>/prototype.html`
-5. Execute `open .product-team/artifacts/<feature-name>/prototype.html` para abrir no browser
-6. **Git:** Commite o protótipo (respeitando `git_mode`):
+1. Read the template `references/prototype-template.html`
+2. If **final product**, extract visual identity from the project:
+   - Read `.product-team/knowledge/STACK.md` → colors, fonts
+   - Read `.product-team/knowledge/CONVENTIONS.md` → visual patterns
+   - If the project has theme files (tailwind.config, theme.ts, etc.), read them
+3. Replace placeholders:
+   - `{{PROTOTYPE_TITLE}}` → feature name + "— Prototype"
+   - `{{FIDELITY_MODE}}` → "Wireframe" or "High-Fidelity"
+   - `{{PRIMARY_COLOR}}` → project primary color (default: #3b82f6)
+   - `{{SECONDARY_COLOR}}` → secondary color (default: #6366f1)
+   - `{{ACCENT_COLOR}}` → accent color (default: #f59e0b)
+   - `{{BG_COLOR}}` → background color (default: #0d1117)
+   - `{{SURFACE_COLOR}}` → surface color (default: #161b22)
+   - `{{TEXT_COLOR}}` → text color (default: #c9d1d9)
+   - `{{TEXT_MUTED_COLOR}}` → muted text color (default: #8b949e)
+   - `{{BORDER_COLOR}}` → border color (default: #30363d)
+   - `{{SUCCESS_COLOR}}` → success color (default: #22c55e)
+   - `{{DANGER_COLOR}}` → danger color (default: #ef4444)
+   - `{{FONT_FAMILY}}` → font family (default: -apple-system, sans-serif)
+   - `{{BORDER_RADIUS}}` → border radius (default: 6px)
+   - `{{PROJECT_NAME}}` → project name
+   - `{{NAV_ITEMS}}` → nav items based on PRD flows
+   - `{{SCREENS}}` → prototype screens (wireframe .wf-* or final .card/.btn/.input)
+4. Save to `.product-team/artifacts/<feature-name>/prototype.html`
+5. Run `open .product-team/artifacts/<feature-name>/prototype.html` to open in browser
+6. **Git:** Commit the prototype (respecting `git_mode`):
    ```bash
    git add .product-team/artifacts/<feature>/prototype.html
    git commit -m "spec: add prototype"
    ```
 
-> **Wireframe mode:** Use as classes `.wf-box`, `.wf-placeholder`, `.wf-button`, `.wf-grid`.
+> **Wireframe mode:** Use classes `.wf-box`, `.wf-placeholder`, `.wf-button`, `.wf-grid`.
 > **Final product mode:** Use `.card`, `.btn`, `.btn-primary`, `.btn-secondary`, `.input`, `.badge`.
 
-Se o usuário recusar, pule.
+If the user declines, skip.
 
-### 2.6 Salvar checkpoint + Git commit
+### 2.6 Save checkpoint + Git commit
 
-Atualize `.product-team/artifacts/<feature-name>/feature.json`:
+Update `.product-team/artifacts/<feature-name>/feature.json`:
 - `pipeline_phase: "breakdown"`
 - `prd.path`, `prd.created_at`
 - `updated_at`
 
-**Git:** Commite o PRD (respeitando `git_mode`):
+**Git:** Commit the PRD (respecting `git_mode`):
 ```bash
 git add .product-team/artifacts/<feature>/PRD.md .product-team/artifacts/<feature>/feature.json
-git commit -m "spec: PRD — [título do PRD]"
+git commit -m "spec: PRD — [PRD title]"
 ```
 
 ---
 
-## Fase 3 — BREAKDOWN (Decomposição em Issues)
+## Phase 3 — BREAKDOWN (Decompose into Issues)
 
-**Objetivo:** Quebrar o PRD em issues verticais com role assignment.
+**Goal:** Break the PRD into vertical issues with role assignment.
 
-### 3.1 Ativar Tech Lead + Architect
+### 3.1 Activate Tech Lead + Architect
 
-Diga:
+Say:
 
-> "Iniciando a **Fase 3 — Breakdown**. Tech Lead e Architect vão decompor
-> o PRD em issues executáveis."
+> "Starting **Phase 3 — Breakdown**. Tech Lead and Architect will decompose
+> the PRD into executable issues."
 
-Ative `tech-lead` e `software-architect` (leia as skills).
+Activate `tech-lead` and `software-architect` (read the skills).
 
-### 3.2 Decomposição
+### 3.2 Decomposition
 
-Leia `.product-team/artifacts/<feature-name>/PRD.md`.
+Read `.product-team/artifacts/<feature-name>/PRD.md`.
 
-Siga o pattern do `to-issues`:
-- Cada issue é um slice vertical (atravessa todas as camadas)
-- Issues são AFK (auto-executáveis) ou HITL (precisam de decisão humana)
-- Prefira AFK
+Follow the `to-issues` pattern:
+- Each issue is a vertical slice (crosses all layers)
+- Issues are AFK (auto-executable) or HITL (require human decision)
+- Prefer AFK
 
-**Além disso, cada issue ganha `assigned_roles`:**
+**Additionally, each issue gets `assigned_roles`:**
 
-| Se a issue toca... | Assigned roles |
-|-------------------|----------------|
+| If the issue touches... | Assigned roles |
+|------------------------|----------------|
 | Schema, migrations, queries | `["backend-engineer", "dba"]` |
-| API endpoints, serviços | `["backend-engineer"]` |
-| UI, componentes, páginas | `["frontend-engineer"]` |
-| Testes, aceitação | `["quality-engineer"]` |
+| API endpoints, services | `["backend-engineer"]` |
+| UI, components, pages | `["frontend-engineer"]` |
+| Tests, acceptance | `["quality-engineer"]` |
 | CI/CD, deploy, infra | `["devops"]` |
-| Múltiplas camadas | `["backend-engineer", "frontend-engineer"]` |
+| Multiple layers | `["backend-engineer", "frontend-engineer"]` |
 
-### 3.3 Salvar issues no feature.json
+### 3.3 Save issues to feature.json
 
-Atualize `.product-team/artifacts/<feature-name>/feature.json`:
+Update `.product-team/artifacts/<feature-name>/feature.json`:
 
 ```json
 {
@@ -366,27 +366,26 @@ Atualize `.product-team/artifacts/<feature-name>/feature.json`:
 }
 ```
 
-Consulte `references/feature-schema.md` para o schema completo.
+See `references/feature-schema.md` for the complete schema.
 
-### 3.4 Review da decomposição
+### 3.4 Decomposition review
 
-Apresente a lista numerada e pergunte:
+Present the numbered list and ask:
 
-> "As issues fazem sentido? A granularidade está boa? As dependências
-> estão corretas?"
+> "Do the issues make sense? Is the granularity good? Are the dependencies
+> correct?"
 
-### 3.4 Salvar
+### 3.5 Save
 
-As issues estão salvas em `feature.json` — nada a publicar externamente
+Issues are saved in `feature.json` — nothing to publish externally.
 
+### 3.6 Checkpoint + Git commit
 
-### 3.5 Checkpoint + Git commit
-
-Salve em `.product-team/state.json`:
+Save to `.product-team/state.json`:
 - `features[].checkpoints.breakdown`
-- `features[].issues` (array completo com IDs, títulos, dependências, roles)
+- `features[].issues` (full array with IDs, titles, dependencies, roles)
 
-**Git:** Commite o breakdown (respeitando `git_mode`):
+**Git:** Commit the breakdown (respecting `git_mode`):
 ```bash
 git add .product-team/artifacts/<feature>/feature.json
 git commit -m "breakdown: [N] issues"
@@ -394,35 +393,35 @@ git commit -m "breakdown: [N] issues"
 
 ---
 
-## Fase 4 — EXECUTE (Execução Paralela)
+## Phase 4 — EXECUTE (Parallel Execution)
 
-**Objetivo:** Executar as issues em paralelo, respeitando dependências.
+**Goal:** Execute issues in parallel, respecting dependencies.
 
-### 4.1 Construir o DAG
+### 4.1 Build the DAG
 
-Com base nas issues e seus `blocked_by`, construa o grafo de dependências.
+Based on the issues and their `blocked_by`, build the dependency graph.
 
-Diga:
+Say:
 
-> "Iniciando a **Fase 4 — Execute**."
+> "Starting **Phase 4 — Execute**."
 >
-> "DAG de execução:"
-> - **Round 1 (sem blockers):** [N] issues — [liste]
-> - **Round 2 (após Round 1):** [N] issues — [liste]
-> - **Round 3 (após Round 2):** [N] issues — [liste]
+> "Execution DAG:"
+> - **Round 1 (no blockers):** [N] issues — [list]
+> - **Round 2 (after Round 1):** [N] issues — [list]
+> - **Round 3 (after Round 2):** [N] issues — [list]
 >
-> "Vou executar round por round. Issues dentro do mesmo round rodam em paralelo."
+> "I'll execute round by round. Issues within the same round run in parallel."
 
-### 4.2 Executar rounds
+### 4.2 Execute rounds
 
-Para cada round:
+For each round:
 
-1. Para cada issue no round, spawne um subagent.
-   O prompt deve incluir instruções para o agente:
+1. For each issue in the round, spawn a subagent.
+   The prompt must include instructions for the agent:
 
-   > "Você é o papel [assigned_roles] no time CDT.
+   > "You are the [assigned_roles] role on the CDT team.
    >
-   > 1. Carregue a base de conhecimento:
+   > 1. Load the knowledge base:
    >    - `.product-team/knowledge/CONTEXT.md`
    >    - `.product-team/knowledge/ARCHITECTURE.md`
    >    - `.product-team/knowledge/STACK.md`
@@ -430,199 +429,199 @@ Para cada round:
    >    - `.product-team/knowledge/best-practices/INDEX.md`
    >    - `.product-team/playbooks/[role]/INDEX.md`
    >
-   > 2. Leia `.product-team/artifacts/<feature>/feature.json`
-   >    Sua issue: **[ISSUE-X]** — [título]
+   > 2. Read `.product-team/artifacts/<feature>/feature.json`
+   >    Your issue: **[ISSUE-X]** — [title]
    >
-   > 3. Atualize `feature.json`: status → `in_progress`, `started_at`, `agent_id`
+   > 3. Update `feature.json`: status → `in_progress`, `started_at`, `agent_id`
    >
-   > 4. Implemente a issue seguindo as convenções e boas práticas
+   > 4. Implement the issue following conventions and best practices
    >
-   > 5. Ao concluir, atualize `feature.json`:
+   > 5. On completion, update `feature.json`:
    >    - `status`: `done`
-   >    - `pr_url`: URL do PR
+   >    - `pr_url`: PR URL
    >    - `completed_at`: timestamp
    >
-   > 6. Commite a issue (respeitando `git_mode` do state.json):
+   > 6. Commit the issue (respecting `git_mode` from state.json):
    >    ```bash
    >    git add -A
-   >    git commit -m "[ISSUE-ID]: [título da issue]"
+   >    git commit -m "[ISSUE-ID]: [issue title]"
    >    ```
    >
-   > 7. Se falhar, atualize `feature.json`:
+   > 7. If it fails, update `feature.json`:
    >    - `status`: `failed`
-   >    - `notes`: descrição do erro"
+   >    - `notes`: error description"
 
-2. Monitore progresso lendo `feature.json` periodicamente
-3. Quando todas as issues do round concluírem, avance
+2. Monitor progress by reading `feature.json` periodically
+3. When all issues in the round complete, advance
 
-### 4.3 Relatório de execução
+### 4.3 Execution report
 
-Leia `feature.json` e apresente:
+Read `feature.json` and present:
 
-> "✅ **Execução concluída:**"
-> - [N]/[N] issues implementadas
-> - [N] PRs abertos: [liste]
-> - [N] issues com ressalvas: [liste]
+> "✅ **Execution complete:**"
+> - [N]/[N] issues implemented
+> - [N] PRs opened: [list]
+> - [N] issues with caveats: [list]
 
 ### 4.4 Checkpoint
 
-Atualize `feature.json`:
+Update `feature.json`:
 - `pipeline_phase: "review"`
 - `updated_at`
 
-**Git:** Commite o fim da execução (respeitando `git_mode`):
+**Git:** Commit execution completion (respecting `git_mode`):
 ```bash
 git add .product-team/artifacts/<feature>/feature.json
-git commit -m "execute: todas as issues concluídas"
+git commit -m "execute: all issues completed"
 ```
 
-Não precisa atualizar `.product-team/state.json` — o `feature.json` é a fonte da verdade.
+No need to update `.product-team/state.json` — `feature.json` is the source of truth.
 
 ---
 
-## Fase 5 — REVIEW (Revisão e Qualidade)
+## Phase 5 — REVIEW (Review and Quality)
 
-**Objetivo:** Revisar código, testar aceitação, garantir qualidade.
+**Goal:** Review code, test acceptance, ensure quality.
 
-### 5.1 Ativar QA Engineer + Tech Lead
+### 5.1 Activate QA Engineer + Tech Lead
 
-Diga:
+Say:
 
-> "Iniciando a **Fase 5 — Review**. QA Engineer e Tech Lead vão revisar."
+> "Starting **Phase 5 — Review**. QA Engineer and Tech Lead will review."
 
-Ative `quality-engineer` e `tech-lead`.
+Activate `quality-engineer` and `tech-lead`.
 
 ### 5.2 QA Review
 
 QA Engineer:
-- Revisa cada PR contra os critérios de aceitação da issue
-- Testa happy path, alternativo, edge cases
-- Reporta: ✅ aprovado / 🟡 aprovado com ressalvas / 🔴 rejeitado
+- Reviews each PR against the issue's acceptance criteria
+- Tests happy path, alternative path, edge cases
+- Reports: ✅ approved / 🟡 approved with caveats / 🔴 rejected
 
 ### 5.3 Tech Lead Review
 
 Tech Lead:
-- Revisa código: padrões, ADRs, convenções
-- Verifica cobertura de testes
-- Reporta: ✅ aprovado / 🔴 solicita mudanças
+- Reviews code: standards, ADRs, conventions
+- Checks test coverage
+- Reports: ✅ approved / 🔴 requests changes
 
-### 5.4 Relatório final
+### 5.4 Final report
 
-Leia `feature.json` e apresente:
+Read `feature.json` and present:
 
-> "📊 **Review concluído:**"
-> - ✅ [N] PRs aprovados
-> - 🟡 [N] PRs com ressalvas menores
-> - 🔴 [N] PRs que precisam de ajuste
+> "📊 **Review complete:**"
+> - ✅ [N] PRs approved
+> - 🟡 [N] PRs with minor caveats
+> - 🔴 [N] PRs needing adjustments
 >
-> "Feature **[nome]** — status final: [aprovada / pendente]"
+> "Feature **[name]** — final status: [approved / pending]"
 
 ### 5.5 Git commit + Human-gated merge
 
-**Git:** Commite a revisão (respeitando `git_mode`):
+**Git:** Commit the review (respecting `git_mode`):
 ```bash
 git add .product-team/artifacts/<feature>/feature.json
 git commit -m "review: QA + TL approved"
 ```
 
-Após o commit, pergunte:
+After committing, ask:
 
-> "QA e Tech Lead aprovaram. Todas as issues estão concluídas.
-> Quer fazer o merge para a branch principal?"
+> "QA and Tech Lead approved. All issues are complete.
+> Merge to main branch?"
 >
-> ⚠️ O merge NUNCA é automático — sempre requer sua confirmação.
+> ⚠️ Merge is NEVER automatic — always requires your confirmation.
 
-Se o usuário aprovar:
+If the user approves:
 ```bash
 git checkout main
 git merge feat/<feature-slug>
 ```
 
-Se houver conflito, reporte e aguarde resolução manual.
+If there's a conflict, report and wait for manual resolution.
 
-### 5.6 Checkpoint final
+### 5.6 Final checkpoint
 
-Atualize `feature.json`:
-- `status: "done"` (ou `"paused"` se houver pendências)
+Update `feature.json`:
+- `status: "done"` (or `"paused"` if there are pending items)
 - `pipeline_phase: null`
 - `updated_at`
 
-Atualize `.product-team/state.json`:
-- `current_feature: null` (time liberado para próxima feature)
+Update `.product-team/state.json`:
+- `current_feature: null` (team freed for next feature)
 
-### 5.7 Retrospectiva (interna — usuário NÃO participa)
+### 5.7 Retrospective (internal — user does NOT participate)
 
-Após o merge, convoque todos os Roles que participaram desta feature para uma retrospectiva Agile interna.
+After merge, convene all Roles that participated in this feature for an internal Agile retrospective.
 
-> "Iniciando retrospectiva interna. Os Roles vão discutir os aprendizados desta feature."
+> "Starting internal retrospective. Roles will discuss learnings from this feature."
 
-**Formato Agile — conversa entre Roles (cross-examination):**
+**Agile format — conversation between Roles (cross-examination):**
 
-1. **✅ What went well?** — Cada Role compartilha o que funcionou bem
-2. **❌ What didn't go well?** — Cada Role aponta o que poderia ser melhor
-3. **🔧 Actions** — Cada Role propõe 1-2 ações concretas para a próxima feature
+1. **✅ What went well?** — Each Role shares what worked
+2. **❌ What didn't go well?** — Each Role points out what could be improved
+3. **🔧 Actions** — Each Role proposes 1-2 concrete actions for the next feature
 
-**Salvar aprendizados:**
+**Save learnings:**
 
-Crie/atualize `memory/<NNN>.md` (projeto):
+Create/update `memory/<NNN>.md` (project):
 ```markdown
 # Retrospective — [FEATURE]
 
 ## ✅ What went well
-- [aprendizado 1]
-- [aprendizado 2]
+- [learning 1]
+- [learning 2]
 
 ## ❌ What didn't go well
-- [ponto de melhoria 1]
+- [improvement point 1]
 
 ## 🔧 Actions
-- [ação 1]
-- [ação 2]
+- [action 1]
+- [action 2]
 ```
 
-Para cada Role participante, crie/atualize `memory/roles/<role>/<NNN>.md`:
+For each participating Role, create/update `memory/roles/<role>/<NNN>.md`:
 ```markdown
 # [ROLE] — [FEATURE]
 
 ## What I learned
-- [aprendizado específico do papel]
+- [role-specific learning]
 
 ## What I'll do differently
-- [ação específica do papel]
+- [role-specific action]
 ```
 
-**Regra de splitting:**
-- Se `memory/<NNN>.md` ultrapassar **100 linhas**, crie `<NNN+1>.md` com o conteúdo excedente
-- Se `memory/roles/<role>/<NNN>.md` ultrapassar **100 linhas**, crie `<NNN+1>.md`
-- Atualize o `INDEX.md` correspondente com a nova entrada
+**Splitting rule:**
+- If `memory/<NNN>.md` exceeds **100 lines**, create `<NNN+1>.md` with the overflow content
+- If `memory/roles/<role>/<NNN>.md` exceeds **100 lines**, create `<NNN+1>.md`
+- Update the corresponding `INDEX.md` with the new entry
 
-**Salvar retro completa:**
-Crie `.product-team/artifacts/<feature>/retrospective.md` com a transcrição completa da conversa.
+**Save full retro:**
+Create `.product-team/artifacts/<feature>/retrospective.md` with the full conversation transcript.
 
-Após salvar, apresente ao usuário:
+After saving, present to the user:
 
-> "🧠 Retrospectiva concluída. Aprendizados salvos."
-> - ✅ [N] coisas que funcionaram bem
-> - ❌ [N] pontos de melhoria
-> - 🔧 [N] ações para a próxima feature
+> "🧠 Retrospective complete. Learnings saved."
+> - ✅ [N] things that went well
+> - ❌ [N] improvement points
+> - 🔧 [N] actions for the next feature
 >
-> "Memórias atualizadas: projeto + [N] roles."
+> "Memories updated: project + [N] roles."
 
 ---
 
-## Checkpoint preventivo entre fases
+## Preventive checkpoint between phases
 
-Após cada fase concluída, ofereça pausa se a sessão estiver longa:
+After each phase is completed, offer a pause if the session has been long:
 
-> "[Nome], a **[fase atual]** terminou e o checkpoint está salvo.
-> A próxima fase é a **[próxima fase]**. Você quer:
+> "[Name], **[current phase]** is done and the checkpoint is saved.
+> Next phase is **[next phase]**. Do you want to:
 >
-> 1. Continuar agora
-> 2. Pausar aqui, digitar `/clear` e voltar com `timovi` em
->    uma sessão nova (recomendado se a sessão já está longa)
+> 1. Continue now
+> 2. Pause here, type `/clear` and come back with `timovi` in
+>    a fresh session (recommended if the session is already long)
 >
-> Pressione 1, 2, ou digite CONTINUAR para opção 1."
+> Press 1, 2, or type CONTINUE for option 1."
 
-**Não ofereça este prompt logo após uma retomada de sessão.** A sessão já
-está limpa. O prompt só vale depois que uma fase produziu trabalho real
-dentro da sessão atual.
+**Don't offer this prompt right after a session resume.** The session is
+already fresh. The prompt only applies after a phase produced real work
+within the current session.

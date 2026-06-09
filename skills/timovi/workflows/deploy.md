@@ -1,53 +1,53 @@
 # Workflow: Deploy
 
-Pipeline para deploy de features em produção.
+Pipeline for deploying features to production.
 
-## Papéis envolvidos
+## Roles involved
 
-| Fase | Papéis | Descrição |
-|------|--------|-----------|
-| Prep | DevOps | Preparar build, configurar ambiente |
-| Approval | Tech Lead | Aprovar deploy |
-| Deploy | DevOps | Executar deploy |
-| Verify | QA, DevOps | Smoke test, monitoramento |
+| Phase | Roles | Description |
+|------|--------|-------------|
+| Prep | DevOps | Prepare build, configure environment |
+| Approval | Tech Lead | Approve deploy |
+| Deploy | DevOps | Execute deploy |
+| Verify | QA, DevOps | Smoke test, monitoring |
 
-## Pré-requisitos
+## Prerequisites
 
-- [ ] Todos os PRs da feature aprovados (Review concluído)
-- [ ] Migrations de banco revisadas pelo DBA
-- [ ] Variáveis de ambiente e secrets configurados
-- [ ] Plano de rollback documentado
+- [ ] All feature PRs approved (Review complete)
+- [ ] Database migrations reviewed by DBA
+- [ ] Environment variables and secrets configured
+- [ ] Rollback plan documented
 
-## Fluxo
+## Flow
 
 ### 1. Prep (DevOps)
 
-- Gerar build de produção
-- Rodar migrations em staging
-- Validar health checks
-- Gerar changelog da feature
+- Generate production build
+- Run migrations in staging
+- Validate health checks
+- Generate feature changelog
 
 ### 2. Approval (Tech Lead)
 
-- Revisar changelog
-- Confirmar que todos os PRs foram aprovados
-- Autorizar deploy: ✅ Go / 🔴 Hold
+- Review changelog
+- Confirm all PRs have been approved
+- Authorize deploy: ✅ Go / 🔴 Hold
 
 ### 3. Deploy (DevOps)
 
-- Executar deploy (com plano de rollback pronto)
-- Rodar migrations em produção (se houver)
-- Monitorar métricas (erro rate, latency, CPU)
+- Execute deploy (with rollback plan ready)
+- Run migrations in production (if any)
+- Monitor metrics (error rate, latency, CPU)
 
 ### 4. Verify (QA + DevOps)
 
-- QA: smoke test dos fluxos principais em produção
-- DevOps: verificar logs, alertas, métricas por 15 minutos
-- Se tudo OK: deploy concluído ✅
-- Se anomalia: rollback imediato 🔴
+- QA: smoke test main flows in production
+- DevOps: check logs, alerts, metrics for 15 minutes
+- If all OK: deploy complete ✅
+- If anomaly: immediate rollback 🔴
 
-## Artefatos
+## Artifacts
 
-- Changelog da feature
-- Log de deploy (timestamp, duração, status)
-- Relatório de smoke test
+- Feature changelog
+- Deploy log (timestamp, duration, status)
+- Smoke test report

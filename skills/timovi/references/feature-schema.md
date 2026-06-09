@@ -1,8 +1,8 @@
 # Feature Schema — feature.json
 
-Cada feature tem seu próprio `feature.json` em `.product-team/artifacts/<feature-name>/feature.json`.
+Each feature has its own `feature.json` at `.product-team/artifacts/<feature-name>/feature.json`.
 
-## Estrutura completa
+## Full structure
 
 ```json
 {
@@ -27,7 +27,7 @@ Cada feature tem seu próprio `feature.json` em `.product-team/artifacts/<featur
       "status": "done",
       "assigned_roles": ["backend-engineer", "dba"],
       "blocked_by": [],
-      "pr_url": "https://github.com/user/cdt/pull/42",
+      "pr_url": "https://github.com/user/repo/pull/42",
       "started_at": "2026-06-05T11:00:00Z",
       "completed_at": "2026-06-05T11:30:00Z",
       "agent_id": "agent-abc123",
@@ -55,42 +55,42 @@ Cada feature tem seu próprio `feature.json` em `.product-team/artifacts/<featur
 }
 ```
 
-## Campos
+## Fields
 
 ### Feature
 
-| Campo | Tipo | Descrição |
-|-------|------|-----------|
-| `name` | string | Slug da feature (ex: `workout-plans`) |
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | string | Feature slug (e.g.: `workout-plans`) |
 | `status` | string | `"planned"`, `"in_progress"`, `"done"`, `"paused"` |
 | `created_at` | string | ISO 8601 timestamp |
-| `updated_at` | string | ISO 8601 — atualizado a cada mudança de status |
-| `pipeline_phase` | string | Fase atual: `"plan"`, `"spec"`, `"breakdown"`, `"execute"`, `"review"` |
-| `branch` | string | Branch git da feature (ex: `feat/workout-plans`). Criada na Fase Spec. |
+| `updated_at` | string | ISO 8601 — updated on every status change |
+| `pipeline_phase` | string | Current phase: `"plan"`, `"spec"`, `"breakdown"`, `"execute"`, `"review"` |
+| `branch` | string | Feature git branch (e.g.: `feat/workout-plans`). Created in Spec Phase. |
 
 ### PRD
 
-| Campo | Tipo | Descrição |
-|-------|------|-----------|
-| `path` | string | Caminho relativo ao `.product-team/` |
-| `source` | string | `"generated"` (criado pelo PM) ou `"imported"` (usuário trouxe de fora) |
-| `imported_from` | string\|null | Se importado, caminho do arquivo original |
+| Field | Type | Description |
+|-------|------|-------------|
+| `path` | string | Path relative to `.product-team/` |
+| `source` | string | `"generated"` (created by PM) or `"imported"` (user brought from outside) |
+| `imported_from` | string\|null | If imported, path to original file |
 | `created_at` | string | ISO 8601 |
 
 ### Issue
 
-| Campo | Tipo | Descrição |
-|-------|------|-----------|
-| `id` | string | ID sequencial (ISSUE-1, ISSUE-2, ...) |
-| `title` | string | Título descritivo |
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | Sequential ID (ISSUE-1, ISSUE-2, ...) |
+| `title` | string | Descriptive title |
 | `status` | string | `"pending"`, `"in_progress"`, `"done"`, `"blocked"`, `"failed"` |
-| `assigned_roles` | string[] | Papéis responsáveis |
-| `blocked_by` | string[] | IDs das issues bloqueantes |
-| `pr_url` | string\|null | URL do PR (preenchido após implementação) |
-| `started_at` | string\|null | Quando o agente começou |
-| `completed_at` | string\|null | Quando o agente terminou |
-| `agent_id` | string\|null | ID do subagent que está executando |
-| `notes` | string | Notas livres (erros, bloqueios, observações) |
+| `assigned_roles` | string[] | Responsible roles |
+| `blocked_by` | string[] | IDs of blocking issues |
+| `pr_url` | string\|null | PR URL (filled after implementation) |
+| `started_at` | string\|null | When the agent started |
+| `completed_at` | string\|null | When the agent finished |
+| `agent_id` | string\|null | Subagent ID that is executing |
+| `notes` | string | Freeform notes (errors, blocks, observations) |
 
 ## Status transitions
 
@@ -103,13 +103,13 @@ pending ──────→ in_progress ──────→ done
    │                  │
    │                  └──→ failed
    │
-   └──→ (issue nunca spawnada, aguardando round)
+   └──→ (issue never spawned, waiting for round)
 ```
 
-## Regras
+## Rules
 
-- **Agentes atualizam `feature.json` diretamente.** É a fonte da verdade.
-- **`updated_at` é atualizado a cada mudança** em qualquer issue ou fase.
-- **`blocked` → `in_progress`** acontece automaticamente quando a issue bloqueante marca `done`.
-- **Nunca remova issues** — marque como `done` ou `failed`.
-- **`notes` é para comunicação entre agentes** — erros, decisões, contexto.
+- **Agents update `feature.json` directly.** It is the source of truth.
+- **`updated_at` is updated on every change** to any issue or phase.
+- **`blocked` → `in_progress`** happens automatically when the blocking issue marks `done`.
+- **Never remove issues** — mark as `done` or `failed`.
+- **`notes` is for inter-agent communication** — errors, decisions, context.

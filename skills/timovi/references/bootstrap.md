@@ -1,401 +1,401 @@
-# Bootstrap — Inicialização do Product Team
+# Bootstrap — Product Team Initialization
 
-Este documento descreve o fluxo de primeira execução. Siga cada seção em ordem.
-Faça **uma pergunta por vez**. Não avance sem resposta do usuário.
+This document describes the first-run flow. Follow each section in order.
+Ask **one question at a time**. Do not advance without user response.
 
 ---
 
-## Fase 0 — Boas-vindas
+## Phase 0 — Welcome
 
-Diga:
+Say:
 
-> "👋 Olá! Vou configurar seu time de produto.
+> "👋 Hello! I'm going to set up your product team.
 >
-> Vou fazer algumas perguntas para construir a base de conhecimento do projeto
-> e montar o time com os papéis certos. No final, você terá um time completo
-> de agentes especialistas no seu produto.
+> I'll ask a few questions to build the project knowledge base
+> and assemble the team with the right roles. In the end, you'll have a full team
+> of specialist agents for your product.
 >
-> Vamos começar?"
+> Shall we begin?"
 
-Aguarde confirmação.
+Wait for confirmation.
 
 ---
 
-## Fase 1 — Identidade do Projeto
+## Phase 1 — Project Identity
 
-### 1.1 Nome do usuário
+### 1.1 User name
 
-Pergunte:
+Ask:
 
-> "Qual é o seu nome?"
+> "What's your name?"
 
-Salve em `.product-team/state.json` → `user_name`.
+Save to `.product-team/state.json` → `user_name`.
 
-### 1.2 Idioma
+### 1.2 Language
 
-Pergunte:
+Ask:
 
-> "Em qual idioma prefere que o time se comunique com você?"
+> "What language should the team communicate with you in?"
 >
-> Exemplos: `pt-br`, `en-us`, `es`
+> Examples: `en-us`, `pt-br`, `es`
 
-Salve em `.product-team/state.json` → `chat_language`.
+Save to `.product-team/state.json` → `chat_language`.
 
-### 1.3 Nome do projeto
+### 1.3 Project name
 
-Pergunte:
+Ask:
 
-> "Qual é o nome do produto?"
+> "What's the product name?"
 
-Salve em `.product-team/state.json` → `project`.
+Save to `.product-team/state.json` → `project`.
 
-### 1.4 Descrição em uma frase
+### 1.4 One-line description
 
-Pergunte:
+Ask:
 
-> "Descreva seu produto em uma frase. Qual problema ele resolve e para quem?"
+> "Describe your product in one sentence. What problem does it solve and for whom?"
 
-Salve em `.product-team/state.json` → `description`.
-
----
-
-## Fase 2 — Detecção do Terreno
-
-### 2.1 Código existente?
-
-Explore o diretório atual. Ignore node_modules, .git, dist, build, coverage.
-
-Se encontrar código-fonte (`.ts`, `.js`, `.py`, `.go`, `.rb`, `.java`, `.dart`, etc.):
-
-Diga:
-
-> "🔍 Encontrei código-fonte no projeto. Isso significa que o produto já existe,
-> certo? Vou analisar a estrutura para construir a base de conhecimento."
-
-Prossiga para **Fase 3A (projeto com código)**.
-
-Se NÃO encontrar código-fonte:
-
-Pergunte:
-
-> "Este é um produto novo (sem código ainda) ou o código está em outro lugar?"
-
-- Se **novo**: Prossiga para **Fase 3B (projeto novo)**
-- Se **outro lugar**: Pergunte o caminho e explore lá. Depois siga para Fase 3A ou 3B conforme apropriado.
+Save to `.product-team/state.json` → `description`.
 
 ---
 
-## Fase 3A — Projeto com Código Existente
+## Phase 2 — Terrain Detection
 
-### Passo 1: Análise da estrutura
+### 2.1 Existing code?
 
-Explore a estrutura de pastas. Identifique:
+Explore the current directory. Ignore node_modules, .git, dist, build, coverage.
 
-- **Linguagens e frameworks** (package.json, Cargo.toml, go.mod, requirements.txt, pubspec.yaml, etc.)
-- **Estrutura de módulos** (pastas principais, entry points)
-- **Banco de dados** (migrations, schema, ORM config)
-- **APIs e integrações** (rotas, clients HTTP, message queues)
+If source code is found (`.ts`, `.js`, `.py`, `.go`, `.rb`, `.java`, `.dart`, etc.):
 
-### Passo 2: Sugerir STACK.md
+Say:
 
-Com base na análise, gere `.product-team/knowledge/STACK.md`:
+> "🔍 I found source code in the project. This means the product already exists,
+> right? I'll analyze the structure to build the knowledge base."
+
+Proceed to **Phase 3A (project with code)**.
+
+If NO source code is found:
+
+Ask:
+
+> "Is this a brand new product (no code yet) or is the code somewhere else?"
+
+- If **new**: Proceed to **Phase 3B (new project)**
+- If **elsewhere**: Ask for the path and explore there. Then follow Phase 3A or 3B as appropriate.
+
+---
+
+## Phase 3A — Project with Existing Code
+
+### Step 1: Structure analysis
+
+Explore the folder structure. Identify:
+
+- **Languages and frameworks** (package.json, Cargo.toml, go.mod, requirements.txt, pubspec.yaml, etc.)
+- **Module structure** (main folders, entry points)
+- **Database** (migrations, schema, ORM config)
+- **APIs and integrations** (routes, HTTP clients, message queues)
+
+### Step 2: Propose STACK.md
+
+Based on the analysis, generate `.product-team/knowledge/STACK.md`:
 
 ```markdown
-# Stack Tecnológica — [PROJETO]
+# Tech Stack — [PROJECT]
 
 ## Frontend
 - **Framework:** [React / Next.js / Vue / Flutter / etc.]
-- **Linguagem:** [TypeScript / JavaScript / Dart / etc.]
-- **Estilo:** [Tailwind / CSS Modules / Styled Components / etc.]
-- **Gerenciamento de estado:** [Zustand / Redux / Context / etc.]
+- **Language:** [TypeScript / JavaScript / Dart / etc.]
+- **Styling:** [Tailwind / CSS Modules / Styled Components / etc.]
+- **State management:** [Zustand / Redux / Context / etc.]
 
 ## Backend
 - **Runtime:** [Node.js / Python / Go / Java / etc.]
 - **Framework:** [Express / NestJS / FastAPI / Spring / etc.]
 - **ORM:** [Prisma / TypeORM / SQLAlchemy / etc.]
 
-## Banco de Dados
-- **SGBD:** [PostgreSQL / MySQL / MongoDB / SQLite / etc.]
+## Database
+- **DBMS:** [PostgreSQL / MySQL / MongoDB / SQLite / etc.]
 - **Migrations:** [Prisma / Flyway / Alembic / etc.]
 
-## Infraestrutura
+## Infrastructure
 - **Hosting:** [Vercel / AWS / Railway / VPS / etc.]
 - **CI/CD:** [GitHub Actions / GitLab CI / etc.]
-- **Containerização:** [Docker / Kubernetes / none]
+- **Containerization:** [Docker / Kubernetes / none]
 
-## Dependências-chave
-- [liste 5-10 dependências principais]
+## Key Dependencies
+- [list 5-10 main dependencies]
 ```
 
-Apresente o rascunho e pergunte:
+Present the draft and ask:
 
-> " Detectei esta stack. Confere ou quer ajustar algo?"
+> "📊 I detected this stack. Does it look right or want to adjust anything?"
 
-### Passo 3: Sugerir CONTEXT.md
+### Step 3: Propose CONTEXT.md
 
-Analise o código em busca de entidades de domínio. Procure por:
-- Models/entities (classes, interfaces, tipos)
-- Tabelas do banco (schema.prisma, migrations)
-- Enums, constantes de domínio
-- Termos recorrentes em nomes de arquivos e funções
+Analyze the code for domain entities. Look for:
+- Models/entities (classes, interfaces, types)
+- Database tables (schema.prisma, migrations)
+- Enums, domain constants
+- Recurring terms in file and function names
 
-Para cada entidade candidata, identifique:
-1. **Nome canônico** (como o negócio chama)
-2. **Nome no código** (classe, tabela, tipo)
-3. **Descrição breve**
-4. **Sinônimos a evitar**
+For each candidate entity, identify:
+1. **Canonical name** (what the business calls it)
+2. **Name in code** (class, table, type)
+3. **Brief description**
+4. **Synonyms to avoid**
 
-Gere `.product-team/.product-team/knowledge/CONTEXT.md` usando o template:
+Generate `.product-team/knowledge/CONTEXT.md` using the template:
 
 ```markdown
-# [NOME DO PRODUTO]
+# [PRODUCT NAME]
 
-[Descrição em uma frase]
+[One-line description]
 
 ## Language
 
-**[Entidade 1]** (Entity):
-Descrição clara. No código, identificado como `NomeClasse` ou `nome_tabela`.
-_Avoid_: Sinônimo1, Sinônimo2
+**[Entity 1]** (Entity):
+Clear description. In code, identified as `ClassName` or `table_name`.
+_Avoid_: Synonym1, Synonym2
 
-**[Entidade 2]** (Entity):
-Descrição clara. No código, identificado como `NomeClasse` ou `nome_tabela`.
-_Avoid_: Sinônimo1, Sinônimo2
+**[Entity 2]** (Entity):
+Clear description. In code, identified as `ClassName` or `table_name`.
+_Avoid_: Synonym1, Synonym2
 
 ## Example dialogue
 
-**Dev:** "[pergunta comum de um dev novo]"
+**Dev:** "[common question from a new dev]"
 
-**Domain expert:** "[resposta usando os termos do domínio]"
+**Domain expert:** "[answer using domain terms]"
 ```
 
-**IMPORTANTE:** Não tente ser exaustivo. Liste as **5-10 entidades mais importantes**.
-O CONTEXT.md cresce com o tempo. O objetivo é ter uma base sólida, não perfeita.
+**IMPORTANT:** Don't try to be exhaustive. List the **5-10 most important entities**.
+CONTEXT.md grows over time. The goal is a solid foundation, not perfection.
 
-Apresente o rascunho e pergunte:
+Present the draft and ask:
 
-> "📖 Sugeri estas entidades de domínio com base no código. Confere? Quer
-> renomear alguma, adicionar ou remover?"
+> "📖 I suggested these domain entities based on the code. Does it look right? Want
+> to rename any, add, or remove?"
 
-Itere até o usuário aprovar.
+Iterate until the user approves.
 
-### Passo 4: Sugerir ARCHITECTURE.md
+### Step 4: Propose ARCHITECTURE.md
 
-Com base na estrutura de pastas e imports, gere `.product-team/knowledge/ARCHITECTURE.md`:
+Based on the folder structure and imports, generate `.product-team/knowledge/ARCHITECTURE.md`:
 
 ```markdown
-# Arquitetura — [PROJETO]
+# Architecture — [PROJECT]
 
-## Estrutura de Módulos
+## Module Structure
 
-| Módulo | Caminho | Responsabilidade |
-|--------|---------|-----------------|
-| [nome] | `apps/ou/packages/nome/` | [o que faz] |
+| Module | Path | Responsibility |
+|--------|------|-----------------|
+| [name] | `apps/or/packages/name/` | [what it does] |
 
-## Fluxo de Dados
+## Data Flow
 
-[Descreva como os dados fluem entre os módulos principais]
+[Describe how data flows between main modules]
 
 ## Entry Points
 
-| Entry Point | Arquivo | Descrição |
-|-------------|---------|-----------|
-| API | `apps/api/src/main.ts` | Servidor backend |
+| Entry Point | File | Description |
+|-------------|------|-------------|
+| API | `apps/api/src/main.ts` | Backend server |
 | Web | `apps/web/src/app/layout.tsx` | Frontend |
-| Worker | `apps/worker/src/index.ts` | Processamento assíncrono |
+| Worker | `apps/worker/src/index.ts` | Async processing |
 
-## Integrações Externas
+## External Integrations
 
-| Serviço | Propósito | Onde está configurado |
-|---------|-----------|----------------------|
-| [nome] | [o que faz] | [arquivo de config] |
+| Service | Purpose | Configured in |
+|---------|---------|---------------|
+| [name] | [what it does] | [config file] |
 
-## Padrões Arquiteturais
+## Architectural Patterns
 
-- [ex: Monorepo com Turborepo]
-- [ex: API REST com controllers → services → repositories]
-- [ex: Frontend com App Router, Server Components]
+- [e.g.: Monorepo with Turborepo]
+- [e.g.: REST API with controllers → services → repositories]
+- [e.g.: Frontend with App Router, Server Components]
 ```
 
-Apresente e pergunte:
+Present and ask:
 
-> "🏗️ Este é o mapa da arquitetura que detectei. Confere?"
+> "🏗️ This is the architecture map I detected. Does it look right?"
 
-### Passo 5: CONVENTIONS.md
+### Step 5: CONVENTIONS.md
 
-Gere um esboço inicial (pode ser mínimo):
+Generate an initial draft (can be minimal):
 
 ```markdown
-# Convenções — [PROJETO]
+# Conventions — [PROJECT]
 
-## Código
-- [preencher conforme análise do código existente]
+## Code
+- [fill in based on existing code analysis]
 
-## Testes
-- [preencher conforme padrão encontrado]
+## Testing
+- [fill in based on patterns found]
 
 ## Git
-- [preencher conforme histórico]
+- [fill in based on history]
 
-> ⚠️ Este arquivo será refinado ao longo do tempo conforme o time trabalha.
+> ⚠️ This file will be refined over time as the team produces code.
 ```
 
-Diga:
+Say:
 
-> "📐 Criei um esboço de convenções. Ele será refinado conforme o time
-> produz código."
+> "📐 I created a conventions draft. It'll be refined as the team
+> produces code."
 
 ---
 
-## Fase 3B — Projeto Novo (sem código)
+## Phase 3B — New Project (no code)
 
-### Passo 1: Entrevista de domínio
+### Step 1: Domain interview
 
-Explique:
+Explain:
 
-> "Como o produto é novo, vou fazer algumas perguntas para extrair o domínio.
-> Pense em voz alta — eu organizo."
+> "Since the product is new, I'll ask a few questions to extract the domain.
+> Think out loud — I'll organize it."
 
-Faça as perguntas **uma por vez**:
+Ask questions **one at a time**:
 
-1. > "Quem são os usuários do produto? Liste os tipos de pessoa que interagem com ele."
+1. > "Who are the product's users? List the types of people who interact with it."
 
-2. > "Qual é a principal 'coisa' que o produto gerencia? (Ex: pedidos, treinos, reservas, documentos)"
+2. > "What is the main 'thing' the product manages? (E.g.: orders, workouts, reservations, documents)"
 
-3. > "Quais são as 3-5 ações principais que os usuários fazem?"
+3. > "What are the 3-5 main actions users perform?"
 
-4. > "Existem regras de negócio que, se implementadas errado, quebram tudo?"
+4. > "Are there business rules that, if implemented wrong, break everything?"
 
-5. > "O produto se integra com algum serviço externo? (Pagamento, email, storage, etc.)"
+5. > "Does the product integrate with any external service? (Payment, email, storage, etc.)"
 
-Com as respostas, gere `.product-team/.product-team/knowledge/CONTEXT.md` e apresente para aprovação.
+With the answers, generate `.product-team/knowledge/CONTEXT.md` and present for approval.
 
-### Passo 2: Escolha de stack
+### Step 2: Stack selection
 
-Pergunte:
+Ask:
 
-> "Qual stack você quer usar? Se não tiver certeza, posso sugerir com base
-> no tipo de produto."
+> "Which stack do you want to use? If you're not sure, I can suggest based on
+> the product type."
 >
-> Sugestões comuns:
-> - **SaaS B2B:** Next.js + TypeScript + PostgreSQL + Prisma
+> Common suggestions:
+> - **B2B SaaS:** Next.js + TypeScript + PostgreSQL + Prisma
 > - **Mobile-first:** Flutter + Firebase/Supabase
 > - **API-first:** NestJS + PostgreSQL + Redis
 > - **Landing page / Marketing:** Astro + Tailwind
-> - **Outra:** me diga qual
+> - **Other:** tell me which
 
-Gere `.product-team/knowledge/STACK.md`.
+Generate `.product-team/knowledge/STACK.md`.
 
-### Passo 3: Arquitetura inicial
+### Step 3: Initial architecture
 
-Com base no domínio e stack, sugira uma arquitetura inicial.
+Based on the domain and stack, suggest an initial architecture.
 
-Pergunte:
+Ask:
 
-> "O produto é um monolito bem estruturado ou vai nascer como
-> microsserviços/monorepo?"
+> "Is the product a well-structured monolith or does it need to start as
+> microservices/monorepo?"
 
-Gere `.product-team/knowledge/ARCHITECTURE.md` com uma estrutura sugerida.
+Generate `.product-team/knowledge/ARCHITECTURE.md` with a suggested structure.
 
 ---
 
-## Fase 3.5 — Best Practices Research
+## Phase 3.5 — Best Practices Research
 
-**Objetivo:** Para cada tecnologia da stack, buscar boas práticas e padrões
-consolidados. Isso faz o time codar seguindo padrões reais da comunidade,
-não achismos.
+**Goal:** For each technology in the stack, look up consolidated best practices
+and patterns. This makes the team code following real community standards,
+not guesswork.
 
-### Passo 1: Identificar tecnologias-chave
+### Step 1: Identify key technologies
 
-Leia `.product-team/knowledge/STACK.md`. Extraia a lista de tecnologias que
-merecem pesquisa. Priorize:
+Read `.product-team/knowledge/STACK.md`. Extract the list of technologies worth
+researching. Prioritize:
 
-| Categoria | Exemplos |
+| Category | Examples |
 |-----------|----------|
 | Frameworks | Next.js, Fastify, Expo, React Native |
-| Bancos/Backend | Supabase, PostgreSQL, Prisma |
-| Estilo/UI | Tailwind CSS, Radix UI, NativeWind |
-| Integrações | Stripe, Resend, Sentry |
-| Testes | Vitest, Jest, Detox, Playwright |
+| DB/Backend | Supabase, PostgreSQL, Prisma |
+| Styling/UI | Tailwind CSS, Radix UI, NativeWind |
+| Integrations | Stripe, Resend, Sentry |
+| Testing | Vitest, Jest, Detox, Playwright |
 | Infra/DevOps | Docker, Traefik, GitHub Actions |
 
-Diga:
+Say:
 
-> "🔍 Identifiquei [N] tecnologias-chave na stack. Vou pesquisar boas
-> práticas para cada uma. Isso leva alguns minutos."
+> "🔍 I identified [N] key technologies in the stack. I'll research best
+> practices for each one. This takes a few minutes."
 
-### Passo 2: Para cada tecnologia — buscar conhecimento
+### Step 2: For each technology — gather knowledge
 
-Crie `.product-team/knowledge/best-practices/INDEX.md`.
+Create `.product-team/knowledge/best-practices/INDEX.md`.
 
-Para cada tecnologia, siga esta ordem de prioridade:
+For each technology, follow this priority order:
 
-#### Nível 1 — Base local (skills existentes)
+#### Level 1 — Local base (existing skills)
 
-Verifique se há skills de boas práticas instaladas que cobrem esta tecnologia:
+Check if there are best-practice skills installed covering this technology:
 
-| Tecnologia | Skill local |
+| Technology | Local skill |
 |------------|-------------|
 | React / Next.js | `vercel-react-best-practices` |
 | PostgreSQL / Supabase | `supabase-postgres-best-practices` |
 | Playwright | `playwright-best-practices` |
 | Flutter | `flutter-animations` |
 
-Se a skill existir, leia seu conteúdo, extraia os padrões mais relevantes
-e escreva em `.product-team/knowledge/best-practices/<tech>.md`.
+If the skill exists, read its content, extract the most relevant patterns,
+and write to `.product-team/knowledge/best-practices/<tech>.md`.
 
-#### Nível 2 — Documentação oficial (web research)
+#### Level 2 — Official documentation (web research)
 
-Se não houver skill local, use `web_fetch` para buscar a documentação oficial:
+If there's no local skill, use `web_fetch` to fetch the official documentation:
 
-- Framework: busque a doc oficial (ex: `https://nextjs.org/docs`)
-- Extraia seções de "Getting Started", "Patterns", "Best Practices"
-- Foque em padrões de projeto, não em sintaxe básica
+- Framework: fetch the official docs (e.g.: `https://nextjs.org/docs`)
+- Extract sections like "Getting Started", "Patterns", "Best Practices"
+- Focus on design patterns, not basic syntax
 
-#### Nível 3 — Pesquisa Google (deep research)
+#### Level 3 — Google search (deep research)
 
-Se a documentação oficial não for suficiente, faça uma pesquisa:
+If the official documentation isn't enough, do a search:
 
-- Use `web_fetch` com URL: `https://www.google.com/search?q=<tech>+best+practices+<ano>`
-- Abra 2-3 resultados relevantes
-- Extraia padrões recorrentes entre eles
+- Use `web_fetch` with URL: `https://www.google.com/search?q=<tech>+best+practices+<year>`
+- Open 2-3 relevant results
+- Extract recurring patterns across them
 
-### Passo 3: Formatar o arquivo de boas práticas
+### Step 3: Format the best practices file
 
-Cada arquivo segue este template:
+Each file follows this template:
 
 ```markdown
-# [Tecnologia] — Best Practices
+# [Technology] — Best Practices
 
-> Source: [skill local | doc oficial | web research]
-> Last updated: [data]
+> Source: [local skill | official docs | web research]
+> Last updated: [date]
 
 ## Patterns to Follow
 
-### [Nome do padrão]
-- **What:** [descrição curta]
-- **Why:** [por que é boa prática]
-- **How:** [exemplo concreto em código]
+### [Pattern name]
+- **What:** [brief description]
+- **Why:** [why it's a best practice]
+- **How:** [concrete code example]
 
 ## Patterns to Avoid
 
-### [Nome do antipadrão]
-- **What:** [descrição]
-- **Why avoid:** [consequência]
-- **Use instead:** [alternativa]
+### [Anti-pattern name]
+- **What:** [description]
+- **Why avoid:** [consequence]
+- **Use instead:** [alternative]
 
 ## Quick Reference
 
-- [atalho 1]
-- [atalho 2]
+- [shortcut 1]
+- [shortcut 2]
 ```
 
-### Passo 4: Gerar INDEX.md
+### Step 4: Generate INDEX.md
 
-O `INDEX.md` mapeia "quando consultar qual arquivo":
+The `INDEX.md` maps "when to consult which file":
 
 ```markdown
-# Best Practices Index — [PROJETO]
+# Best Practices Index — [PROJECT]
 
 ## By Technology
 
@@ -418,130 +418,97 @@ O `INDEX.md` mapeia "quando consultar qual arquivo":
 | Deploy | `docker.md` + `traefik.md` |
 ```
 
-### Passo 5: Apresentar resumo
+### Step 5: Present summary
 
-Diga:
+Say:
 
-> "📚 **Best practices coletadas:**"
-> - ✅ [N] tecnologias com padrões documentados
-> - 📖 [N] da base local de skills
+> "📚 **Best practices collected:**"
+> - ✅ [N] technologies with documented patterns
+> - 📖 [N] from local skill base
 > - 🌐 [N] via web research
-> - ⚠️ [N] sem cobertura (tecnologias sem pesquisa)
+> - ⚠️ [N] without coverage (technologies not researched)
 >
-> "Os arquivos estão em `.product-team/knowledge/best-practices/`.
-> O time vai consultar o `INDEX.md` automaticamente ao ser ativado."
+> "Files are in `.product-team/knowledge/best-practices/`.
+> The team will consult `INDEX.md` automatically when activated."
 
 ---
 
-## Fase 4 — Configuração do Time
+## Phase 4 — Team Configuration
 
-### 4.1 Mostrar papéis disponíveis
+### 4.1 Show available roles
 
-Apresente:
+Present:
 
-> "Estes são os papéis disponíveis no time:"
+> "These are the available team roles:"
 >
-> | # | Papel | O que faz | Essencial? |
-> |---|-------|-----------|------------|
-> | 1 | Product Manager | Define o que construir, PRDs, priorização | ⭐ Sim |
-> | 2 | UX Designer | Fluxos, personas, wireframes | ⭐ Sim |
-> | 3 | Software Architect | ADRs, viabilidade, estrutura | ⭐ Sim |
-> | 4 | Tech Lead | Decomposição, revisão, padrões | ⭐ Sim |
-> | 5 | Frontend Engineer | UI, componentes, integração | ⭐ Sim |
-> | 6 | Backend Engineer | APIs, serviços, lógica | ⭐ Sim |
-> | 7 | QA Engineer | Testes, aceitação, edge cases | ⭐ Sim |
-> | 8 | DBA | Schema, queries, índices | Se tiver banco |
-> | 9 | Head of Marketing | Posicionamento, campanhas | Se tiver go-to-market |
-> | 10 | DevOps | CI/CD, deploy, infra | Se produto em produção |
+> | # | Role | What it does | Essential? |
+> |---|------|-------------|------------|
+> | 1 | Product Manager | Defines what to build, PRDs, prioritization | ⭐ Yes |
+> | 2 | UX Designer | Flows, personas, wireframes | ⭐ Yes |
+> | 3 | Software Architect | ADRs, feasibility, structure | ⭐ Yes |
+> | 4 | Tech Lead | Breakdown, review, standards | ⭐ Yes |
+> | 5 | Frontend Engineer | UI, components, integration | ⭐ Yes |
+> | 6 | Backend Engineer | APIs, services, logic | ⭐ Yes |
+> | 7 | QA Engineer | Testing, acceptance, edge cases | ⭐ Yes |
+> | 8 | DBA | Schema, queries, indexes | If there's a database |
+> | 9 | Head of Marketing | Positioning, campaigns | If there's go-to-market |
+> | 10 | DevOps | CI/CD, deploy, infra | If product in production |
 
-### 4.2 Confirmar time
+### 4.2 Confirm team
 
-Pergunte:
+Ask:
 
-> "Quer todos os 10 ou prefere desativar algum? Pode me dizer os números
-> dos que quer manter, ou 'todos' para ativar tudo."
+> "Do you want all 10 or prefer to disable some? Tell me the numbers
+> you want to keep, or 'all' to activate everything."
 >
-> Exemplos: `todos`, `1-7`, `1,2,3,4,5,6,7,8`
+> Examples: `all`, `1-7`, `1,2,3,4,5,6,7,8`
 
-Salve os papéis ativos em `.product-team/state.json` → `active_roles`.
-
-### 4.3 Modo Git
-
-Pergunte:
-
-> "Prefere commits automáticos ao final de cada fase ou quer confirmar
-> antes de cada commit?"
-> - **Automático** — o time commita sozinho (recomendado)
-> - **Confirmar** — o time pergunta antes de cada commit
-
-Salve em `.product-team/state.json` → `git_mode`: `"auto"` ou `"confirm"`.
+Save active roles to `.product-team/state.json` → `active_roles`.
 
 ---
 
-## Fase 5 — Geração dos Arquivos
+## Phase 5 — File Generation
 
-Diga:
+Say:
 
-> "🎬 Vou gerar a estrutura do time agora."
+> "🎬 I'm going to generate the team structure now."
 
-### 5.1 Criar estrutura de diretórios
+### 5.1 Create directory structure
 
-Garanta que existam na instância (`.product-team/`):
+Ensure these exist:
 ```
 .product-team/
 ├── knowledge/
-│   ├── CONTEXT.md          ← já escrito
-│   ├── ARCHITECTURE.md     ← já escrito
-│   ├── STACK.md            ← já escrito
-│   └── CONVENTIONS.md      ← já escrito
-├── memory/
-│   └── INDEX.md            ← índice da memória do projeto
-├── memory/roles/           ← uma subpasta por papel ativo
-│   ├── product-manager/
-│   │   └── INDEX.md
-│   ├── ux-designer/
-│   │   └── INDEX.md
-│   └── ...
+│   ├── CONTEXT.md          ← already written
+│   ├── ARCHITECTURE.md     ← already written
+│   ├── STACK.md            ← already written
+│   └── CONVENTIONS.md      ← already written
+├── roles/                  ← generate one subfolder per active role
+├── workflows/
 ├── artifacts/
-└── state.json
+└── references/
 ```
 
-Crie o `memory/INDEX.md` inicial:
-```markdown
-# Project Memory — [PROJETO]
+### 5.2 Generate role skills
 
-| File | Feature | Date |
-|------|---------|------|
-```
+For each role in `active_roles`, read `references/role-skill-template.md`
+and generate `.product-team/roles/<role>/SKILL.md`.
 
-Para cada Role ativo, crie `memory/roles/<role>/INDEX.md`:
-```markdown
-# [ROLE] — Memory
+Each role skill must:
+1. Have the preamble that loads Layer 0 (CONTEXT.md, ARCHITECTURE.md, STACK.md, CONVENTIONS.md)
+2. Include the role's specific responsibilities
+3. Reference relevant workflows
 
-| File | Feature | Key Learning |
-|------|---------|-------------|
-```
+Replace `[PROJECT]` with the real project name in all generated files.
 
-### 5.2 Gerar skills de papel
+### 5.3 Update state.json
 
-Para cada papel em `active_roles`, leia `references/role-skill-template.md`
-e gere `roles/<papel>/SKILL.md`.
-
-Cada skill de papel deve:
-1. Ter o preamble que carrega a Layer 0 (CONTEXT.md, ARCHITECTURE.md, STACK.md, CONVENTIONS.md)
-2. Incluir as responsabilidades específicas do papel
-3. Referenciar os workflows relevantes
-
-Substitua `[PROJETO]` pelo nome real do projeto em todos os arquivos gerados.
-
-### 5.3 Atualizar state.json
-
-Atualize `.product-team/state.json`:
+Update `.product-team/state.json`:
 ```json
 {
   "phase": "ready",
   "bootstrap_completed": true,
-  "bootstrap_completed_at": "<timestamp ISO>",
+  "bootstrap_completed_at": "<ISO timestamp>",
   "current_feature": null,
   "pipeline_phase": null,
   "features": []
@@ -550,26 +517,26 @@ Atualize `.product-team/state.json`:
 
 ---
 
-## Fase 6 — Pronto
+## Phase 6 — Done
 
-Diga:
+Say:
 
-> "✅ **[Nome], seu time de produto está pronto!**"
+> "✅ **[Name], your product team is ready!**"
 >
-> "**Base de conhecimento criada:**"
-> - `.product-team/.product-team/knowledge/CONTEXT.md` — [N] entidades de domínio
-> - `.product-team/knowledge/ARCHITECTURE.md` — [N] módulos mapeados
-> - `.product-team/knowledge/STACK.md` — stack documentada
+> "**Knowledge base created:**"
+> - `.product-team/knowledge/CONTEXT.md` — [N] domain entities
+> - `.product-team/knowledge/ARCHITECTURE.md` — [N] modules mapped
+> - `.product-team/knowledge/STACK.md` — stack documented
 >
-> "**Time ativo:** [liste os papéis ativos]"
+> "**Active team:** [list active roles]"
 >
-> "**Para começar uma feature, digite `timovi` e eu inicio o pipeline:**
-> 1. **Plan** — planejamento multi-papel
-> 2. **Spec** — PRD na linguagem do domínio
-> 3. **Breakdown** — issues com role assignment
-> 4. **Execute** — agentes em paralelo
+> "**To start a feature, type `timovi` and I'll start the pipeline:**
+> 1. **Plan** — multi-role planning
+> 2. **Spec** — PRD in domain language
+> 3. **Breakdown** — issues with role assignment
+> 4. **Execute** — agents in parallel
 > 5. **Review** — QA + Tech Lead"
 >
-> "Quer começar a primeira feature agora ou prefere explorar os arquivos primeiro?"
+> "Want to start the first feature now or prefer to explore the files first?"
 
-Aguarde resposta.
+Wait for response.

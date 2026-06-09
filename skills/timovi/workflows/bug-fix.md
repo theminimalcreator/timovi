@@ -1,46 +1,46 @@
 # Workflow: Bug Fix
 
-Pipeline para correção de bugs reportados.
+Pipeline for fixing reported bugs.
 
-## Papéis envolvidos
+## Roles involved
 
-| Fase | Papéis | Descrição |
-|------|--------|-----------|
-| Triage | Tech Lead, QA | Classificar severidade, reproduzir, isolar causa |
-| Fix | Frontend ou Backend | Implementar correção |
-| Review | QA, Tech Lead | Validar correção, verificar regressão |
+| Phase | Roles | Description |
+|------|--------|-------------|
+| Triage | Tech Lead, QA | Classify severity, reproduce, isolate cause |
+| Fix | Frontend or Backend | Implement fix |
+| Review | QA, Tech Lead | Validate fix, check regression |
 
-## Gatilhos
+## Triggers
 
-- Bug reportado por QA na Fase Review
-- Bug reportado por usuário
-- Incidente em produção
+- Bug reported by QA in Review Phase
+- User-reported bug
+- Production incident
 
-## Fluxo
+## Flow
 
 ### 1. Triage (Tech Lead + QA)
 
-- Reproduzir o bug com passos claros
-- Isolar causa raiz (módulo, arquivo, condição)
-- Classificar severidade: 🔴 crítico / 🟡 médio / 🟢 baixo
-- Identificar papel responsável pela correção
-- Se for crítico e em produção: acionar DevOps para possível rollback
+- Reproduce the bug with clear steps
+- Isolate root cause (module, file, condition)
+- Classify severity: 🔴 critical / 🟡 medium / 🟢 low
+- Identify role responsible for the fix
+- If critical and in production: trigger DevOps for possible rollback
 
-### 2. Fix (Frontend ou Backend Engineer)
+### 2. Fix (Frontend or Backend Engineer)
 
-- Implementar correção
-- Adicionar teste de regressão
-- Abrir PR com referência ao bug
+- Implement fix
+- Add regression test
+- Open PR referencing the bug
 
 ### 3. Review (QA + Tech Lead)
 
-- QA: verificar que o bug foi corrigido
-- QA: verificar que não houve regressão nos fluxos relacionados
-- Tech Lead: revisar código da correção
-- Se aprovado: merge e deploy
+- QA: verify the bug is fixed
+- QA: verify no regression in related flows
+- Tech Lead: code review of the fix
+- If approved: merge and deploy
 
-## Artefatos
+## Artifacts
 
-- Issue registrada em `feature.json`
-- PR com `Fixes #<bug-issue>`
-- Teste de regressão adicionado
+- Issue recorded in `feature.json`
+- PR with `Fixes #<bug-issue>`
+- Regression test added

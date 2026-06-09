@@ -1,43 +1,43 @@
 # Workflow: New Feature
 
-Pipeline completo para desenvolvimento de uma feature nova.
+Full pipeline for developing a new feature.
 
-## Papéis envolvidos
+## Roles involved
 
-| Fase | Papéis | Descrição |
-|------|--------|-----------|
-| Plan | PM, UX, Architect | Planejamento multi-papel, grilling session com cross-examination (até 10 rounds) |
-| Spec | PM | PRD na linguagem do domínio + PRD.html opcional |
-| Breakdown | Tech Lead, Architect | Decomposição em issues com role assignment |
-| Execute | Frontend, Backend, DBA, DevOps | Implementação paralela |
-| Review | QA, Tech Lead | Validação e code review |
+| Phase | Roles | Description |
+|------|--------|-------------|
+| Plan | PM, UX, Architect | Multi-role planning, grilling session with cross-examination (up to 10 rounds) |
+| Spec | PM | PRD in domain language + optional PRD.html |
+| Breakdown | Tech Lead, Architect | Decomposition into issues with role assignment |
+| Execute | Frontend, Backend, DBA, DevOps | Parallel implementation |
+| Review | QA, Tech Lead | Validation and code review |
 
-## Dependências
+## Dependencies
 
 ```
 Plan ──→ Spec ──→ Breakdown ──→ Execute ──→ Review
 ```
 
-## Artefatos gerados
+## Generated artifacts
 
-| Fase | Artefato | Local |
-|------|----------|-------|
-| Plan | Notas de planejamento | `state.json` → `features[].checkpoints.plan` |
+| Phase | Artifact | Location |
+|------|----------|----------|
+| Plan | Planning notes | `state.json` → `features[].checkpoints.plan` |
 | Spec | PRD | `.product-team/artifacts/<feature>/PRD.md` |
-| Spec (opcional) | PRD HTML | `.product-team/artifacts/<feature>/PRD.html` |
-| Spec (opcional) | Protótipo | `.product-team/artifacts/<feature>/prototype.html` |
-| Breakdown | Issues com role assignment | `.product-team/artifacts/<feature>/feature.json` |
-| Execute | PRs | Repositório |
-| Review | Relatório de qualidade | `state.json` → `features[].checkpoints.review` |
+| Spec (optional) | PRD HTML | `.product-team/artifacts/<feature>/PRD.html` |
+| Spec (optional) | Prototype | `.product-team/artifacts/<feature>/prototype.html` |
+| Breakdown | Issues with role assignment | `.product-team/artifacts/<feature>/feature.json` |
+| Execute | PRs | Repository |
+| Review | Quality report | `state.json` → `features[].checkpoints.review` |
 
-## Critérios de conclusão
+## Completion criteria
 
-- [ ] Planejamento aprovado (PM + UX + Architect alinhados com cross-examination)
-- [ ] PRD escrito e aprovado na linguagem do CONTEXT.md
-- [ ] PRD HTML gerado (opcional, se usuário aceitou)
-- [ ] Protótipo interativo gerado (opcional, se usuário aceitou)
-- [ ] Issues decompostas com dependências e assigned_roles
-- [ ] Todos os PRs abertos e revisados
-- [ ] QA aprovou contra critérios de aceitação
-- [ ] Tech Lead aprovou code review
-- [ ] `state.json` atualizado com status final
+- [ ] Planning approved (PM + UX + Architect aligned with cross-examination)
+- [ ] PRD written and approved in CONTEXT.md language
+- [ ] PRD HTML generated (optional, if user accepted)
+- [ ] Interactive prototype generated (optional, if user accepted)
+- [ ] Issues decomposed with dependencies and assigned_roles
+- [ ] All PRs opened and reviewed
+- [ ] QA approved against acceptance criteria
+- [ ] Tech Lead approved code review
+- [ ] `state.json` updated with final status

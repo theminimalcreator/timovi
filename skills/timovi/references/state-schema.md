@@ -1,11 +1,11 @@
 # Schema — state.json
 
-## Estrutura
+## Structure
 
 ```json
 {
   "version": "1.0.0",
-  "project": "cdt",
+  "project": "my-product",
   "description": "Platform for high-performance athlete training metrics.",
   "user_name": "Alice",
   "chat_language": "pt-br",
@@ -26,30 +26,30 @@
 }
 ```
 
-## Campos
+## Fields
 
-| Campo | Tipo | Descrição |
-|-------|------|-----------|
-| `version` | string | Versão do framework |
-| `project` | string | Nome do produto |
-| `description` | string | Descrição em uma frase |
-| `user_name` | string | Nome do usuário |
-| `chat_language` | string | Idioma com o usuário |
-| `doc_language` | string | Idioma da documentação e comunicação entre agentes |
-| `phase` | string | `"uninitialized"` ou `"ready"` |
-| `bootstrap_completed` | boolean | Se o bootstrap foi concluído |
-| `current_feature` | string\|null | Nome da feature ativa → aponta para `.product-team/artifacts/<name>/feature.json` |
-| `features` | string[] | Lista de features concluídas ou pausadas (histórico). Detalhes em cada `feature.json`. |
-| `knowledge_files` | object | Paths dos arquivos da Layer 0 |
-| `git_mode` | string | `"auto"` (commits automáticos) ou `"confirm"` (pergunta antes de cada commit). Default: `"auto"`. |
+| Field | Type | Description |
+|-------|------|-------------|
+| `version` | string | Framework version |
+| `project` | string | Product name |
+| `description` | string | One-line description |
+| `user_name` | string | User name |
+| `chat_language` | string | Language for user communication |
+| `doc_language` | string | Language for documentation and inter-agent communication |
+| `phase` | string | `"uninitialized"` or `"ready"` |
+| `bootstrap_completed` | boolean | Whether bootstrap has been completed |
+| `current_feature` | string\|null | Active feature name → points to `.product-team/artifacts/<name>/feature.json` |
+| `features` | string[] | List of completed or paused features (history). Details in each `feature.json`. |
+| `knowledge_files` | object | Paths to Layer 0 files |
+| `git_mode` | string | `"auto"` (automatic commits) or `"confirm"` (prompt before each commit). Default: `"auto"`. |
 
-## Estrutura de feature (feature.json)
+## Feature structure (feature.json)
 
-Cada feature tem seu próprio arquivo em `.product-team/artifacts/<feature>/feature.json`.
-Consulte `references/feature-schema.md` para o schema completo.
+Each feature has its own file at `.product-team/artifacts/<feature>/feature.json`.
+See `references/feature-schema.md` for the complete schema.
 
-## Regras
+## Rules
 
-- **Nunca remova campos.** Apenas adicione ou atualize.
-- **`feature.json` é a fonte da verdade para issues.** `state.json` só guarda referências.
-- **Use timestamps ISO 8601.**
+- **Never remove fields.** Only add or update.
+- **`feature.json` is the source of truth for issues.** `state.json` only stores references.
+- **Use ISO 8601 timestamps.**
