@@ -44,3 +44,7 @@ Pipeline for fixing reported bugs.
 - Issue recorded in `feature.json`
 - PR with `Fixes #<bug-issue>`
 - Regression test added
+
+## Linear Integration
+
+If `.product-team/state.json` has `linear_config` configured (not null), bug Issues generated during Triage will be synced to Linear via `integrations/linear/SKILL.md`. Bug Issues use the `[BUG]` prefix in the title and the `Bug` label in Linear (see `INTEGRATIONS.md` for status mapping).

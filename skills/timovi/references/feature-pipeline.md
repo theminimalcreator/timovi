@@ -368,6 +368,27 @@ Update `.product-team/artifacts/<feature-name>/feature.json`:
 
 See `references/feature-schema.md` for the complete schema.
 
+### 3.3a Linear Sync (if configured)
+
+If `.product-team/state.json` has `linear_config` (not null):
+
+1. Say: "Syncing issues to Linear..."
+
+2. Offer dry-run first:
+   > "Want a dry-run before syncing to Linear?"
+   
+   If yes, activate `integrations/linear/SKILL.md` with operation `dry-run`.
+
+3. Activate `integrations/linear/SKILL.md` with operation `push`.
+   The skill will sync Issues one by one with progress: "Sincronizando 3 de 8..."
+
+4. Present the sync result. If any Issues failed:
+   > "⚠️ 2 issues pending sync. Retry?"
+   
+   If yes, run push again for failed Issues only.
+
+5. Update `feature.json` with `linear_issue_id` and `sync_status` for each synced Issue.
+
 ### 3.4 Decomposition review
 
 Present the numbered list and ask:
@@ -450,6 +471,25 @@ git commit -m "breakdown: [N] issues"
 ## Phase 4 — EXECUTE (Parallel Execution)
 
 **Goal:** Execute issues in parallel, respecting dependencies.
+
+### 4.0 Linear Pull (if configured)
+
+If `.product-team/state.json` has `linear_config` (not null):
+
+1. Say: "Pulling latest status from Linear before execution..."
+
+2. Activate `integrations/linear/SKILL.md` with operation `pull`.
+
+3. The skill will:
+   - Query each issue's state from Linear
+   - Compare with local status
+   - Flag `stale` issues (diverged)
+   - Report: "3 synced, 1 stale (ISSUE-3: Backlog locally but In Progress on Linear)"
+
+4. Issues marked `stale` are skipped in the execution DAG.
+   Say: "Skipping 1 stale issue. It may be in progress elsewhere."
+
+5. Issues that are `synced` proceed normally to DAG construction.
 
 ### 4.1 Build the DAG
 
@@ -598,6 +638,22 @@ QA Engineer:
 - Tests happy path, alternative path, edge cases
 - Reports: ✅ approved / 🟡 approved with caveats / 🔴 rejected
 
+### 5.2a Linear Update (if configured)
+
+If `.product-team/state.json` has `linear_config` (not null):
+
+1. After QA approves or rejects each issue:
+
+2. Activate `integrations/linear/SKILL.md` with operation `pull` to update sync status.
+
+3. For each reviewed issue:
+   - QA approved → update Linear status to `In Review` (mapped from status_mapping)
+   - QA rejected → update Linear status to `Todo`
+   - Issue blocked → update Linear status to `Blocked`
+   - Issue failed → update Linear status to `Failed`
+
+4. Say: "Updated Linear status for N/N issues."
+
 ### 5.3 Tech Lead Review
 
 Tech Lead:
@@ -615,6 +671,12 @@ Read `feature.json` and present:
 > - 🔴 [N] PRs needing adjustments
 >
 > "Feature **[name]** — final status: [approved / pending]"
+
+If `.product-team/state.json` has `linear_config` (not null), also include Linear sync status:
+
+> "🔗 **Linear sync:** [N]/[N] issues synced, [N] pending"
+
+Run `integrations/linear/SKILL.md` with operation `status` to get the current board summary and append it to the report.
 
 ### 5.5 Git commit + Human-gated merge
 

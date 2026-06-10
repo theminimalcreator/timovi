@@ -42,6 +42,7 @@
 | `features` | string[] | List of completed or paused features (history). Details in each `feature.json`. |
 | `knowledge_files` | object | Paths to Layer 0 files |
 | `git_mode` | string | `"auto"` (automatic commits) or `"confirm"` (prompt before each commit). Default: `"auto"`. |
+| `linear_config` | object\|null | `null` when Linear is not configured. When connected: `{ api_key, team_id, team_key, project_id, status_mapping, connected_at }`. |
 
 ## Feature structure (feature.json)
 

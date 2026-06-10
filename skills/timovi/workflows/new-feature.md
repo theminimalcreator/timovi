@@ -8,7 +8,7 @@ Full pipeline for developing a new feature.
 |------|--------|-------------|
 | Plan | PM, UX, Architect | Multi-role planning, grilling session with cross-examination (up to 10 rounds) |
 | Spec | PM | PRD in domain language + optional PRD.html |
-| Breakdown | Tech Lead, Architect | Decomposition into issues with role assignment |
+| Breakdown | Tech Lead, Architect | Decomposition into issues with role assignment. Issues are synced to Linear if `linear_config` is configured in state.json (via `integrations/linear/SKILL.md`) |
 | Execute | Frontend, Backend, DBA, DevOps | Parallel implementation |
 | Review | QA, Tech Lead | Validation and code review |
 

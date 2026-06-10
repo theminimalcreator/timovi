@@ -31,7 +31,11 @@ Each feature has its own `feature.json` at `.product-team/artifacts/<feature-nam
       "started_at": "2026-06-05T11:00:00Z",
       "completed_at": "2026-06-05T11:30:00Z",
       "agent_id": "agent-abc123",
-      "notes": ""
+      "notes": "",
+      "linear_issue_id": "abc12345-...",
+      "linear_identifier": "KLO-250",
+      "sync_status": "synced",
+      "sync_updated_at": "2026-06-05T11:25:00Z"
     },
     {
       "id": "ISSUE-2",
@@ -41,7 +45,11 @@ Each feature has its own `feature.json` at `.product-team/artifacts/<feature-nam
       "blocked_by": ["ISSUE-1"],
       "started_at": "2026-06-05T11:30:00Z",
       "agent_id": "agent-def456",
-      "notes": "Blocked waiting for ISSUE-1 PR merge"
+      "notes": "Blocked waiting for ISSUE-1 PR merge",
+      "linear_issue_id": null,
+      "linear_identifier": null,
+      "sync_status": "pending_sync",
+      "sync_updated_at": null
     },
     {
       "id": "ISSUE-3",
@@ -49,7 +57,11 @@ Each feature has its own `feature.json` at `.product-team/artifacts/<feature-nam
       "status": "blocked",
       "assigned_roles": ["frontend-engineer"],
       "blocked_by": ["ISSUE-2"],
-      "notes": ""
+      "notes": "",
+      "linear_issue_id": null,
+      "linear_identifier": null,
+      "sync_status": "pending_sync",
+      "sync_updated_at": null
     }
   ],
 
@@ -111,6 +123,10 @@ Each feature has its own `feature.json` at `.product-team/artifacts/<feature-nam
 | `completed_at` | string\|null | When the agent finished |
 | `agent_id` | string\|null | Subagent ID that is executing |
 | `notes` | string | Freeform notes (errors, blocks, observations) |
+| `linear_issue_id` | string\|null | UUID of the linked Linear issue |
+| `linear_identifier` | string\|null | Human-readable Linear ID (e.g., `"KLO-250"`) |
+| `sync_status` | string | `"synced"`, `"pending_sync"`, `"stale"`, or `"failed"`. Default: `"pending_sync"`. |
+| `sync_updated_at` | string\|null | ISO 8601 timestamp of last sync with Linear |
 
 ## Status transitions
 
