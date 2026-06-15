@@ -217,6 +217,43 @@ skills/timovi/
 
 ---
 
+## 🖥️ Dashboard Visual
+
+Quer **ver** seu time em vez de só conversar com ele? O Dashboard do Timovi é uma interface visual que mostra tudo que está acontecendo dentro do `.product-team/`:
+
+- 📊 **Kanban** — Issues distribuídas nas fases do Pipeline (Plan → Spec → Breakdown → Execute → Review)
+- 👥 **Time** — Cards de todas as Roles ativas no projeto
+- ⚙️ **Config** — Gerencie múltiplos projetos conectados
+
+### Instalar
+
+```bash
+# Clone o repo
+git clone https://github.com/theminimalcreator/timovi
+cd timovi
+
+# Instale as dependências (backend + frontend)
+npm run dashboard:setup
+
+# Rode o Dashboard
+npm run dashboard:dev
+```
+
+Abra **http://localhost:5173** no navegador.
+
+### Conectar um projeto
+
+```bash
+node dashboard/cli/wizard.js
+# Informe o caminho da pasta com .product-team/
+```
+
+> 💡 O Dashboard é **read-only** — ele mostra o que está acontecendo, mas toda ação (iniciar feature, avançar pipeline) continua sendo feita via chat com o Orquestrador.
+
+<br>
+
+---
+
 ## Inspirações
 
 Projetos e ideias que inspiraram o Timovi:

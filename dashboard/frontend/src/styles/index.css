@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #383939;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #4a4a4a;
+  }
+}
+
+@layer components {
+  .sidebar-link {
+    @apply flex items-center gap-2 px-3 py-2 rounded-md text-sm text-terminal-text-muted
+           hover:text-terminal-text hover:bg-terminal-surface-higher transition-colors;
+  }
+
+  .sidebar-link.active {
+    @apply text-terminal-green bg-terminal-green/10;
+  }
+
+  .kanban-col {
+    @apply bg-terminal-surface border border-terminal-border rounded-card p-4 flex flex-col min-h-[200px];
+  }
+
+  .kanban-col.active {
+    @apply border-terminal-green shadow-[0_0_12px_rgba(0,230,57,0.08)];
+  }
+}

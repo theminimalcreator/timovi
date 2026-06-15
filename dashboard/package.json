@@ -1,0 +1,16 @@
+{
+  "name": "timovi-dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard visual para times Timovi — camada de observabilidade sobre .product-team/",
+  "bin": {
+    "timovi-dashboard": "./cli/index.js"
+  },
+  "scripts": {
+    "dev": "node backend/server.js & cd frontend && npm run dev",
+    "dev:backend": "node backend/server.js",
+    "dev:frontend": "cd frontend && npm run dev",
+    "wizard": "node cli/wizard.js"
+  },
+  "keywords": ["timovi", "dashboard", "ai-agent", "product-team"],
+  "license": "MIT"
+}
