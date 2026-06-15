@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard do Timovi — Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <style>
+    :root {
+      --color-primary: #00e639;
+      --color-secondary: #6366f1;
+      --color-accent: #f59e0b;
+      --color-bg: #0d0e0f;
+      --color-surface: #1f2020;
+      --color-surface-higher: #292a2a;
+      --color-text: #e3e2e2;
+      --color-text-muted: #b9ccb2;
+      --color-border: #383939;
+      --color-success: #00ff41;
+      --color-danger: #ffb4ab;
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-heading: 'Geist', 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 8px;
+      --sidebar-w: 260px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-family);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ========================================
+       LAYOUT
+       ======================================== */
+
+    .app {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ========================================
+       MODE BANNER
+       ======================================== */
+
+    .proto-mode-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: var(--color-primary);
+      color: #000;
+      text-align: center;
+      padding: 5px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-family: var(--font-mono);
+    }
+
+    /* ========================================
+       SIDEBAR
+       ======================================== */
+
+    .sidebar {
+      width: var(--sidebar-w);
+      min-width: var(--sidebar-w);
+      background: var(--color-surface);
+      border-right: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      padding-top: 36px; /* banner offset */
+    }
+
+    .sidebar-logo {
+      padding: 20px 20px 8px;
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .sidebar-logo .logo-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      box-shadow: 0 0 8px var(--color-primary);
+    }
+
+    .sidebar-section-label {
+      padding: 20px 20px 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--color-text-muted);
+      font-family: var(--font-mono);
+    }
+
+    /* Project items */
+    .project-group {
+      margin: 0 12px 2px;
+    }
+
+    .project-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text);
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      font-family: var(--font-family);
+      transition: all 0.15s;
+      text-align: left;
+    }
+
+    .project-toggle:hover {
+      background: var(--color-surface-higher);
+    }
+
+    .project-toggle.active {
+      background: var(--color-surface-higher);
+      color: #fff;
+    }
+
+    .project-toggle .chevron {
+      font-size: 18px;
+      transition: transform 0.2s;
+      color: var(--color-text-muted);
+    }
+
+    .project-toggle.expanded .chevron {
+      transform: rotate(90deg);
+    }
+
+    .project-toggle .indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    /* Sub-nav */
+    .sub-nav {
+      display: none;
+      margin: 2px 12px 4px;
+      border-left: 1px solid var(--color-border);
+      margin-left: 44px;
+    }
+
+    .sub-nav.open {
+      display: block;
+    }
+
+    .sub-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: var(--font-family);
+      width: 100%;
+      text-align: left;
+      border-radius: 4px;
+      transition: all 0.15s;
+    }
+
+    .sub-nav-item:hover {
+      color: var(--color-text);
+      background: var(--color-surface-higher);
+    }
+
+    .sub-nav-item.active {
+      color: var(--color-primary);
+      background: rgba(0, 230, 57, 0.08);
+    }
+
+    .sub-nav-item .material-symbols-outlined {
+      font-size: 18px;
+    }
+
+    /* Add project */
+    .add-project {
+      margin: 4px 20px;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      border: 1px dashed var(--color-border);
+      background: transparent;
+      border-radius: var(--radius);
+      font-family: var(--font-family);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .add-project:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    /* Sidebar footer */
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 16px 20px;
+      border-top: 1px solid var(--color-border);
+      font-size: 12px;
+      color: var(--color-text-muted);
+    }
+
+    /* ========================================
+       MAIN CONTENT
+       ======================================== */
+
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding-top: 36px;
+    }
+
+    /* Top bar */
+    .topbar {
+      padding: 16px 32px;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--color-surface);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topbar-title {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .topbar-badge {
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(0, 230, 57, 0.12);
+      color: var(--color-primary);
+      font-family: var(--font-mono);
+    }
+
+    .topbar-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* Content area */
+    .content {
+      flex: 1;
+      padding: 32px;
+      overflow-y: auto;
+    }
+
+    /* ========================================
+       SCREENS
+       ======================================== */
+
+    .screen { display: none; }
+    .screen.active { display: block; animation: fadeSlide 0.25s ease; }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========================================
+       KANBAN SCREEN
+       ======================================== */
+
+    .kanban-board {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      min-height: calc(100vh - 180px);
+    }
+
+    .kanban-column {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .kanban-column-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .kanban-column-title {
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .kanban-column-count {
+      font-size: 12px;
+      color: var(--color-text-muted);
+      font-family: var(--font-mono);
+      background: var(--color-bg);
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .kanban-column.active-phase {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 12px rgba(0, 230, 57, 0.08);
+    }
+
+    .kanban-column.active-phase .kanban-column-title {
+      color: var(--color-primary);
+    }
+
+    /* Issue cards */
+    .issue-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 8px;
+      cursor: default;
+      transition: all 0.2s;
+    }
+
+    .issue-card:hover {
+      border-color: var(--color-primary);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .issue-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .issue-card-id {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    .issue-card-status {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .status-pending { background: var(--color-text-muted); }
+    .status-progress { background: var(--color-secondary); }
+    .status-done { background: var(--color-success); }
+    .status-blocked { background: var(--color-danger); }
+    .status-failed { background: var(--color-danger); }
+
+    .issue-card-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .issue-card-roles {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .role-badge {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      background: var(--color-surface-higher);
+      color: var(--color-text-muted);
+    }
+
+    .role-badge.fe { color: #6366f1; background: rgba(99,102,241,0.12); }
+    .role-badge.be { color: #22c55e; background: rgba(34,197,94,0.12); }
+    .role-badge.qa { color: #f59e0b; background: rgba(245,158,11,0.12); }
+    .role-badge.db { color: #a78bfa; background: rgba(167,139,250,0.12); }
+
+    .empty-column {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-muted);
+      font-size: 13px;
+      font-style: italic;
+    }
+
+    /* ========================================
+       TEAM SCREEN
+       ======================================== */
+
+    .team-section {
+      margin-bottom: 32px;
+    }
+
+    .team-section-title {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .role-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: all 0.15s;
+    }
+
+    .role-card:hover {
+      border-color: var(--color-primary);
+    }
+
+    .role-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius);
+      background: var(--color-surface-higher);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+      color: var(--color-primary);
+    }
+
+    .role-info h4 {
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .role-info .role-slug {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--color-text-muted);
+      margin-bottom: 6px;
+    }
+
+    .role-info .role-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--color-success);
+      font-weight: 500;
+    }
+
+    .role-info .role-status .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-success);
+    }
+
+    /* ========================================
+       CONFIG SCREEN
+       ======================================== */
+
+    .config-panel {
+      max-width: 640px;
+    }
+
+    .config-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .config-card h3 {
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .config-field {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+    }
+
+    .config-field + .config-field {
+      border-top: 1px solid var(--color-border);
+    }
+
+    .config-label {
+      font-size: 13px;
+      color: var(--color-text-muted);
+    }
+
+    .config-value {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--color-text);
+    }
+
+    .config-value.path {
+      color: var(--color-primary);
+    }
+
+    .config-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    /* ========================================
+       BUTTONS
+       ======================================== */
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: var(--font-family);
+      transition: all 0.15s;
+    }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: #000;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover { opacity: 0.9; }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .btn-danger {
+      background: transparent;
+      border: 1px solid var(--color-danger);
+      color: var(--color-danger);
+    }
+
+    .btn-danger:hover {
+      background: rgba(255, 180, 171, 0.08);
+    }
+
+    .btn-icon {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      border: 1px solid var(--color-border);
+      background: transparent;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-icon:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    /* ========================================
+       RESPONSIVE
+       ======================================== */
+
+    @media (max-width: 1100px) {
+      .kanban-board {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .content { padding: 20px 16px; }
+      .kanban-board { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="proto-mode-banner">
+    High-Fidelity Prototype — Clique para navegar
+  </div>
+
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <span class="logo-dot"></span>
+        Timovi
+      </div>
+
+      <div class="sidebar-section-label">Projetos</div>
+
+      <!-- Project 1: meu-saas (active, expanded) -->
+      <div class="project-group">
+        <button class="project-toggle active expanded" onclick="toggleProject(this)" data-project="proj1">
+          <span class="indicator"></span>
+          <span>meu-saas</span>
+          <span class="chevron" style="margin-left:auto;">▸</span>
+        </button>
+        <div class="sub-nav open" id="sub-proj1">
+          <button class="sub-nav-item active" onclick="showScreen('kanban')">
+            <span class="material-symbols-outlined">view_kanban</span> Kanban
+          </button>
+          <button class="sub-nav-item" onclick="showScreen('team')">
+            <span class="material-symbols-outlined">groups</span> Time
+          </button>
+          <button class="sub-nav-item" onclick="showScreen('config')">
+            <span class="material-symbols-outlined">settings</span> Config
+          </button>
+        </div>
+      </div>
+
+      <!-- Project 2: landing-page (collapsed) -->
+      <div class="project-group">
+        <button class="project-toggle" onclick="toggleProject(this)" data-project="proj2">
+          <span class="indicator"></span>
+          <span>landing-page</span>
+          <span class="chevron" style="margin-left:auto;">▸</span>
+        </button>
+        <div class="sub-nav" id="sub-proj2">
+          <button class="sub-nav-item" onclick="showScreen('kanban')">📊 Kanban</button>
+          <button class="sub-nav-item" onclick="showScreen('team')">👥 Time</button>
+          <button class="sub-nav-item" onclick="showScreen('config')">⚙️ Config</button>
+        </div>
+      </div>
+
+      <!-- Project 3: app-mobile (collapsed) -->
+      <div class="project-group">
+        <button class="project-toggle" onclick="toggleProject(this)" data-project="proj3">
+          <span class="indicator"></span>
+          <span>app-mobile</span>
+          <span class="chevron" style="margin-left:auto;">▸</span>
+        </button>
+        <div class="sub-nav" id="sub-proj3">
+          <button class="sub-nav-item" onclick="showScreen('kanban')">📊 Kanban</button>
+          <button class="sub-nav-item" onclick="showScreen('team')">👥 Time</button>
+          <button class="sub-nav-item" onclick="showScreen('config')">⚙️ Config</button>
+        </div>
+      </div>
+
+      <button class="add-project" onclick="alert('Wizard: Selecione a pasta do projeto...')">
+        <span class="material-symbols-outlined" style="font-size:16px;">add</span> Adicionar projeto
+      </button>
+
+      <div class="sidebar-footer">
+        Dashboard v1.0 — read-only
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- Top Bar -->
+      <div class="topbar">
+        <div class="topbar-left">
+          <span class="topbar-title" id="screenTitle">Kanban</span>
+          <span class="topbar-badge">meu-saas</span>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn-icon" title="Configurações" onclick="showScreen('config')">
+            <span class="material-symbols-outlined">settings</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- CONTENT -->
+      <div class="content">
+
+        <!-- KANBAN SCREEN -->
+        <div id="screen-kanban" class="screen active">
+          <div class="kanban-board">
+
+            <!-- Plan -->
+            <div class="kanban-column">
+              <div class="kanban-column-header">
+                <span class="kanban-column-title">Plan</span>
+                <span class="kanban-column-count">0</span>
+              </div>
+              <div class="empty-column">Nenhuma Issue</div>
+            </div>
+
+            <!-- Spec -->
+            <div class="kanban-column">
+              <div class="kanban-column-header">
+                <span class="kanban-column-title">Spec</span>
+                <span class="kanban-column-count">0</span>
+              </div>
+              <div class="empty-column">Nenhuma Issue</div>
+            </div>
+
+            <!-- Breakdown (active phase) -->
+            <div class="kanban-column active-phase">
+              <div class="kanban-column-header">
+                <span class="kanban-column-title">Breakdown</span>
+                <span class="kanban-column-count">3</span>
+              </div>
+
+              <div class="issue-card">
+                <div class="issue-card-header">
+                  <span class="issue-card-id">ISSUE-1</span>
+                  <span class="issue-card-status status-done"></span>
+                </div>
+                <div class="issue-card-title">Schema: dashboard projetos + criar estrutura de diretórios</div>
+                <div class="issue-card-roles">
+                  <span class="role-badge be">BE</span>
+                  <span class="role-badge db">DBA</span>
+                </div>
+              </div>
+
+              <div class="issue-card">
+                <div class="issue-card-header">
+                  <span class="issue-card-id">ISSUE-2</span>
+                  <span class="issue-card-status status-progress"></span>
+                </div>
+                <div class="issue-card-title">CLI Wizard: file picker + detecção de .product-team/</div>
+                <div class="issue-card-roles">
+                  <span class="role-badge be">BE</span>
+                </div>
+              </div>
+
+              <div class="issue-card">
+                <div class="issue-card-header">
+                  <span class="issue-card-id">ISSUE-3</span>
+                  <span class="issue-card-status status-pending"></span>
+                </div>
+                <div class="issue-card-title">KanbanBoard: colunas + cards com animação</div>
+                <div class="issue-card-roles">
+                  <span class="role-badge fe">FE</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Execute -->
+            <div class="kanban-column">
+              <div class="kanban-column-header">
+                <span class="kanban-column-title">Execute</span>
+                <span class="kanban-column-count">0</span>
+              </div>
+              <div class="empty-column">Nenhuma Issue</div>
+            </div>
+
+            <!-- Review -->
+            <div class="kanban-column">
+              <div class="kanban-column-header">
+                <span class="kanban-column-title">Review</span>
+                <span class="kanban-column-count">0</span>
+              </div>
+              <div class="empty-column">Nenhuma Issue</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TEAM SCREEN -->
+        <div id="screen-team" class="screen">
+          <div class="team-section">
+            <div class="team-section-title">🎯 Estratégia</div>
+            <div class="team-grid">
+              <div class="role-card clickable">
+                <div class="role-icon">🧠</div>
+                <div class="role-info">
+                  <h4>Product Manager</h4>
+                  <div class="role-slug">product-manager</div>
+                  <div class="role-status"><span class="dot"></span> Ativo</div>
+                </div>
+              </div>
+              <div class="role-card clickable">
+                <div class="role-icon">🎨</div>
+                <div class="role-info">
+                  <h4>UX Designer</h4>
+                  <div class="role-slug">ux-designer</div>
+                  <div class="role-status"><span class="dot"></span> Ativo</div>
+                </div>
+              </div>
+              <div class="role-card clickable">
+                <div class="role-icon">🏗️</div>
+                <div class="role-info">
+                  <h4>Software Architect</h4>
+                  <div class="role-slug">software-architect</div>
+                  <div class="role-status"><span class="dot"></span> Ativo</div>
+                </div>
+              </div>
+              <div class="role-card clickable">
+                <div class="role-icon">⚡</div>
+                <div class="role-info">
+                  <h4>Tech Lead</h4>
+                  <div class="role-slug">tech-lead</div>
+                  <div class="role-status"><span class="dot"></span> Ativo</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="team-section">
+            <div class="team-section-title">⚙️ Engenharia</div>
+            <div class="team-grid">
+              <div class="role-card clickable">
+                <div class="role-icon">🖥️</div>
+                <div class="role-info">
+                  <h4>Frontend Engineer</h4>
+                  <div class="role-slug">frontend-engineer</div>
+                  <div class="role-status"><span class="dot"></span> Ativo</div>
+                </div>
+              </div>
+              <div class="role-card clickable">
+                <div class="role-icon">⚙️</div>
+                <div class="role-info">
+                  <h4>Backend Engineer</h4>
+                  <div class="role-slug">backend-engineer</div>
+                  <div class="role-status"><span class="dot"></span> Ativo</div>
+                </div>
+              </div>
+              <div class="role-card clickable">
+                <div class="role-icon">🗄️</div>
+                <div class="role-info">
+                  <h4>DBA</h4>
+                  <div class="role-slug">dba</div>
+                  <div class="role-status"><span class="dot"></span> Ativo</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="team-section">
+            <div class="team-section-title">✅ Qualidade</div>
+            <div class="team-grid">
+              <div class="role-card clickable">
+                <div class="role-icon">🧪</div>
+                <div class="role-info">
+                  <h4>QA Engineer</h4>
+                  <div class="role-slug">quality-engineer</div>
+                  <div class="role-status"><span class="dot"></span> Ativo</div>
+                </div>
+              </div>
+              <div class="role-card clickable">
+                <div class="role-icon">🚀</div>
+                <div class="role-info">
+                  <h4>DevOps</h4>
+                  <div class="role-slug">devops</div>
+                  <div class="role-status"><span class="dot"></span> Ativo</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="team-section">
+            <div class="team-section-title">📢 Marketing & Conteúdo</div>
+            <div class="team-grid">
+              <div class="role-card clickable">
+                <div class="role-icon">📣</div>
+                <div class="role-info">
+                  <h4>Head of Marketing</h4>
+                  <div class="role-slug">head-marketing</div>
+                  <div class="role-status"><span class="dot"></span> Ativo</div>
+                </div>
+              </div>
+              <div class="role-card clickable">
+                <div class="role-icon">✍️</div>
+                <div class="role-info">
+                  <h4>Tech Writer</h4>
+                  <div class="role-slug">tech-writer</div>
+                  <div class="role-status"><span class="dot"></span> Ativo</div>
+                </div>
+              </div>
+              <div class="role-card clickable">
+                <div class="role-icon">💼</div>
+                <div class="role-info">
+                  <h4>LinkedIn</h4>
+                  <div class="role-slug">linkedin</div>
+                  <div class="role-status"><span class="dot"></span> Ativo</div>
+                </div>
+              </div>
+              <div class="role-card clickable">
+                <div class="role-icon">📸</div>
+                <div class="role-info">
+                  <h4>Instagram</h4>
+                  <div class="role-slug">instagram</div>
+                  <div class="role-status"><span class="dot"></span> Ativo</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONFIG SCREEN -->
+        <div id="screen-config" class="screen">
+          <div class="config-panel">
+            <div class="config-card">
+              <h3>📁 Projeto: meu-saas</h3>
+              <div class="config-field">
+                <span class="config-label">Path</span>
+                <span class="config-value path">~/projects/meu-saas</span>
+              </div>
+              <div class="config-field">
+                <span class="config-label">Conectado em</span>
+                <span class="config-value">2026-06-15 14:30</span>
+              </div>
+              <div class="config-field">
+                <span class="config-label">.product-team/</span>
+                <span class="config-value" style="color: var(--color-success);">✅ Detectado</span>
+              </div>
+              <div class="config-field">
+                <span class="config-label">Feature atual</span>
+                <span class="config-value">dashboard (spec)</span>
+              </div>
+              <div class="config-field">
+                <span class="config-label">Roles ativas</span>
+                <span class="config-value">13</span>
+              </div>
+              <div class="config-actions">
+                <button class="btn btn-secondary">🔄 Reconectar</button>
+                <button class="btn btn-danger">🗑️ Remover</button>
+              </div>
+            </div>
+
+            <div class="config-card">
+              <h3>➕ Adicionar novo projeto</h3>
+              <p style="font-size:13px;color:var(--color-text-muted);margin-bottom:12px;">
+                Conecte outro projeto Timovi ao Dashboard. O projeto precisa ter um <code>.product-team/state.json</code> válido.
+              </p>
+              <button class="btn btn-primary" onclick="alert('Wizard: Selecione a pasta do projeto...')">
+                <span class="material-symbols-outlined" style="font-size:16px;">add</span> Conectar projeto
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const screenTitles = {
+      kanban: 'Kanban',
+      team: 'Time',
+      config: 'Configuração'
+    };
+
+    function showScreen(screenId) {
+      // Hide all screens
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      // Show target
+      const target = document.getElementById('screen-' + screenId);
+      if (target) target.classList.add('active');
+
+      // Update sub-nav active states
+      document.querySelectorAll('.sub-nav-item').forEach(item => {
+        item.classList.remove('active');
+        if (item.textContent.trim().toLowerCase().includes(screenId === 'kanban' ? 'kanban' : screenId)) {
+          item.classList.add('active');
+        }
+      });
+
+      // Update topbar title
+      document.getElementById('screenTitle').textContent = screenTitles[screenId] || screenId;
+    }
+
+    function toggleProject(btn) {
+      // Close other projects
+      document.querySelectorAll('.project-toggle').forEach(other => {
+        if (other !== btn) {
+          other.classList.remove('active', 'expanded');
+        }
+      });
+      document.querySelectorAll('.sub-nav').forEach(sub => {
+        if (sub.id !== 'sub-' + btn.dataset.project) {
+          sub.classList.remove('open');
+        }
+      });
+
+      // Toggle this one
+      btn.classList.toggle('expanded');
+      btn.classList.toggle('active');
+      const sub = document.getElementById('sub-' + btn.dataset.project);
+      if (sub) sub.classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>

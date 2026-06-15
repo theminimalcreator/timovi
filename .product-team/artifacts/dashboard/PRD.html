@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRD — Dashboard do Timovi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #121414;
+      --surface: #1f2020;
+      --border: #383939;
+      --text: #e3e2e2;
+      --text-muted: #b9ccb2;
+      --accent: #00e639;
+      --accent-dim: #007117;
+      --green: #00ff41;
+      --orange: #f59e0b;
+      --red: #ffb4ab;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-heading: 'Geist', 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 24px 32px;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .feature-name {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font-heading);
+    }
+
+    .badge-status {
+      background: rgba(0, 255, 65, 0.15);
+      color: var(--green);
+    }
+
+    .badge-phase {
+      background: rgba(0, 230, 57, 0.15);
+      color: var(--accent);
+    }
+
+    .header-meta {
+      margin-top: 12px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      padding: 0 32px;
+    }
+
+    .tab {
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+      font-family: var(--font);
+    }
+
+    .tab:hover { color: var(--text); }
+    .tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .tab-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--border);
+      color: var(--text-muted);
+      font-size: 11px;
+      min-width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      margin-left: 6px;
+      padding: 0 6px;
+    }
+
+    /* Content */
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* PRD Sections */
+    .section { margin-bottom: 40px; }
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section h3 {
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--accent);
+      margin: 20px 0 10px;
+    }
+
+    .section h3:first-child { margin-top: 0; }
+
+    .section p { margin-bottom: 12px; color: var(--text); }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--surface);
+      font-weight: 600;
+      color: var(--text);
+      font-size: 13px;
+      font-family: var(--font-heading);
+    }
+
+    td { color: var(--text); }
+
+    /* Code blocks */
+    code {
+      background: var(--surface);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      font-family: var(--font-mono);
+    }
+
+    pre {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+
+    pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--text);
+    }
+
+    /* Lists */
+    ul, ol { margin: 8px 0 16px 24px; }
+    li { margin-bottom: 6px; }
+
+    strong { color: #fff; }
+
+    /* Issue cards */
+    .issue-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .issue-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .issue-id {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .issue-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      font-family: var(--font-heading);
+    }
+
+    .issue-meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .issue-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .status-done { background: var(--green); }
+    .status-progress { background: var(--accent); }
+    .status-pending { background: var(--text-muted); }
+    .status-blocked { background: var(--red); }
+    .status-failed { background: var(--red); }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+
+    .empty-state-icon { font-size: 48px; margin-bottom: 16px; }
+    .empty-state-text { font-size: 15px; }
+
+    /* Risks */
+    .risk-high { color: var(--red); }
+    .risk-medium { color: var(--orange); }
+    .risk-low { color: var(--green); }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 24px 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .header, .tabs, .content { padding-left: 16px; padding-right: 16px; }
+      .feature-name { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-top">
+      <h1 class="feature-name">Dashboard do Timovi</h1>
+      <div style="display:flex;gap:8px;">
+        <span class="badge badge-status">in_progress</span>
+        <span class="badge badge-phase">spec</span>
+      </div>
+    </div>
+    <div class="header-meta">
+      <span>📅 Criado: 2026-06-15</span>
+      <span>🔄 Atualizado: 2026-06-15</span>
+      <span>👤 PM: Zaia</span>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('docs')">
+      📄 Documentação
+    </button>
+    <button class="tab" onclick="switchTab('issues')">
+      🎫 Issues <span class="tab-badge" id="issue-count">0</span>
+    </button>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- Tab: Documentação -->
+    <div id="tab-docs" class="tab-content active">
+
+      <div class="section">
+        <h2 class="section-title">1. Problem Statement</h2>
+
+        <h3>Problema atual</h3>
+        <p>O Timovi opera 100% como um agente de IA dentro do chat (Pi, Claude Code, Cursor, etc.). Toda a estrutura do time — Roles, Pipeline, Fases, Issues, Artefatos — está em arquivos dentro de <code>.product-team/</code>, mas é <strong>invisível</strong> para o usuário. Para saber o que está acontecendo, o usuário precisa perguntar ao Orquestrador via chat.</p>
+
+        <p>Isso gera atrito:</p>
+        <ul>
+          <li><strong>Falta de visibilidade:</strong> O usuário não enxerga quais Roles estão ativas, qual Feature está em andamento, em qual Fase do Pipeline ela está</li>
+          <li><strong>Consulta reativa:</strong> Toda informação exige uma pergunta explícita no chat, interrompendo o fluxo de trabalho</li>
+          <li><strong>Ausência de panorama multi-projeto:</strong> Founders/devs com múltiplos projetos não têm como comparar ou alternar rapidamente entre os times de cada um</li>
+        </ul>
+
+        <h3>Dores do usuário</h3>
+        <table>
+          <tr><th>Dor</th><th>Impacto</th></tr>
+          <tr><td>"Não sei o que o time está fazendo agora"</td><td>Precisa perguntar no chat, gera ida e volta</td></tr>
+          <tr><td>"Tenho 3 projetos, cada um com seu time, quero ver todos"</td><td>Abrir cada projeto no agente é lento e desconexo</td></tr>
+          <tr><td>"O Pipeline avançou? Quais Issues estão prontas?"</td><td>Sem visibilidade, o Pipeline parece uma caixa preta</td></tr>
+        </table>
+
+        <h3>Métricas de sucesso</h3>
+        <ul>
+          <li>Usuário consegue visualizar o Time (Roles ativas) e o Kanban (Issues por Fase do Pipeline) <strong>sem fazer nenhuma pergunta ao Orquestrador</strong></li>
+          <li>Troca entre projetos no Dashboard é <strong>instantânea</strong> (SPA, sem reload)</li>
+          <li>Wizard de primeiro uso completa em <strong>menos de 1 minuto</strong></li>
+          <li>Dashboard complementa o chat — <strong>zero atrito</strong> entre abrir o Dashboard e voltar pro agente</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">2. Solution</h2>
+
+        <h3>Visão geral</h3>
+        <p><strong><code>timovi-dashboard</code></strong> — Uma aplicação standalone (React + mini-backend Node/Express) que serve como <strong>camada de observabilidade</strong> sobre os Artefatos do <code>.product-team/</code>. O Dashboard é read-only: visualiza, não modifica. Toda ação (iniciar Feature pausada, discutir nova Feature) continua sendo feita via Orquestrador no chat do agente de IA.</p>
+
+        <h3>Arquitetura de alto nível</h3>
+        <pre><code>~/projects/
+├── timovi-dashboard/          ← Projeto separado (este PRD)
+│   ├── cli/                   ← CLI: wizard de instalação
+│   ├── frontend/              ← React SPA (Dashboard UI)
+│   └── backend/               ← API server (Node/Express)
+│
+├── meu-saas/                  ← Projeto 1 (já tem .product-team/)
+├── landing-page/              ← Projeto 2 (já tem .product-team/)
+└── app-mobile/                ← Projeto 3 (já tem .product-team/)</code></pre>
+        <p>O backend do Dashboard acessa os <code>.product-team/</code> de cada projeto conectado via filesystem (read-only). A lista de projetos conectados é persistida em <code>backend/storage/projects.json</code>.</p>
+
+        <h3>Fluxo de primeiro uso</h3>
+        <ol>
+          <li><code>npm install -g timovi-dashboard</code></li>
+          <li><code>timovi-dashboard wizard</code> → CLI interativo</li>
+          <li>File picker nativo → seleciona pasta do projeto</li>
+          <li>CLI detecta <code>.product-team/state.json</code> → confirma "Time detectado ✅"</li>
+          <li>Instala a Skill do Timovi no projeto (se necessário)</li>
+          <li>Sobe backend + frontend → abre <code>http://localhost:5173</code></li>
+        </ol>
+
+        <h3>Fluxo de uso diário</h3>
+        <ol>
+          <li><code>timovi-dashboard</code> → sobe backend + frontend</li>
+          <li>Abre navegador → Dashboard com projetos já conectados</li>
+          <li>Sidebar com seletor de projetos (até 3), expansível:
+            <ul>
+              <li>📊 <strong>Kanban</strong> — Issues distribuídas nas colunas das Fases do Pipeline</li>
+              <li>👥 <strong>Time</strong> — Página dedicada com cards de cada Role ativa</li>
+              <li>⚙️ <strong>Config</strong> — Wizard de reconexão, path do projeto, reconfigure</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">3. User Stories</h2>
+
+        <h3>US-1: Primeiro acesso com Wizard</h3>
+        <p><em>Como founder/dev solo, quero conectar meu primeiro projeto ao Dashboard usando um Wizard simples com file picker nativo, para que em menos de 1 minuto eu já veja meu time.</em></p>
+        <p><strong>Critérios de aceitação:</strong></p>
+        <ul>
+          <li>Wizard CLI com prompt interativo e file picker nativo</li>
+          <li>Detecta automaticamente <code>.product-team/state.json</code> na pasta selecionada</li>
+          <li>Mostra mensagem de sucesso "Time detectado ✅" com nome do projeto e Roles ativas</li>
+          <li>Sobe backend + frontend automaticamente após wizard</li>
+          <li>Se <code>state.json</code> não for encontrado, mostra mensagem "Nenhum time encontrado. Execute o bootstrap via chat primeiro."</li>
+        </ul>
+
+        <h3>US-2: Seletor de projetos</h3>
+        <p><em>Como founder com múltiplos projetos, quero ver todos meus projetos na sidebar e trocar entre eles com um clique, para alternar rapidamente entre os times.</em></p>
+        <p><strong>Critérios de aceitação:</strong></p>
+        <ul>
+          <li>Sidebar esquerda lista projetos conectados (até 3 no MVP)</li>
+          <li>Projeto ativo expande com sub-items: Kanban, Time, Config</li>
+          <li>Projetos inativos mostram apenas nome (colapsados)</li>
+          <li>Ao clicar em outro projeto, o conteúdo principal atualiza com animação de fade/slide</li>
+          <li>Botão "+ Adicionar" no fim da lista para conectar novo projeto</li>
+          <li>Lista de projetos persiste entre sessões (salva em <code>storage/projects.json</code> no backend)</li>
+        </ul>
+
+        <h3>US-3: Kanban de Features</h3>
+        <p><em>Como founder, quero ver um quadro Kanban com as Issues de cada Feature distribuídas nas Fases do Pipeline (Plan → Spec → Breakdown → Execute → Review), para saber exatamente o que está acontecendo.</em></p>
+        <p><strong>Critérios de aceitação:</strong></p>
+        <ul>
+          <li>Colunas: Plan | Spec | Breakdown | Execute | Review</li>
+          <li>Cada Issue é um card com: título, Roles assignadas (badges)</li>
+          <li>Cards usam cor de status: verde (done), azul (in_progress), cinza (pending), vermelho (failed), amarelo (blocked)</li>
+          <li>Feature atual é destacada com borda Electric Green</li>
+          <li>Quando uma Issue muda de Fase no <code>feature.json</code>, o card anima (fade/slide) na atualização</li>
+          <li>Features concluídas aparecem na coluna Review com check verde</li>
+        </ul>
+
+        <h3>US-4: Página do Time</h3>
+        <p><em>Como founder, quero ver todos os papéis ativos no projeto em uma página dedicada, para saber exatamente quais Roles compõem meu time.</em></p>
+        <p><strong>Critérios de aceitação:</strong></p>
+        <ul>
+          <li>Grid de cards, um por Role ativa (definida em <code>state.json</code> → <code>active_roles</code>)</li>
+          <li>Cada card mostra: nome da Role, ícone representativo, status (ativo)</li>
+          <li>Roles são agrupadas por categoria visual (estratégia, engenharia, qualidade, marketing)</li>
+          <li>Cards usam o design system do Timovi (Terminal Dark, Electric Green, Geist/Inter/JetBrains Mono)</li>
+        </ul>
+
+        <h3>US-5: Configuração</h3>
+        <p><em>Como founder, quero acessar a tela de configuração de um projeto para reconectar o Dashboard, ver o path do projeto, ou remover um projeto da lista.</em></p>
+        <p><strong>Critérios de aceitação:</strong></p>
+        <ul>
+          <li>Acessível via sidebar (⚙️ Config) e via botão no topo (⚙️ Configurar)</li>
+          <li>Mostra path do projeto, data de conexão, status do <code>.product-team/</code></li>
+          <li>Botão "Reconectar" — reabre Wizard para este projeto</li>
+          <li>Botão "Remover" — remove projeto da lista (não deleta arquivos)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">4. Implementation Decisions</h2>
+
+        <h3>Stack</h3>
+        <table>
+          <tr><th>Camada</th><th>Tecnologia</th><th>Justificativa</th></tr>
+          <tr><td>Frontend</td><td>React (Vite)</td><td>SPA com roteamento, sem reload entre projetos</td></tr>
+          <tr><td>Estilização</td><td>Tailwind CSS (CDN)</td><td>Consistente com landing page do Timovi</td></tr>
+          <tr><td>Backend</td><td>Node.js + Express</td><td>Leve, já conhecido, serve JSONs do filesystem</td></tr>
+          <tr><td>CLI</td><td>Node.js (inquirer)</td><td>File picker nativo, compatível com npm global</td></tr>
+          <tr><td>Persistência</td><td>JSON em arquivo</td><td>Sem banco de dados, dados leves</td></tr>
+          <tr><td>Tema</td><td>Terminal Dark</td><td>Dark-only, Electric Green (#00e639), Geist/Inter/JetBrains Mono</td></tr>
+        </table>
+
+        <h3>Decisões arquiteturais</h3>
+        <table>
+          <tr><th>Decisão</th><th>Motivo</th></tr>
+          <tr><td>Dashboard é read-only</td><td>Evita conflito de escrita com o Orquestrador</td></tr>
+          <tr><td>Projeto separado</td><td>Desacoplado do template de skills. <code>.product-team/</code> é consumido, não modificado</td></tr>
+          <tr><td>Mini-backend em vez de HTML puro</td><td>Necessário para persistir lista de projetos, acessar filesystem, multi-path</td></tr>
+          <tr><td>React em vez de HTML vanilla</td><td>Layout com sidebar + routing + animações seria complexo em vanilla</td></tr>
+          <tr><td><code>npm install -g</code></td><td>Mesmo ecossistema do Timovi, instalação simples</td></tr>
+          <tr><td>Sem banco de dados</td><td>MVP: até 3 projetos, dados já em JSON no disco</td></tr>
+        </table>
+
+        <h3>API Endpoints (backend)</h3>
+        <table>
+          <tr><th>Método</th><th>Rota</th><th>Descrição</th></tr>
+          <tr><td><code>GET</code></td><td><code>/api/projects</code></td><td>Lista projetos conectados</td></tr>
+          <tr><td><code>POST</code></td><td><code>/api/projects</code></td><td>Adiciona projeto (body: { path })</td></tr>
+          <tr><td><code>DELETE</code></td><td><code>/api/projects/:id</code></td><td>Remove projeto da lista</td></tr>
+          <tr><td><code>GET</code></td><td><code>/api/projects/:id/state</code></td><td>Lê e retorna state.json do projeto</td></tr>
+          <tr><td><code>GET</code></td><td><code>/api/projects/:id/feature</code></td><td>Lê e retorna feature.json da feature atual</td></tr>
+        </table>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">5. Testing Decisions</h2>
+
+        <h3>O que testar</h3>
+        <table>
+          <tr><th>Tipo</th><th>Foco</th></tr>
+          <tr><td><strong>Wizard</strong></td><td>File picker funciona cross-platform? Detecta state.json? Mensagens de erro claras?</td></tr>
+          <tr><td><strong>API</strong></td><td>Responde com dados corretos? Lida com path inválido? JSON malformado retorna erro 500?</td></tr>
+          <tr><td><strong>Kanban</strong></td><td>Cards renderizam na coluna correta? Animação ao mudar status? Coluna vazia mostra placeholder?</td></tr>
+          <tr><td><strong>Time</strong></td><td>Todas as Roles de active_roles aparecem? Agrupamento correto?</td></tr>
+          <tr><td><strong>Seletor</strong></td><td>Trocar projeto atualiza UI sem reload? Projeto inválido mostra erro?</td></tr>
+          <tr><td><strong>Persistência</strong></td><td>Projetos sobrevivem a restart do servidor?</td></tr>
+        </table>
+
+        <h3>O que NÃO testar (v1)</h3>
+        <ul>
+          <li>Testes E2E automatizados (Cypress/Playwright)</li>
+          <li>Testes de performance com 50+ projetos</li>
+          <li>Testes de acessibilidade (WCAG)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">6. Out of Scope (v1)</h2>
+
+        <table>
+          <tr><th>Item</th><th>Motivo</th></tr>
+          <tr><td>Bootstrap via Dashboard</td><td>Bootstrap continua via chat do Orquestrador</td></tr>
+          <tr><td>Drag-and-drop no Kanban</td><td>Complexidade alta, valor baixo para v1</td></tr>
+          <tr><td>Edição de Issues via Dashboard</td><td>Dashboard é read-only; ação via chat</td></tr>
+          <tr><td>Notificações (toast, push, email)</td><td>Postergado para não poluir MVP</td></tr>
+          <tr><td>Integração com GitHub</td><td>Adiciona superfície de API externa</td></tr>
+          <tr><td>Autenticação / multi-usuário</td><td>Timovi é single-user</td></tr>
+          <tr><td>Tema claro</td><td>Terminal Dark-only, consistente com Design System</td></tr>
+          <tr><td>Mobile / responsivo</td><td>Dashboard é desktop-only (janela separada)</td></tr>
+          <tr><td>Internacionalização</td><td>Interface segue chat_language — pt-BR inicial</td></tr>
+          <tr><td>Suporte a mais de 3 projetos</td><td>MVP começa com 3</td></tr>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- Tab: Issues -->
+    <div id="tab-issues" class="tab-content">
+      <div id="issues-container">
+        <div class="empty-state">
+          <div class="empty-state-icon">🎫</div>
+          <div class="empty-state-text">
+            Issues serão geradas na fase de <strong>Breakdown</strong>.<br>
+            <span style="font-size:13px;">Volte aqui depois que o Tech Lead decompor o PRD.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelector(`.tab:nth-child(${tabName === 'docs' ? '1' : '2'})`).classList.add('active');
+
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.getElementById(`tab-${tabName}`).classList.add('active');
+    }
+
+    // No issues yet — empty state rendered inline
+  </script>
+
+</body>
+</html>
