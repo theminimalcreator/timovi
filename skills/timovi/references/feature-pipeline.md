@@ -375,11 +375,65 @@ Present the numbered list and ask:
 > "Do the issues make sense? Is the granularity good? Are the dependencies
 > correct?"
 
-### 3.5 Save
+### 3.5 Ponytail Gate — Minimalism Review
+
+Before saving the breakdown, the Orquestrador activates the ponytail gate.
+
+**Goal:** Review each Issue through the **Escada** from `references/ponytail.md`
+and eliminate over-engineering before execution begins.
+
+#### 3.5.1 Load the ponytail reference
+
+Read `references/ponytail.md` — the Escada (6 degraus), Rules, and Never-Simplify list.
+
+#### 3.5.2 Apply the ladder to each Issue
+
+For each Issue, stop at the first degrau that holds:
+
+| Degrau | Pergunta | Ação |
+|--------|----------|------|
+| 1. YAGNI | Does this Issue need to exist? | If speculative or redundant → mark `cancelled` |
+| 2. Stdlib | Can stdlib solve this? | Simplify the Issue scope, add `ponytail:` note |
+| 3. Nativo | Can a native platform feature cover it? | Simplify, add `ponytail:` note |
+| 4. Dependência existente | Does an already-installed dependency solve it? | Simplify, note the dependency |
+| 5. Uma linha | Can this be one line/one file? | Reduce scope, merge with another Issue |
+| 6. Mínimo | Only then: keep as-is | Issue survives the gate |
+
+#### 3.5.3 Rules
+
+- **Issues implementing explicit user requests (PRD User Stories) are IMMUNE to cancellation.**
+  The ponytail may simplify their scope but NEVER cancels them.
+- **Cancelled Issues** get status `cancelled` in `feature.json`
+- **Simplified Issues** get a `ponytail:` annotation in `title` or `notes`
+- **Minimum 1 Issue remains active** — ponytail never cancels all Issues
+- **Record every action** in `ponytail_actions` array in `feature.json`:
+  ```json
+  {
+    "timestamp": "<ISO 8601>",
+    "phase": "breakdown",
+    "action": "cancelled" | "simplified" | "merged",
+    "issue_id": "<ISSUE-X>",
+    "reason": "<justification>",
+    "severity": "info" | "warning"
+  }
+  ```
+
+#### 3.5.4 Present the gate result
+
+Say:
+
+> "🪮 **Ponytail gate (Breakdown):**"
+> - ✅ [N] Issues survived
+> - ❌ [N] Issues cancelled: [list with reasons]
+> - 📝 [N] Issues simplified: [list with annotations]
+>
+> "Continue to save?"
+
+### 3.6 Save
 
 Issues are saved in `feature.json` — nothing to publish externally.
 
-### 3.6 Checkpoint + Git commit
+### 3.7 Checkpoint + Git commit
 
 Save to `.product-team/state.json`:
 - `features[].checkpoints.breakdown`
@@ -452,7 +506,53 @@ For each round:
    >    - `notes`: error description"
 
 2. Monitor progress by reading `feature.json` periodically
-3. When all issues in the round complete, advance
+3. When all issues in the round complete, advance to the ponytail gate
+
+#### 4.2.5 Ponytail Gate — Code Review (after each Round)
+
+After all Issues in a Round complete, before advancing to the next Round,
+the Orquestrador activates the ponytail gate on the generated code.
+
+**Goal:** Detect over-engineering in the implementation — duplicated code,
+unnecessary abstractions, new dependencies, excessive files.
+
+**Process:**
+
+1. Read `references/ponytail.md` — Escada, Rules, Never-Simplify list
+2. Review the diff generated in this Round (files changed by completed Issues)
+3. Apply the ponytail lens:
+
+| Check | What to look for | Action |
+|-------|-----------------|--------|
+| Duplicated code | Same logic in 2+ files | Flag for consolidation |
+| Unrequested abstractions | Interface with 1 impl, factory with 1 product | Suggest removal |
+| New dependencies | Package added for what a few lines or existing dep could do | Alert |
+| Excessive files | 3+ new files for a single Issue | Suggest consolidation |
+| Boilerplate | Config, scaffolding, "for later" code | Flag as unnecessary |
+
+4. For each finding, record in `ponytail_actions`:
+   ```json
+   {
+     "timestamp": "<ISO 8601>",
+     "phase": "execute",
+     "action": "duplication_flagged" | "abstraction_flagged" | "dependency_flagged",
+     "issue_id": "<ISSUE-X>",
+     "file": "<file path>",
+     "reason": "<justification>",
+     "severity": "warning",
+     "lines_saved": <estimated lines that could be removed>
+   }
+   ```
+
+5. Present the gate result silently (no user interruption) — actions are logged
+   in `ponytail_actions` for later review.
+
+**Rules:**
+- **Signal, don't block:** The gate flags issues but never blocks execution.
+  Issues remain `done`, findings go to `ponytail_actions`.
+- **Never flag explicit user requests:** Code implementing PRD User Stories is
+  immune to "unrequested abstraction" flags.
+- **Gate failure is non-blocking:** If parsing fails, continue with a warning.
 
 ### 4.3 Execution report
 

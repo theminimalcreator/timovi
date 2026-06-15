@@ -51,6 +51,26 @@ Each feature has its own `feature.json` at `.product-team/artifacts/<feature-nam
       "blocked_by": ["ISSUE-2"],
       "notes": ""
     }
+  ],
+
+  "ponytail_actions": [
+    {
+      "timestamp": "2026-06-05T12:00:00Z",
+      "phase": "breakdown",
+      "action": "cancelled",
+      "issue_id": "ISSUE-4",
+      "reason": "coberto por ISSUE-2 com stdlib",
+      "severity": "info"
+    },
+    {
+      "timestamp": "2026-06-05T13:00:00Z",
+      "phase": "execute",
+      "action": "simplified",
+      "issue_id": "ISSUE-3",
+      "file": "src/utils/cache.ts",
+      "reason": "functools.lru_cache substitui classe customizada de cache",
+      "lines_saved": 120
+    }
   ]
 }
 ```
@@ -83,7 +103,7 @@ Each feature has its own `feature.json` at `.product-team/artifacts/<feature-nam
 |-------|------|-------------|
 | `id` | string | Sequential ID (ISSUE-1, ISSUE-2, ...) |
 | `title` | string | Descriptive title |
-| `status` | string | `"pending"`, `"in_progress"`, `"done"`, `"blocked"`, `"failed"` |
+| `status` | string | `"pending"`, `"in_progress"`, `"done"`, `"blocked"`, `"failed"`, `"cancelled"` |
 | `assigned_roles` | string[] | Responsible roles |
 | `blocked_by` | string[] | IDs of blocking issues |
 | `pr_url` | string\|null | PR URL (filled after implementation) |
@@ -96,12 +116,14 @@ Each feature has its own `feature.json` at `.product-team/artifacts/<feature-nam
 
 ```
 pending ──────→ in_progress ──────→ done
-   │                  │
-   │                  ├──→ blocked
-   │                  │       │
-   │                  │       └──→ in_progress
-   │                  │
-   │                  └──→ failed
+   │    │             │
+   │    │             ├──→ blocked
+   │    │             │       │
+   │    │             │       └──→ in_progress
+   │    │             │
+   │    │             └──→ failed
+   │    │
+   │    └──→ cancelled (ponytail gate: redundant or speculative)
    │
    └──→ (issue never spawned, waiting for round)
 ```
@@ -111,5 +133,26 @@ pending ──────→ in_progress ──────→ done
 - **Agents update `feature.json` directly.** It is the source of truth.
 - **`updated_at` is updated on every change** to any issue or phase.
 - **`blocked` → `in_progress`** happens automatically when the blocking issue marks `done`.
-- **Never remove issues** — mark as `done` or `failed`.
+- **Never remove issues** — mark as `done`, `failed`, or `cancelled`.
 - **`notes` is for inter-agent communication** — errors, decisions, context.
+
+## PonytailActions
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `timestamp` | string | ISO 8601 timestamp |
+| `phase` | string | `"breakdown"` or `"execute"` |
+| `action` | string | `"cancelled"`, `"simplified"`, `"merged"`, `"duplication_flagged"`, `"abstraction_flagged"`, `"dependency_flagged"` |
+| `issue_id` | string | ID of the affected Issue |
+| `reason` | string | Justification for the action |
+| `severity` | string | `"info"` or `"warning"` |
+| `file` | string\|null | Affected file (execute phase only) |
+| `lines_saved` | number\|null | Lines saved (when applicable) |
+
+### Rules for ponytail_actions
+
+- **Backward-compatible:** Field is optional. Existing `feature.json` without `ponytail_actions` parses normally.
+- **Append-only:** Actions are never removed or edited, only added.
+- **Non-blocking:** If the ponytail gate fails, pipeline continues with a warning.
+- **Minimum 1 issue:** Ponytail never cancels all issues — at least 1 must remain active.
+- **Never cancels explicit user requests:** Issues implementing PRD User Stories are immune to cancellation.
