@@ -1,17 +1,93 @@
 {
   "name": "dashboard",
   "status": "in_progress",
-  "pipeline_phase": "breakdown",
+  "pipeline_phase": "execute",
   "prd": {
     "source": "generated",
     "imported_from": null
   },
-  "issues": [],
-  "ponytail_actions": [],
-  "created_at": "2026-06-15T19:00:00Z",
-  "updated_at": "2026-06-15T19:15:00Z",
   "prd_path": "PRD.md",
   "prd_html_path": "PRD.html",
   "prototype_path": "prototype.html",
-  "prd_created_at": "2026-06-15T19:10:00Z"
+  "prd_created_at": "2026-06-15T19:10:00Z",
+  "issues": [
+    {
+      "id": "ISSUE-1",
+      "title": "Estrutura do projeto: criar diretórios, package.json, Vite + Express config, tsconfig, scripts npm",
+      "status": "pending",
+      "assigned_roles": ["backend-engineer", "frontend-engineer"],
+      "blocked_by": [],
+      "notes": ""
+    },
+    {
+      "id": "ISSUE-2",
+      "title": "Backend API: 5 endpoints (CRUD projetos + GET state.json + GET feature.json), JSON file storage",
+      "status": "pending",
+      "assigned_roles": ["backend-engineer"],
+      "blocked_by": ["ISSUE-1"],
+      "notes": "ponytail: minimal — 1 arquivo server.js, sem ORM, sem banco, JSON no disco"
+    },
+    {
+      "id": "ISSUE-3",
+      "title": "CLI Wizard: file picker nativo (inquirer), detecta .product-team/state.json, chama POST /api/projects",
+      "status": "pending",
+      "assigned_roles": ["backend-engineer"],
+      "blocked_by": ["ISSUE-2"],
+      "notes": ""
+    },
+    {
+      "id": "ISSUE-4",
+      "title": "Frontend Shell: layout base (sidebar + topbar), React Router, hook useProject (fetch API), tema Terminal Dark + Tailwind",
+      "status": "pending",
+      "assigned_roles": ["frontend-engineer"],
+      "blocked_by": ["ISSUE-1", "ISSUE-2"],
+      "notes": "ponytail: merged layout + integration + theme into single issue to reduce fragmentation"
+    },
+    {
+      "id": "ISSUE-5",
+      "title": "Kanban Board: 5 colunas (Plan→Spec→Breakdown→Execute→Review), cards de Issue com badges de role, cores de status, animações fade/slide",
+      "status": "pending",
+      "assigned_roles": ["frontend-engineer"],
+      "blocked_by": ["ISSUE-4"],
+      "notes": ""
+    },
+    {
+      "id": "ISSUE-6",
+      "title": "Página do Time: grid de Roles agrupadas por categoria (estratégia/engenharia/qualidade/marketing), cards com ícone + nome + status",
+      "status": "pending",
+      "assigned_roles": ["frontend-engineer"],
+      "blocked_by": ["ISSUE-4"],
+      "notes": ""
+    },
+    {
+      "id": "ISSUE-7",
+      "title": "Config Panel: path do projeto, data de conexão, status .product-team/, botões reconectar + remover, wizard de adição via sidebar",
+      "status": "pending",
+      "assigned_roles": ["frontend-engineer"],
+      "blocked_by": ["ISSUE-4"],
+      "notes": ""
+    }
+  ],
+  "ponytail_actions": [
+    {
+      "timestamp": "2026-06-15T19:20:00Z",
+      "phase": "breakdown",
+      "action": "simplified",
+      "issue_id": "ISSUE-2",
+      "reason": "API originalmente seria dividida em CRUD projetos + leitura state; merged em 1 arquivo server.js com 5 rotas. Sem ORM, sem banco, JSON no disco.",
+      "severity": "info",
+      "lines_saved": 80
+    },
+    {
+      "timestamp": "2026-06-15T19:20:00Z",
+      "phase": "breakdown",
+      "action": "merged",
+      "issue_id": "ISSUE-4",
+      "reason": "Layout + integração API + tema foram merged em 1 Issue (Frontend Shell) para evitar fragmentação de 3 Issues com 1 FE cada",
+      "severity": "info",
+      "lines_saved": 40
+    }
+  ],
+  "created_at": "2026-06-15T19:00:00Z",
+  "updated_at": "2026-06-15T19:20:00Z"
 }
