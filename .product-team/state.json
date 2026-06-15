@@ -7,7 +7,7 @@
   "bootstrap_completed": true,
   "bootstrap_completed_at": "2026-06-15T17:45:00Z",
   "current_feature": "dashboard",
-  "pipeline_phase": "review",
+  "pipeline_phase": null,
   "git_mode": "confirm",
   "active_roles": [
     "product-manager",
@@ -38,12 +38,13 @@
     },
     {
       "name": "dashboard",
-      "status": "in_progress",
+      "status": "done",
       "checkpoints": {
         "plan": "2026-06-15T19:00:00Z",
         "spec": "2026-06-15T19:15:00Z",
         "breakdown": "2026-06-15T19:20:00Z",
-        "execute": "2026-06-15T19:30:00Z"
+        "execute": "2026-06-15T19:30:00Z",
+        "review": "2026-06-15T19:40:00Z"
       }
     }
   ]
