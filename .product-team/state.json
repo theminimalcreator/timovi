@@ -1,0 +1,47 @@
+{
+  "user_name": "Zaia",
+  "chat_language": "pt-br",
+  "project": "Timovi",
+  "description": "Um time digital de produto completo (PM, UX, Arquitetura, Engenharia, QA, DevOps, Marketing) dentro do seu agente de IA, para founders solo e devs indie que querem estrutura de time sem contratar ninguém.",
+  "phase": "ready",
+  "bootstrap_completed": true,
+  "bootstrap_completed_at": "2026-06-15T17:45:00Z",
+  "current_feature": "dashboard",
+  "pipeline_phase": "plan",
+  "git_mode": "confirm",
+  "active_roles": [
+    "product-manager",
+    "ux-designer",
+    "software-architect",
+    "tech-lead",
+    "frontend-engineer",
+    "backend-engineer",
+    "dba",
+    "quality-engineer",
+    "head-marketing",
+    "devops",
+    "tech-writer",
+    "linkedin",
+    "instagram"
+  ],
+  "features": [
+    {
+      "name": "ponytail-integration",
+      "status": "done",
+      "checkpoints": {
+        "plan": "2026-06-15T18:00:00Z",
+        "spec": "2026-06-15T18:05:00Z",
+        "breakdown": "2026-06-15T18:10:00Z",
+        "execute": "2026-06-15T18:22:00Z",
+        "review": "2026-06-15T18:25:00Z"
+      }
+    },
+    {
+      "name": "dashboard",
+      "status": "in_progress",
+      "checkpoints": {
+        "plan": "2026-06-15T19:00:00Z"
+      }
+    }
+  ]
+}
