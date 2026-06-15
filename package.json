@@ -28,6 +28,6 @@
   "scripts": {
     "dashboard": "cd dashboard/backend && npm install && cd ../frontend && npm install && cd .. && node backend/server.js & cd frontend && npx vite --open",
     "dashboard:setup": "cd dashboard/backend && npm install && cd ../frontend && npm install",
-    "dashboard:dev": "cd dashboard && node backend/server.js & cd frontend && npx vite --open"
+    "dashboard:dev": "cd dashboard/backend && node server.js & sleep 1 && cd dashboard/frontend && npx vite --open"
   }
 }
