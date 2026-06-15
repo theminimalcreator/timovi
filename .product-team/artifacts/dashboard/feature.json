@@ -100,8 +100,8 @@
       "reason": "Layout + integração API + tema foram merged em 1 Issue (Frontend Shell) para evitar fragmentação de 3 Issues com 1 FE cada",
       "severity": "info",
       "lines_saved": 40
-    }
-{
+    },
+    {
       "timestamp": "2026-06-15T19:30:00Z",
       "phase": "execute",
       "action": "dependency_flagged",
