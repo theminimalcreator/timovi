@@ -14,6 +14,8 @@ shares the same knowledge base.
 
 ## On activation
 
+0. **Detect Role Conversation Mode.** If the user message contains `/timovi role-conversation` or "falar com" followed by a role name, activate Role Conversation Mode (see `### Role Conversation Mode` below) instead of the normal pipeline flow. Skip the rest of this activation sequence.
+
 1. Read `.product-team/state.json`
 2. If `phase` is `"uninitialized"` or the file has no `phase` field:
    → Read and follow `references/bootstrap.md` (initialization flow)
@@ -41,6 +43,64 @@ The team is already configured. The framework will:
 - Execute the pipeline: Plan → Spec → Breakdown → Execute → Review
 
 Read `references/feature-pipeline.md` and execute from the current phase.
+
+### Role Conversation Mode
+
+**Trigger:** User types `/timovi role-conversation <role-name>` or "falar com <role>" ("talk to <role>").
+
+#### Conversation Loop
+
+1. Extract `<role-name>` from the user message.
+2. Map `<role-name>` to `roles/<role-slug>/SKILL.md`. If not found, list available roles and ask the user to pick one.
+3. Load Layer 0 (knowledge base and memory).
+4. The role presents itself (name + Responsibilities summary).
+5. **Free-form conversation loop:**
+   - User asks questions / shares context → role responds with advice, analysis, ideas.
+   - Role may propose an action (write to memory, create a file, draft a document).
+   - **Confirmation gate:** The orchestrator pauses and asks: "[Role] quer [action]. Confirmar? (sim/não)"
+     - **sim:** execute the action.
+     - **não:** skip and continue the conversation.
+   - The loop repeats until user says "fim" or "voltar".
+6. On end, save `exploration-notes.md` (see below) and return to the normal pipeline flow.
+
+#### Guardrail (Action Validation)
+
+Every proposed action is validated before reaching the confirmation gate:
+
+1. **Parse Responsibilities:** Read `## Responsibilities` from the role's SKILL.md. Extract verb phrases (each `- Verb...` bullet). These form the allowlist.
+2. **Validate action:** Match the proposed action against the allowlist.
+   - **Match found** → proceed to confirmation gate.
+   - **No match** → block. Role responds:
+     > "Isso está fora do meu escopo. Minhas responsabilidades são: [list]."
+     > If the action is clearly a pipeline action (PRD, breakdown, execution, review), add:
+     > "Quer iniciar o pipeline com `/timovi` para isso?"
+3. **Pipeline actions** (write PRD, decompose issues, execute issues, code review, deploy) are NEVER executed in conversation mode. The role must recommend starting the pipeline.
+4. **Always-allowed actions** (no guardrail check needed):
+   - Answering questions, giving advice, brainstorming.
+   - Writing to `memory/roles/<role>/` (still requires user confirmation).
+   - Recommending pipeline activation.
+
+#### Saving Exploration Notes
+
+When the user ends the conversation ("fim" / "voltar"), save as:
+
+- If `current_feature` is set → `.product-team/artifacts/<feature>/exploration-notes/<timestamp>.md`
+- If `current_feature` is null → `.product-team/exploration-notes/<timestamp>.md`
+
+**Format (one file per activation):**
+
+```markdown
+# Exploration Notes — <role> — <date>
+
+## Trigger
+> <user's first message>
+
+## Conversation
+
+> [timestamp] **Usuário:** <message>
+> [timestamp] **<Role>:** <message>
+...
+```
 
 ### Git integration
 
@@ -104,3 +164,4 @@ Template (untouchable):                    Instance (mutable):
 | QA Engineer | `roles/quality-engineer/SKILL.md` | Testing, acceptance, edge cases |
 | Head of Marketing | `roles/head-marketing/SKILL.md` | Positioning, campaigns |
 | DevOps | `roles/devops/SKILL.md` | CI/CD, deploy, infra |
+| Startup Advisor | `roles/startup-advisor/SKILL.md` | Business strategy, canvas generation, pipeline QA |

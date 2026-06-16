@@ -62,6 +62,17 @@ Say:
 
 Load `.product-team/knowledge/CONTEXT.md`, `.product-team/knowledge/ARCHITECTURE.md`.
 
+**Load exploration notes (if any):** Before starting questions, check:
+- `.product-team/exploration-notes/` (global, for idle-team conversations)
+- `.product-team/artifacts/<feature>/exploration-notes/` (feature-scoped)
+
+If exploration notes exist, the orchestrator reads them and presents a summary to the 3 roles:
+
+> "📝 **Exploration notes found:** [N] conversation(s) with [role1, role2, ...]."
+> "[1-sentence summary of key decisions/insights from each note]."
+
+The roles use these notes as input during questioning — they may reference prior decisions, confirmed assumptions, or open questions from the conversations.
+
 The 3 roles ask alternating questions. The orchestrator controls turns.
 Each role asks **1 question per round** and waits for a response before the next.
 
@@ -121,6 +132,31 @@ After **round 3**, the orchestrator asks:
   - The user can request to advance at any time ("spec", "done", "enough", "advance")
 
 Maximum: **10 rounds** (30 user questions + 30 cross-questions).
+
+### 1.4a Business QA (startup-advisor gate)
+
+After the user chooses to advance to Spec but BEFORE the Synthesis:
+
+1. If `startup-advisor` is in `active_roles`, activate the startup-advisor role.
+2. Load business canvas from `.product-team/business/INDEX.md` (if it exists).
+3. The startup-advisor reviews the plan against the business canvas and asks:
+   > "Based on the business canvas and strategy, here's my assessment of this feature's business impact:"
+   > [strategic evaluation]
+   > "**Business Review:** [approved / rejected / pending]"
+   > "Concerns: [list if any]"
+4. Save `business_review` to `feature.json`:
+   - `status`: the review verdict
+   - `reviewed_at`: timestamp
+   - `concerns`: array of concern strings
+5. If `rejected`:
+   > "⚠️ Business review: **REJECTED**. Concerns: [list]."
+   > "Do you want to:"
+   > "1. **Adjust the plan** — go back to planning rounds"
+   > "2. **Proceed anyway** — override and continue to Spec"
+   - Set `business_review.founder_decision` to `"adjust"` or `"proceed"`.
+   - If `"adjust"`: return to round structure (1.2) for more planning.
+   - If `"proceed"`: continue to Synthesis (1.5).
+6. If `approved` or `pending`: continue to Synthesis (1.5).
 
 ### 1.5 Synthesis
 

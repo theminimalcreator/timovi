@@ -22,9 +22,32 @@
     "devops",
     "tech-writer",
     "linkedin",
-    "instagram"
+    "instagram",
+    "startup-advisor"
   ],
   "features": [
+    {
+      "name": "role-conversation",
+      "status": "done",
+      "checkpoints": {
+        "plan": "2026-06-16T00:00:00Z",
+        "spec": "2026-06-16T00:00:00Z",
+        "breakdown": "2026-06-16T00:00:00Z",
+        "execute": "2026-06-16T00:00:00Z",
+        "review": "2026-06-16T00:00:00Z"
+      }
+    },
+    {
+      "name": "startup-advisor",
+      "status": "done",
+      "checkpoints": {
+        "plan": "2026-06-16T00:00:00Z",
+        "spec": "2026-06-16T00:00:00Z",
+        "breakdown": "2026-06-16T00:00:00Z",
+        "execute": "2026-06-16T00:00:00Z",
+        "review": "2026-06-16T00:00:00Z"
+      }
+    },
     {
       "name": "ponytail-integration",
       "status": "done",

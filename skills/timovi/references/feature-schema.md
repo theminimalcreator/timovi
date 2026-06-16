@@ -73,17 +73,15 @@ Each feature has its own `feature.json` at `.product-team/artifacts/<feature-nam
       "issue_id": "ISSUE-4",
       "reason": "coberto por ISSUE-2 com stdlib",
       "severity": "info"
-    },
-    {
-      "timestamp": "2026-06-05T13:00:00Z",
-      "phase": "execute",
-      "action": "simplified",
-      "issue_id": "ISSUE-3",
-      "file": "src/utils/cache.ts",
-      "reason": "functools.lru_cache substitui classe customizada de cache",
-      "lines_saved": 120
     }
-  ]
+  ],
+
+  "business_review": {
+    "status": "pending",
+    "reviewed_at": "2026-06-05T12:00:00Z",
+    "concerns": ["Feature may dilute core value proposition"],
+    "founder_decision": "proceed"
+  }
 }
 ```
 
@@ -108,6 +106,17 @@ Each feature has its own `feature.json` at `.product-team/artifacts/<feature-nam
 | `source` | string | `"generated"` (created by PM) or `"imported"` (user brought from outside) |
 | `imported_from` | string\|null | If imported, path to original file |
 | `created_at` | string | ISO 8601 |
+
+### Business Review
+
+Populated by the startup-advisor role during Phase 1 Business QA. Optional — only present if startup-advisor is active.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `status` | string | `"approved"`, `"rejected"`, or `"pending"` |
+| `reviewed_at` | string | ISO 8601 timestamp of review |
+| `concerns` | string[] | List of strategic concerns raised |
+| `founder_decision` | string | `"proceed"`, `"adjust"`, or `null`. Founder always has final word. |
 
 ### Issue
 

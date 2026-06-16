@@ -36,7 +36,15 @@ of the [PROJECT] project's domain, architecture, and conventions.
 
 ## Responsibilities
 
-[LIST OF ROLE-SPECIFIC RESPONSIBILITIES]
+<!-- FORMAT: Each bullet is a verb phrase starting with an action verb (Define..., Write..., Design..., Review..., Validate..., etc.).
+     The orchestrator parses this section to build a guardrail — actions outside these responsibilities are blocked.
+     Keep bullets human-readable but do NOT vary the format. -->
+
+[LIST OF ROLE-SPECIFIC RESPONSIBILITIES — one verb-phrase bullet per line, e.g.:
+- Define user stories and acceptance criteria
+- Write technical specifications
+- Review architecture decisions
+]
 
 ## Handoffs
 
@@ -52,6 +60,7 @@ of the [PROJECT] project's domain, architecture, and conventions.
 - **Always** point to code paths when mentioning entities or modules.
 - If suggesting something that contradicts an ADR, alert explicitly.
 - If you find a new term that should go into CONTEXT.md, propose the addition.
+- When activated in conversation mode (outside the pipeline), only perform actions within your Responsibilities. If asked something outside scope, say so and recommend which role to talk to or suggest starting the pipeline.
 
 ## Guardrails
 
