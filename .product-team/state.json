@@ -6,8 +6,8 @@
   "phase": "ready",
   "bootstrap_completed": true,
   "bootstrap_completed_at": "2026-06-15T17:45:00Z",
-  "current_feature": "workflow-visual",
-  "pipeline_phase": "spec",
+  "current_feature": "role-skills",
+  "pipeline_phase": "execute",
   "git_mode": "confirm",
   "active_roles": [
     "product-manager",
@@ -51,7 +51,20 @@
       "name": "workflow-visual",
       "status": "in_progress",
       "checkpoints": {
-        "plan": "2026-06-15T20:00:00Z"
+        "plan": "2026-06-15T20:00:00Z",
+        "spec": "2026-06-15T20:15:00Z",
+        "breakdown": "2026-06-15T20:20:00Z",
+        "execute": "2026-06-15T20:52:00Z",
+        "review": "2026-06-15T23:59:00Z"
+      },
+      "prd_html": true,
+      "prototype": true
+    },
+    {
+      "name": "role-skills",
+      "status": "done",
+      "checkpoints": {
+        "breakdown": "2026-06-16T00:20:00Z"
       }
     }
   ]

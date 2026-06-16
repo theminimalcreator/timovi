@@ -178,6 +178,96 @@ app.get('/api/projects/:id/features', (req, res) => {
   res.json(features)
 })
 
+// ========================
+// Role Routes
+// ========================
+
+// Get skill content for a role
+app.get('/api/roles/:slug/skill', (req, res) => {
+  const db = readDB()
+  const project = db.projects.find((p) => p.id === db.currentProjectId)
+  if (!project) return res.status(404).json({ error: 'No project' })
+
+  const skillPath = path.join(project.path, '.product-team', 'roles', req.params.slug, 'SKILL.md')
+  if (!fs.existsSync(skillPath)) return res.status(404).json({ error: 'SKILL.md not found', exists: false })
+
+  const content = fs.readFileSync(skillPath, 'utf-8')
+  res.json({ slug: req.params.slug, content, path: skillPath })
+})
+
+// Update skill content for a role
+app.put('/api/roles/:slug/skill', (req, res) => {
+  const db = readDB()
+  const project = db.projects.find((p) => p.id === db.currentProjectId)
+  if (!project) return res.status(404).json({ error: 'No project' })
+
+  const { content } = req.body
+  if (!content) return res.status(400).json({ error: 'content is required' })
+
+  const skillPath = path.join(project.path, '.product-team', 'roles', req.params.slug, 'SKILL.md')
+  if (!fs.existsSync(skillPath)) return res.status(404).json({ error: 'SKILL.md not found' })
+
+  // Validate required sections
+  const requiredSections = [
+    '## On activation',
+    '## Responsibilities',
+    '## Handoffs',
+    '## Behavior',
+    '## Guardrails',
+    '## Workflows'
+  ]
+  const missing = requiredSections.filter(s => !content.includes(s))
+
+  fs.writeFileSync(skillPath, content, 'utf-8')
+
+  res.json({
+    slug: req.params.slug,
+    path: skillPath,
+    saved: true,
+    warnings: missing.length > 0 ? missing.map(s => `Missing section: ${s}`) : []
+  })
+})
+
+// Get memories for a role
+app.get('/api/roles/:slug/memories', (req, res) => {
+  const db = readDB()
+  const project = db.projects.find((p) => p.id === db.currentProjectId)
+  if (!project) return res.status(404).json({ error: 'No project' })
+
+  const memoryDir = path.join(project.path, '.product-team', 'memory', 'roles', req.params.slug)
+  if (!fs.existsSync(memoryDir)) return res.json({ slug: req.params.slug, memories: [] })
+
+  const files = fs.readdirSync(memoryDir)
+    .filter(f => f.endsWith('.md') && f !== 'INDEX.md')
+    .sort((a, b) => b.localeCompare(a)) // reverse sort = recent first
+    .map(f => ({
+      file: f,
+      content: fs.readFileSync(path.join(memoryDir, f), 'utf-8')
+    }))
+
+  res.json({ slug: req.params.slug, memories: files })
+})
+
+// Get team memories
+app.get('/api/team/memories', (_req, res) => {
+  const db = readDB()
+  const project = db.projects.find((p) => p.id === db.currentProjectId)
+  if (!project) return res.status(404).json({ error: 'No project' })
+
+  const memoryDir = path.join(project.path, '.product-team', 'memory')
+  if (!fs.existsSync(memoryDir)) return res.json({ memories: [] })
+
+  const files = fs.readdirSync(memoryDir)
+    .filter(f => f.endsWith('.md') && f !== 'INDEX.md')
+    .sort((a, b) => b.localeCompare(a))
+    .map(f => ({
+      file: f,
+      content: fs.readFileSync(path.join(memoryDir, f), 'utf-8')
+    }))
+
+  res.json({ memories: files })
+})
+
 app.listen(PORT, () => {
   console.log(`📡 API server running on http://localhost:${PORT}`)
 })
