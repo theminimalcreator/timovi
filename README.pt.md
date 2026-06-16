@@ -219,36 +219,30 @@ skills/timovi/
 
 ## 🖥️ Dashboard Visual
 
-Quer **ver** seu time em vez de só conversar com ele? O Dashboard do Timovi é uma interface visual que mostra tudo que está acontecendo dentro do `.product-team/`:
+Quer **ver** seu time em vez de só conversar com ele? O Dashboard do Timovi é uma interface visual completa que mostra tudo que está acontecendo dentro do `.product-team/`:
 
-- 📊 **Kanban** — Issues distribuídas nas fases do Pipeline (Plan → Spec → Breakdown → Execute → Review)
-- 👥 **Time** — Cards de todas as Roles ativas no projeto
-- ⚙️ **Config** — Gerencie múltiplos projetos conectados
+- 📊 **Kanban** — Issues distribuídas nas fases do Pipeline com status, roles e dependências
+- 👥 **Time** — Cards com todas as Roles. Clique em qualquer uma para abrir um **drawer lateral** com a SKILL.md editável (editor Markdown com Preview) + memórias da Role em accordion
+- 🔀 **Workflows** — Grafo 3D interativo dos 5 fluxos do Timovi (Pipeline, Bootstrap, Nova Feature, Bug Fix, Deploy). Expanda cada Fase para ver o passo a passo interno com tipos de etapa (rodada, decisão, gate, checkpoint)
+- ⚙️ **Config** — Gerencie múltiplos projetos, troque entre eles, edite paths, adicione/remova conexões
 
-### Instalar
+### Stack
+
+- **Frontend:** React 18 + TypeScript + Shadcn UI + reagraph (grafo 3D)
+- **Backend:** Express + JSON (micro-servidor com API CRUD de projetos)
+- **Markdown:** react-markdown para renderização de SKILL.md e memórias
+
+### Rodar
 
 ```bash
-# Clone o repo
-git clone https://github.com/theminimalcreator/timovi
-cd timovi
-
-# Instale as dependências (backend + frontend)
-npm run dashboard:setup
-
-# Rode o Dashboard
-npm run dashboard:dev
+cd dashboard-ui
+npm install
+npm run dev    # sobe API (porta 3001) + frontend (porta 5173)
 ```
 
 Abra **http://localhost:5173** no navegador.
 
-### Conectar um projeto
-
-```bash
-node dashboard/cli/wizard.js
-# Informe o caminho da pasta com .product-team/
-```
-
-> 💡 O Dashboard é **read-only** — ele mostra o que está acontecendo, mas toda ação (iniciar feature, avançar pipeline) continua sendo feita via chat com o Orquestrador.
+> 💡 O Dashboard é **read-write para Config e Skills** (você pode editar SKILL.md das Roles e salvar em disco). O Kanban e Workflows são **read-only** — mostram o que está acontecendo, mas toda ação de pipeline continua sendo feita via chat com o Orquestrador.
 
 <br>
 

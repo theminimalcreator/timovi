@@ -186,7 +186,7 @@ skills/timovi/
 │   ├── feature-pipeline.md  ← 5-phase development cycle
 │   ├── state-schema.md      ← Persistent state format
 │   └── role-skill-template.md
-├── roles/                   ← 10 specialist agents
+├── roles/                   ← 13 specialist agents
 │   ├── product-manager/SKILL.md
 │   ├── ux-designer/SKILL.md
 │   └── ...
@@ -201,6 +201,37 @@ skills/timovi/
 - The orchestrator saves **checkpoints** after each phase — resume across sessions
 - Issues are executed as a **DAG** with parallel rounds, respecting dependencies
 - All project-specific data lives in `.product-team/` — never touches the template
+
+<br>
+
+---
+
+## 🖥️ Visual Dashboard
+
+Want to **see** your team instead of just talking to it? The Timovi Dashboard is a full visual interface showing everything inside `.product-team/`:
+
+- 📊 **Kanban** — Issues across Pipeline phases with status, roles, and dependencies
+- 👥 **Team** — Role cards. Click any to open a **side drawer** with editable SKILL.md (Markdown editor + Preview) + role memories in accordion
+- 🔀 **Workflows** — Interactive 3D graph of all 5 Timovi workflows (Pipeline, Bootstrap, New Feature, Bug Fix, Deploy). Expand each Phase to see internal step-by-step with step types (round, decision, gate, checkpoint)
+- ⚙️ **Config** — Manage multiple projects, switch between them, edit paths, add/remove connections
+
+### Stack
+
+- **Frontend:** React 18 + TypeScript + Shadcn UI + reagraph (3D graph)
+- **Backend:** Express + JSON (micro-server with project CRUD API)
+- **Markdown:** react-markdown for SKILL.md and memory rendering
+
+### Run
+
+```bash
+cd dashboard-ui
+npm install
+npm run dev    # starts API (port 3001) + frontend (port 5173)
+```
+
+Open **http://localhost:5173** in your browser.
+
+> 💡 The Dashboard is **read-write for Config and Skills** (you can edit Role SKILL.md files and save to disk). Kanban and Workflows are **read-only** — they show what's happening, but all pipeline actions still happen via chat with the Orchestrator.
 
 <br>
 
