@@ -1,0 +1,51 @@
+{
+  "name": "Bug Fix",
+  "type": "micro",
+  "description": "Pipeline para correção de bugs: 3 fases (Triage → Fix → Review) com classificação de severidade e teste de regressão.",
+  "phases": [
+    {
+      "id": "bf-triage",
+      "name": "Triage",
+      "icon": "🔍",
+      "description": "Tech Lead e QA classificam o bug, reproduzem e isolam a causa raiz.",
+      "roles": ["Tech Lead", "QA Engineer"],
+      "artifacts": ["Registro do bug"],
+      "next": ["bf-fix"],
+      "steps": [
+        { "id": "bf-repro", "name": "Reproduzir o bug", "description": "Passos claros para reproduzir o comportamento", "type": "action" },
+        { "id": "bf-isolate", "name": "Isolar causa raiz", "description": "Identificar módulo, arquivo, condição que causa o bug", "type": "action" },
+        { "id": "bf-severity", "name": "Classificar severidade", "description": "🔴 critical / 🟡 medium / 🟢 low. Se critical em produção: acionar DevOps para possível rollback", "type": "decision" },
+        { "id": "bf-role", "name": "Identificar Role responsável", "description": "Frontend ou Backend Engineer que fará o fix", "type": "action" }
+      ]
+    },
+    {
+      "id": "bf-fix",
+      "name": "Fix",
+      "icon": "🔧",
+      "description": "Engineer implementa a correção e adiciona teste de regressão.",
+      "roles": ["Frontend Engineer", "Backend Engineer"],
+      "artifacts": ["PR", "Teste de regressão"],
+      "next": ["bf-review"],
+      "steps": [
+        { "id": "bf-implement", "name": "Implementar correção", "description": "Corrigir o bug com o mínimo de código necessário", "type": "action" },
+        { "id": "bf-regression", "name": "Adicionar teste de regressão", "description": "Teste que falhava antes do fix e passa depois", "type": "action" },
+        { "id": "bf-pr", "name": "Abrir PR", "description": "PR referenciando o bug: Fixes #<issue>", "type": "action" }
+      ]
+    },
+    {
+      "id": "bf-review",
+      "name": "Review",
+      "icon": "✅",
+      "description": "QA verifica a correção e ausência de regressão. Tech Lead revisa o código.",
+      "roles": ["QA Engineer", "Tech Lead"],
+      "artifacts": ["Relatório de verificação"],
+      "next": [],
+      "steps": [
+        { "id": "bf-verify", "name": "QA: verificar correção", "description": "Confirmar que o bug não ocorre mais", "type": "action" },
+        { "id": "bf-noregress", "name": "QA: verificar regressão", "description": "Confirmar que fluxos relacionados não quebraram", "type": "action" },
+        { "id": "bf-tlreview", "name": "Tech Lead: code review", "description": "Revisar código do fix. Se aprovado: merge", "type": "action" },
+        { "id": "bf-merge", "name": "Merge", "description": "Merge do PR com o fix", "type": "action" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "name": "Nova Feature",
+  "type": "micro",
+  "description": "Pipeline completo para desenvolver uma nova Feature: 5 Fases (Plan → Spec → Breakdown → Execute → Review) com artefatos, checkpoints e Ponytail Gates.",
+  "phases": [
+    {
+      "id": "nf-plan",
+      "name": "Plan",
+      "icon": "🧠",
+      "description": "Planejamento multi-role: PM, UX e Architect fazem 3 rounds de perguntas com cross-examination.",
+      "roles": ["Product Manager", "UX Designer", "Software Architect"],
+      "artifacts": ["plan-notes.md"],
+      "next": ["nf-spec"],
+      "steps": [
+        { "id": "nf-r1", "name": "Round 1 (PM inicia)", "description": "PM: problema e métrica → UX: momento do uso → Architect: módulos tocados → Cross-examination", "type": "round" },
+        { "id": "nf-r2", "name": "Round 2 (UX inicia)", "description": "UX: jornada do usuário → PM: valor de negócio → Architect: viabilidade → Cross-examination", "type": "round" },
+        { "id": "nf-r3", "name": "Round 3 (Architect inicia)", "description": "Architect: estrutura e integrações → Cross-examination entre roles", "type": "round" },
+        { "id": "nf-continue", "name": "Decisão: avançar ou +rounds?", "description": "Plano claro o suficiente? Avançar para Spec ou continuar (máx. 10 rounds)", "type": "decision" },
+        { "id": "nf-synthesis", "name": "Síntese do planejamento", "description": "Resumo: problema + usuário/fluxo + impacto técnico", "type": "action" },
+        { "id": "nf-cp-plan", "name": "Checkpoint Plan", "description": "Salvar state.json, git commit do planejamento", "type": "checkpoint" }
+      ]
+    },
+    {
+      "id": "nf-spec",
+      "name": "Spec",
+      "icon": "📄",
+      "description": "PM escreve o PRD. Opcionais: PRD HTML e protótipo interativo.",
+      "roles": ["Product Manager", "UX Designer"],
+      "artifacts": ["PRD.md", "feature.json"],
+      "next": ["nf-breakdown"],
+      "steps": [
+        { "id": "nf-struct", "name": "Criar estrutura", "description": "Diretório .product-team/artifacts/<slug>/, branch feat/<slug>", "type": "action" },
+        { "id": "nf-init", "name": "feature.json", "description": "Inicializar com pipeline_phase: spec", "type": "action" },
+        { "id": "nf-prd", "name": "Escrever PRD", "description": "Problem Statement, Solution, User Stories, Implementation, Testing, Out of Scope", "type": "action" },
+        { "id": "nf-approve", "name": "Revisão do PRD", "description": "Usuário aprova ou ajusta", "type": "decision" },
+        { "id": "nf-html", "name": "PRD HTML", "description": "Gerar HTML com template prd-template.html", "type": "action", "optional": true },
+        { "id": "nf-proto", "name": "Protótipo", "description": "Wireframe ou high-fidelity com template prototype-template.html", "type": "action", "optional": true },
+        { "id": "nf-cp-spec", "name": "Checkpoint Spec", "description": "Salvar PRD, pipeline_phase → breakdown, git commit", "type": "checkpoint" }
+      ]
+    },
+    {
+      "id": "nf-breakdown",
+      "name": "Breakdown",
+      "icon": "🧩",
+      "description": "Tech Lead + Architect decompõem PRD em Issues com dependências e roles. Ponytail Gate aplica minimalismo.",
+      "roles": ["Tech Lead", "Software Architect"],
+      "artifacts": ["feature.json (issues)"],
+      "next": ["nf-execute"],
+      "steps": [
+        { "id": "nf-decomp", "name": "Decompor em Issues", "description": "Issues verticais, AFK ou HITL, com assigned_roles", "type": "action" },
+        { "id": "nf-deps", "name": "Mapear dependências", "description": "blocked_by, DAG de execução", "type": "action" },
+        { "id": "nf-ponytail", "name": "🪮 Ponytail Gate", "description": "Escada: YAGNI → Stdlib → Nativo → Dependência → Uma linha → Mínimo", "type": "gate" },
+        { "id": "nf-review", "name": "Revisão da decomposição", "description": "Usuário avalia Issues, granularidade e dependências", "type": "decision" },
+        { "id": "nf-cp-bd", "name": "Checkpoint Breakdown", "description": "Salvar issues, pipeline_phase → execute, git commit", "type": "checkpoint" }
+      ]
+    },
+    {
+      "id": "nf-execute",
+      "name": "Execute",
+      "icon": "⚡",
+      "description": "Execução paralela por rounds. Cada round: sub-agentes implementam Issues, depois Ponytail Code Review.",
+      "roles": ["Frontend Engineer", "Backend Engineer", "DBA", "DevOps"],
+      "artifacts": ["PRs", "Código"],
+      "next": ["nf-review"],
+      "steps": [
+        { "id": "nf-dag", "name": "Montar DAG", "description": "Agrupar Issues por round conforme blocked_by", "type": "action" },
+        { "id": "nf-rounds", "name": "Executar Rounds", "description": "Sub-agentes: load Layer 0 → in_progress → implementar → done. Repete a cada round.", "type": "loop" },
+        { "id": "nf-ponytail2", "name": "🪮 Ponytail Code Review", "description": "Revisar código: duplicação, abstrações, dependências, arquivos. Sinaliza, não bloqueia.", "type": "gate" },
+        { "id": "nf-report", "name": "Relatório", "description": "N/N issues, PRs abertos, caveats", "type": "action" },
+        { "id": "nf-cp-ex", "name": "Checkpoint Execute", "description": "pipeline_phase → review, git commit", "type": "checkpoint" }
+      ]
+    },
+    {
+      "id": "nf-review-phase",
+      "name": "Review",
+      "icon": "✅",
+      "description": "QA + Tech Lead revisam. Merge com aprovação humana. Retrospectiva interna.",
+      "roles": ["QA Engineer", "Tech Lead"],
+      "artifacts": ["Relatório de qualidade"],
+      "next": [],
+      "steps": [
+        { "id": "nf-qa", "name": "QA Review", "description": "Happy path, alternativo, edge cases. ✅ / 🟡 / 🔴", "type": "action" },
+        { "id": "nf-tl", "name": "Tech Lead Review", "description": "Standards, ADRs, convenções. ✅ / 🔴", "type": "action" },
+        { "id": "nf-final", "name": "Relatório final", "description": "Resumo de PRs aprovados e pendências", "type": "action" },
+        { "id": "nf-merge", "name": "Merge (aprovação humana)", "description": "⚠️ Merge NUNCA automático. Usuário confirma merge → main", "type": "decision" },
+        { "id": "nf-retro", "name": "Retrospectiva", "description": "Roles debatem ✅ ❌ 🔧. Salva em memory/", "type": "action" },
+        { "id": "nf-cp-rv", "name": "Checkpoint final", "description": "status → done, current_feature → null", "type": "checkpoint" }
+      ]
+    }
+  ]
+}

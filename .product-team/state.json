@@ -6,8 +6,8 @@
   "phase": "ready",
   "bootstrap_completed": true,
   "bootstrap_completed_at": "2026-06-15T17:45:00Z",
-  "current_feature": "dashboard",
-  "pipeline_phase": null,
+  "current_feature": "workflow-visual",
+  "pipeline_phase": "spec",
   "git_mode": "confirm",
   "active_roles": [
     "product-manager",
@@ -45,6 +45,13 @@
         "breakdown": "2026-06-15T19:20:00Z",
         "execute": "2026-06-15T19:30:00Z",
         "review": "2026-06-15T19:40:00Z"
+      }
+    },
+    {
+      "name": "workflow-visual",
+      "status": "in_progress",
+      "checkpoints": {
+        "plan": "2026-06-15T20:00:00Z"
       }
     }
   ]

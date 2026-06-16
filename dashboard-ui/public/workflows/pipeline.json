@@ -1,0 +1,91 @@
+{
+  "name": "Pipeline",
+  "type": "macro",
+  "description": "As 5 Fases que toda Feature percorre: Plan → Spec → Breakdown → Execute → Review, com Ponytail Gates e Git checkpoints.",
+  "phases": [
+    {
+      "id": "plan",
+      "name": "Plan",
+      "icon": "🧠",
+      "description": "Planejamento multi-role com 3 rodadas de perguntas e cross-examination entre PM, UX Designer e Software Architect. Máximo de 10 rounds.",
+      "roles": ["Product Manager", "UX Designer", "Software Architect"],
+      "artifacts": ["plan-notes.md"],
+      "next": ["spec"],
+      "steps": [
+        { "id": "plan-r1", "name": "Round 1", "description": "PM pergunta → UX pergunta → Arquiteto pergunta → Cross-examination entre roles", "type": "round" },
+        { "id": "plan-r2", "name": "Round 2", "description": "UX pergunta → PM pergunta → Arquiteto pergunta → Cross-examination entre roles", "type": "round" },
+        { "id": "plan-r3", "name": "Round 3", "description": "Arquiteto pergunta → Cross-examination entre roles", "type": "round" },
+        { "id": "plan-continuity", "name": "Decisão de continuidade", "description": "Avançar para Spec ou continuar planejando? (máx. 10 rounds). Usuário pode pedir 'spec', 'done', 'enough' a qualquer momento.", "type": "decision" },
+        { "id": "plan-synthesis", "name": "Síntese", "description": "Resumo PM (problema) + UX (usuário e fluxo) + Arquiteto (impacto técnico)", "type": "action" },
+        { "id": "plan-checkpoint", "name": "Checkpoint + Git commit", "description": "Salvar plan-notes.md, atualizar state.json → features[].checkpoints.plan, git commit", "type": "checkpoint" }
+      ]
+    },
+    {
+      "id": "spec",
+      "name": "Spec",
+      "icon": "📄",
+      "description": "Product Manager sintetiza o planejamento em um PRD usando a linguagem do CONTEXT.md. Artefatos opcionais: PRD HTML e protótipo interativo.",
+      "roles": ["Product Manager", "UX Designer"],
+      "artifacts": ["PRD.md", "feature.json"],
+      "next": ["breakdown"],
+      "steps": [
+        { "id": "spec-structure", "name": "Criar estrutura da Feature", "description": "Criar diretório .product-team/artifacts/<slug>/, git checkout -b feat/<slug>", "type": "action" },
+        { "id": "spec-featurejson", "name": "Inicializar feature.json", "description": "pipeline_phase: spec, status: in_progress, prd.source: generated", "type": "action" },
+        { "id": "spec-prd", "name": "PM escreve PRD", "description": "Sintetizar planejamento: Problem Statement, Solution, User Stories, Implementation Decisions, Testing, Out of Scope", "type": "action" },
+        { "id": "spec-review", "name": "Revisão e aprovação", "description": "Usuário aprova ou ajusta o PRD antes de decompor em Issues", "type": "decision" },
+        { "id": "spec-prdhtml", "name": "PRD HTML", "description": "Gerar visualização HTML do PRD (template prd-template.html) com tabs Documentação/Issues", "type": "action", "optional": true },
+        { "id": "spec-prototype", "name": "Protótipo interativo", "description": "Gerar wireframe ou high-fidelity (template prototype-template.html). UX Designer pergunta nível de fidelidade.", "type": "action", "optional": true },
+        { "id": "spec-checkpoint", "name": "Checkpoint + Git commit", "description": "Salvar PRD, feature.json. pipeline_phase → breakdown. git commit", "type": "checkpoint" }
+      ]
+    },
+    {
+      "id": "breakdown",
+      "name": "Breakdown",
+      "icon": "🧩",
+      "description": "Tech Lead e Software Architect decompõem o PRD em Issues executáveis. O Ponytail Gate aplica a Escada de 6 degraus para eliminar over-engineering.",
+      "roles": ["Tech Lead", "Software Architect"],
+      "artifacts": ["feature.json (issues)"],
+      "next": ["execute"],
+      "steps": [
+        { "id": "bd-decompose", "name": "Decompor PRD em Issues", "description": "Issues verticais AFK/HITL com assigned_roles. Cada Issue = 1 entrega testável.", "type": "action" },
+        { "id": "bd-deps", "name": "Mapear dependências", "description": "blocked_by entre Issues, ordem de execução, DAG inicial", "type": "action" },
+        { "id": "bd-ponytail", "name": "🪮 Ponytail Gate", "description": "Escada: YAGNI → Stdlib → Nativo → Dependência → Uma linha → Mínimo. Cancela issues especulativas, simplifica escopo inflado. Issues de User Stories são imunes a cancelamento.", "type": "gate" },
+        { "id": "bd-review", "name": "Revisão de decomposição", "description": "Usuário revisa: Issues fazem sentido? Granularidade ok? Dependências corretas?", "type": "decision" },
+        { "id": "bd-checkpoint", "name": "Checkpoint + Git commit", "description": "Salvar issues em feature.json. pipeline_phase → execute. git commit", "type": "checkpoint" }
+      ]
+    },
+    {
+      "id": "execute",
+      "name": "Execute",
+      "icon": "⚡",
+      "description": "Execução paralela das Issues por round. Sub-agentes implementam respeitando blocked_by. Ponytail Code Review após cada round (sinaliza, não bloqueia).",
+      "roles": ["Frontend Engineer", "Backend Engineer", "DBA", "DevOps"],
+      "artifacts": ["PRs", "Código"],
+      "next": ["review"],
+      "steps": [
+        { "id": "ex-dag", "name": "Montar DAG de execução", "description": "Agrupar Issues por round conforme blocked_by. Issues do mesmo round executam em paralelo.", "type": "action" },
+        { "id": "ex-rounds", "name": "Round N (loop por round)", "description": "Sub-agentes executam Issues em paralelo: load Layer 0 → status in_progress → implementar → status done. Repete até todos os rounds concluídos.", "type": "loop" },
+        { "id": "ex-ponytail", "name": "🪮 Ponytail Gate (Code Review)", "description": "Após cada round: revisar código por duplicação, abstrações não solicitadas, novas dependências, arquivos excessivos. Sinaliza — não bloqueia.", "type": "gate" },
+        { "id": "ex-report", "name": "Relatório de execução", "description": "N/N issues implementadas, PRs abertos, caveats e ponytail_actions", "type": "action" },
+        { "id": "ex-checkpoint", "name": "Checkpoint + Git commit", "description": "pipeline_phase → review, atualizar feature.json, git commit", "type": "checkpoint" }
+      ]
+    },
+    {
+      "id": "review",
+      "name": "Review",
+      "icon": "✅",
+      "description": "QA Engineer e Tech Lead revisam código e aprovam merge. Merge requer aprovação humana explícita — nunca automático. Retrospectiva interna entre Roles.",
+      "roles": ["QA Engineer", "Tech Lead"],
+      "artifacts": ["Relatório de qualidade"],
+      "next": [],
+      "steps": [
+        { "id": "rv-qa", "name": "QA Review", "description": "Revisa cada PR: happy path, caminho alternativo, edge cases. Reporta: ✅ aprovado / 🟡 aprovado com caveats / 🔴 rejeitado", "type": "action" },
+        { "id": "rv-tl", "name": "Tech Lead Review", "description": "Revisa código: standards, ADRs, convenções, cobertura de testes. Reporta: ✅ aprovado / 🔴 solicita mudanças", "type": "action" },
+        { "id": "rv-report", "name": "Relatório final", "description": "Resumo: ✅ N aprovados, 🟡 N com caveats, 🔴 N pendentes. Status final: aprovado / pendente", "type": "action" },
+        { "id": "rv-merge", "name": "Git merge (aprovação humana)", "description": "⚠️ Merge NUNCA automático. Usuário confirma: git checkout main && git merge feat/<slug>", "type": "decision" },
+        { "id": "rv-retro", "name": "Retrospectiva interna", "description": "Roles debatem: ✅ o que foi bem, ❌ o que não foi, 🔧 ações para próxima feature. Salva em memory/ e artifacts/<feature>/retrospective.md", "type": "action" },
+        { "id": "rv-checkpoint", "name": "Checkpoint final", "description": "feature.json status → done, pipeline_phase → null. state.json current_feature → null", "type": "checkpoint" }
+      ]
+    }
+  ]
+}

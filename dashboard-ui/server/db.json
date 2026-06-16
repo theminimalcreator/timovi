@@ -1,0 +1,11 @@
+{
+  "projects": [
+    {
+      "id": "default",
+      "name": "Timovi",
+      "path": "/root/projects/timovi",
+      "connectedAt": "2026-06-15T20:00:00Z"
+    }
+  ],
+  "currentProjectId": "default"
+}

@@ -1,0 +1,65 @@
+{
+  "name": "Bootstrap",
+  "type": "macro",
+  "description": "Fluxo de inicialização do Timovi em um projeto novo. Coleta informações, detecta stack, gera knowledge base e configura o time.",
+  "phases": [
+    {
+      "id": "bs-collect",
+      "name": "Coleta de informações",
+      "icon": "📋",
+      "description": "O Orquestrador faz perguntas sobre o projeto: nome, descrição, domínio, e configura idioma de chat.",
+      "roles": ["Orquestrador"],
+      "artifacts": [],
+      "next": ["bs-detect"],
+      "steps": [
+        { "id": "bs-name", "name": "Nome do projeto", "description": "Qual o nome do seu projeto?", "type": "action" },
+        { "id": "bs-desc", "name": "Descrição do projeto", "description": "Descreva brevemente o projeto e seu domínio", "type": "action" },
+        { "id": "bs-lang", "name": "Idioma do chat", "description": "Qual idioma prefere para o time? (pt-br, en, es...)", "type": "action" }
+      ]
+    },
+    {
+      "id": "bs-detect",
+      "name": "Detecção de Stack",
+      "icon": "🔍",
+      "description": "O Orquestrador analisa o projeto em busca de package.json, requirements.txt, Cargo.toml, tsconfig, etc.",
+      "roles": ["Orquestrador"],
+      "artifacts": [],
+      "next": ["bs-knowledge"],
+      "steps": [
+        { "id": "bs-scan", "name": "Scan de arquivos de configuração", "description": "Procurar package.json, tsconfig, requirements.txt, Cargo.toml, go.mod, gemfile, pom.xml, etc.", "type": "action" },
+        { "id": "bs-framework", "name": "Identificar framework", "description": "Next.js, Django, Rails, Spring, etc.", "type": "action" },
+        { "id": "bs-db", "name": "Identificar banco de dados", "description": "SQLite, PostgreSQL, MongoDB, etc.", "type": "action" }
+      ]
+    },
+    {
+      "id": "bs-knowledge",
+      "name": "Gerar Knowledge Base",
+      "icon": "📚",
+      "description": "O Orquestrador gera os arquivos do Layer 0 com base nas informações coletadas.",
+      "roles": ["Orquestrador"],
+      "artifacts": ["CONTEXT.md", "ARCHITECTURE.md", "STACK.md", "CONVENTIONS.md"],
+      "next": ["bs-roles"],
+      "steps": [
+        { "id": "bs-context", "name": "CONTEXT.md", "description": "Domínio, entidades, vocabulário, exemplos de diálogo", "type": "action" },
+        { "id": "bs-arch", "name": "ARCHITECTURE.md", "description": "Módulos, fluxo de dados, entry points, integrações, padrões", "type": "action" },
+        { "id": "bs-stack", "name": "STACK.md", "description": "Core framework, frontend, design system, infra, dependências", "type": "action" },
+        { "id": "bs-conventions", "name": "CONVENTIONS.md", "description": "Estrutura de skills, nomenclatura, artefatos, git, design", "type": "action" }
+      ]
+    },
+    {
+      "id": "bs-roles",
+      "name": "Configurar Time",
+      "icon": "👥",
+      "description": "O Orquestrador pergunta quais Roles o usuário quer ativar e gera as skills correspondentes.",
+      "roles": ["Orquestrador"],
+      "artifacts": ["state.json", "skills das Roles"],
+      "next": [],
+      "steps": [
+        { "id": "bs-select", "name": "Selecionar Roles ativas", "description": "Quais roles quer ativar? 10 core: PM, UX, Architect, Tech Lead, Frontend, Backend, DBA, QA, Marketing, DevOps", "type": "decision" },
+        { "id": "bs-generate", "name": "Gerar skills das Roles", "description": "Criar .product-team/roles/<role>/SKILL.md para cada role ativa usando template role-skill-template.md", "type": "action" },
+        { "id": "bs-gitmode", "name": "Configurar modo Git", "description": "Git mode: auto (commit automático) ou confirm (confirma antes de cada commit)?", "type": "decision" },
+        { "id": "bs-checkpoint", "name": "Finalizar Bootstrap", "description": "Salvar state.json com phase: ready, bootstrap_completed: true. Projeto pronto para features.", "type": "checkpoint" }
+      ]
+    }
+  ]
+}

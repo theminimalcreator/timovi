@@ -1,0 +1,64 @@
+{
+  "name": "Deploy",
+  "type": "micro",
+  "description": "Pipeline de deploy para produção: 4 fases (Prep → Approval → Deploy → Verify) com rollback plan e smoke tests.",
+  "phases": [
+    {
+      "id": "dp-prep",
+      "name": "Prep",
+      "icon": "📦",
+      "description": "DevOps prepara o build, migrations em staging e changelog da feature.",
+      "roles": ["DevOps"],
+      "artifacts": ["Build de produção", "Changelog"],
+      "next": ["dp-approval"],
+      "steps": [
+        { "id": "dp-build", "name": "Gerar build de produção", "description": "Build otimizado para produção", "type": "action" },
+        { "id": "dp-migrate-staging", "name": "Rodar migrations em staging", "description": "Validar migrations no ambiente de staging primeiro", "type": "action" },
+        { "id": "dp-health", "name": "Validar health checks", "description": "Verificar se todos os endpoints respondem", "type": "action" },
+        { "id": "dp-changelog", "name": "Gerar changelog", "description": "Listar mudanças da feature para revisão do Tech Lead", "type": "action" }
+      ]
+    },
+    {
+      "id": "dp-approval",
+      "name": "Approval",
+      "icon": "👍",
+      "description": "Tech Lead revisa changelog e autoriza (ou não) o deploy.",
+      "roles": ["Tech Lead"],
+      "artifacts": ["Decisão Go/Hold"],
+      "next": ["dp-deploy"],
+      "steps": [
+        { "id": "dp-review-cl", "name": "Revisar changelog", "description": "Tech Lead revisa todas as mudanças listadas", "type": "action" },
+        { "id": "dp-confirm-prs", "name": "Confirmar PRs aprovados", "description": "Verificar que todos os PRs passaram por Review", "type": "action" },
+        { "id": "dp-go", "name": "Go / Hold", "description": "✅ Go: autorizar deploy. 🔴 Hold: bloquear, resolver pendências", "type": "decision" }
+      ]
+    },
+    {
+      "id": "dp-deploy",
+      "name": "Deploy",
+      "icon": "🚀",
+      "description": "DevOps executa o deploy com plano de rollback pronto. Monitora métricas.",
+      "roles": ["DevOps"],
+      "artifacts": ["Deploy log"],
+      "next": ["dp-verify"],
+      "steps": [
+        { "id": "dp-execute", "name": "Executar deploy", "description": "Deploy com rollback plan documentado e pronto", "type": "action" },
+        { "id": "dp-migrate-prod", "name": "Migrations em produção", "description": "Rodar migrations no ambiente de produção", "type": "action" },
+        { "id": "dp-monitor", "name": "Monitorar métricas", "description": "Error rate, latência, CPU — monitorar durante e após deploy", "type": "action" }
+      ]
+    },
+    {
+      "id": "dp-verify",
+      "name": "Verify",
+      "icon": "🛡️",
+      "description": "QA faz smoke test nos fluxos principais. DevOps monitora logs e alertas por 15 minutos.",
+      "roles": ["QA Engineer", "DevOps"],
+      "artifacts": ["Smoke test report", "Monitor log"],
+      "next": [],
+      "steps": [
+        { "id": "dp-smoke", "name": "QA: smoke test", "description": "Testar fluxos principais em produção", "type": "action" },
+        { "id": "dp-logs", "name": "DevOps: logs e alertas", "description": "Monitorar logs, alertas e métricas por 15 minutos", "type": "action" },
+        { "id": "dp-result", "name": "OK / Rollback", "description": "✅ OK: deploy concluído. 🔴 Anomalia: rollback imediato", "type": "decision" }
+      ]
+    }
+  ]
+}
